@@ -1,0 +1,521 @@
+{
+  "Activity": {
+    "description": "Auto imported from components/Activity.vue"
+  },
+  "Allowance": {
+    "description": "Auto imported from components/Allowance.vue"
+  },
+  "AreaChart": {
+    "description": "Auto imported from components/AreaChart.vue"
+  },
+  "Automation": {
+    "description": "Auto imported from components/automation.vue"
+  },
+  "Calender": {
+    "description": "Auto imported from components/Calender.vue"
+  },
+  "CalenderFullPage": {
+    "description": "Auto imported from components/CalenderFullPage.vue"
+  },
+  "Camera": {
+    "description": "Auto imported from components/Camera.vue"
+  },
+  "Cards": {
+    "description": "Auto imported from components/Cards.vue"
+  },
+  "ComboChart": {
+    "description": "Auto imported from components/ComboChart.vue"
+  },
+  "Commision": {
+    "description": "Auto imported from components/Commision.vue"
+  },
+  "ComonPreloader": {
+    "description": "Auto imported from components/ComonPreloader.vue"
+  },
+  "CSV": {
+    "description": "Auto imported from components/CSV.vue"
+  },
+  "CustomFilter": {
+    "description": "Auto imported from components/CustomFilter.vue"
+  },
+  "Deduction": {
+    "description": "Auto imported from components/Deduction.vue"
+  },
+  "DeviceAccessSettings": {
+    "description": "Auto imported from components/DeviceAccessSettings.vue"
+  },
+  "DeviceNotification": {
+    "description": "Auto imported from components/DeviceNotification.vue"
+  },
+  "Document": {
+    "description": "Auto imported from components/Document.vue"
+  },
+  "Donut": {
+    "description": "Auto imported from components/Donut.vue"
+  },
+  "Editor": {
+    "description": "Auto imported from components/Editor.vue"
+  },
+  "Employee": {
+    "description": "Auto imported from components/Employee.vue"
+  },
+  "EMPLOYEETOREPORT": {
+    "description": "Auto imported from components/EMPLOYEETOREPORT.vue"
+  },
+  "FacePreloader": {
+    "description": "Auto imported from components/FacePreloader.vue"
+  },
+  "ForgotPassword": {
+    "description": "Auto imported from components/ForgotPassword.vue"
+  },
+  "GenerateLog": {
+    "description": "Auto imported from components/GenerateLog.vue"
+  },
+  "Logs": {
+    "description": "Auto imported from components/Logs.vue"
+  },
+  "MultiInOutShiftEdit": {
+    "description": "Auto imported from components/MultiInOutShiftEdit.vue"
+  },
+  "NoAccess": {
+    "description": "Auto imported from components/NoAccess.vue"
+  },
+  "NoRecordFound": {
+    "description": "Auto imported from components/NoRecordFound.vue"
+  },
+  "OriginalLogs": {
+    "description": "Auto imported from components/OriginalLogs.vue"
+  },
+  "OverNightShiftEdit": {
+    "description": "Auto imported from components/OverNightShiftEdit.vue"
+  },
+  "Overtime": {
+    "description": "Auto imported from components/Overtime.vue"
+  },
+  "PIE": {
+    "description": "Auto imported from components/PIE.vue"
+  },
+  "PIE2": {
+    "description": "Auto imported from components/PIE2.vue"
+  },
+  "PiePreloader": {
+    "description": "Auto imported from components/PiePreloader.vue"
+  },
+  "Preloader": {
+    "description": "Auto imported from components/Preloader.vue"
+  },
+  "RealTimeLogs": {
+    "description": "Auto imported from components/RealTimeLogs.vue"
+  },
+  "RenderAttendance": {
+    "description": "Auto imported from components/RenderAttendance.vue"
+  },
+  "SalaryToolbar": {
+    "description": "Auto imported from components/SalaryToolbar.vue"
+  },
+  "SingleShiftEdit": {
+    "description": "Auto imported from components/SingleShiftEdit.vue"
+  },
+  "Announcements": {
+    "description": "Auto imported from components/announcements/Announcements.vue"
+  },
+  "AnnouncementsOld": {
+    "description": "Auto imported from components/announcements/Announcements_old.vue"
+  },
+  "AnnouncementsAnnouncementType": {
+    "description": "Auto imported from components/announcements/AnnouncementType.vue"
+  },
+  "AttendanceReport": {
+    "description": "Auto imported from components/attendance_report/report.vue"
+  },
+  "AttendanceReportComponent": {
+    "description": "Auto imported from components/attendance_report/reportComponent.vue"
+  },
+  "AttendanceReportComponentDual": {
+    "description": "Auto imported from components/attendance_report/reportComponent_dual.vue"
+  },
+  "AttendanceReportComponentMulti": {
+    "description": "Auto imported from components/attendance_report/reportComponent_multi.vue"
+  },
+  "BranchCreate": {
+    "description": "Auto imported from components/branch/BranchCreate.vue"
+  },
+  "BranchDetails": {
+    "description": "Auto imported from components/branch/BranchDetails.vue"
+  },
+  "ChartsPIE": {
+    "description": "Auto imported from components/charts/PIE.vue"
+  },
+  "CommunityCreate": {
+    "description": "Auto imported from components/Community/Create.vue"
+  },
+  "DashboardAnnouncment": {
+    "description": "Auto imported from components/dashboard2/DashboardAnnouncment.vue"
+  },
+  "DashboardAnnouncmentV1": {
+    "description": "Auto imported from components/dashboard2/DashboardAnnouncmentV1.vue"
+  },
+  "DashboardAttednaceDepartmentWise": {
+    "description": "Auto imported from components/dashboard2/DashboardAttednaceDepartmentWise.vue"
+  },
+  "DashboardAttednaceDepartmentWiseV1": {
+    "description": "Auto imported from components/dashboard2/DashboardAttednaceDepartmentWiseV1.vue"
+  },
+  "DashboardAttendanceChart": {
+    "description": "Auto imported from components/dashboard2/DashboardAttendanceChart.vue"
+  },
+  "DashboardAttendanceChartV1": {
+    "description": "Auto imported from components/dashboard2/DashboardAttendanceChartV1.vue"
+  },
+  "DashboardAttendanceHourChart": {
+    "description": "Auto imported from components/dashboard2/DashboardAttendanceHourChart.vue"
+  },
+  "DashboardAttendanceHourChartV1": {
+    "description": "Auto imported from components/dashboard2/DashboardAttendanceHourChartV1.vue"
+  },
+  "DashboardEmployeeAttendanceLog": {
+    "description": "Auto imported from components/dashboard2/DashboardEmployeeAttendanceLog.vue"
+  },
+  "DashboardEmployeeAttendanceLogCopy": {
+    "description": "Auto imported from components/dashboard2/DashboardEmployeeAttendanceLog_copy.vue"
+  },
+  "Dashboard2DashboardlastMultiStatistics": {
+    "description": "Auto imported from components/dashboard2/DashboardlastMultiStatistics.vue"
+  },
+  "Dashboard2DashboardlLastMonthStatistics": {
+    "description": "Auto imported from components/dashboard2/DashboardlLastMonthStatistics.vue"
+  },
+  "Dashboard2DashboardlLastMonthStatisticsV1": {
+    "description": "Auto imported from components/dashboard2/DashboardlLastMonthStatisticsV1.vue"
+  },
+  "DashboardLoginActivities": {
+    "description": "Auto imported from components/dashboard2/DashboardLoginActivities.vue"
+  },
+  "DashboardLoginActivitiesV1": {
+    "description": "Auto imported from components/dashboard2/DashboardLoginActivitiesV1.vue"
+  },
+  "DashboardRealTimeLogTableview": {
+    "description": "Auto imported from components/dashboard2/DashboardRealTimeLogTableview.vue"
+  },
+  "DashboardRealTimeLogTableviewV1": {
+    "description": "Auto imported from components/dashboard2/DashboardRealTimeLogTableviewV1.vue"
+  },
+  "DashboardRightsideStaticstics": {
+    "description": "Auto imported from components/dashboard2/DashboardRightsideStaticstics.vue"
+  },
+  "DashboardRightsideStaticsticsV1": {
+    "description": "Auto imported from components/dashboard2/DashboardRightsideStaticsticsV1.vue"
+  },
+  "EmployeeBank": {
+    "description": "Auto imported from components/employee/Bank.vue"
+  },
+  "EmployeeContact": {
+    "description": "Auto imported from components/employee/Contact.vue"
+  },
+  "EmployeeCreateEmployee": {
+    "description": "Auto imported from components/employee/CreateEmployee.vue"
+  },
+  "EmployeeDashboard": {
+    "description": "Auto imported from components/employee/Dashboard.vue"
+  },
+  "EmployeeDocument": {
+    "description": "Auto imported from components/employee/Document.vue"
+  },
+  "EmployeeEmirates": {
+    "description": "Auto imported from components/employee/Emirates.vue"
+  },
+  "EmployeeDetails": {
+    "description": "Auto imported from components/employee/EmployeeDetails.vue"
+  },
+  "EmployeeDetails2": {
+    "description": "Auto imported from components/employee/EmployeeDetails2.vue"
+  },
+  "EmployeeEmployeedevisesmap2": {
+    "description": "Auto imported from components/employee/employeedevisesmap2.vue"
+  },
+  "EmployeeEdit": {
+    "description": "Auto imported from components/employee/EmployeeEdit.vue"
+  },
+  "EmployeeKeyValueTable": {
+    "description": "Auto imported from components/employee/KeyValueTable.vue"
+  },
+  "EmployeeLogin": {
+    "description": "Auto imported from components/employee/Login.vue"
+  },
+  "EmployeeLogs": {
+    "description": "Auto imported from components/employee/Logs.vue"
+  },
+  "EmployeePassport": {
+    "description": "Auto imported from components/employee/Passport.vue"
+  },
+  "EmployeePayroll": {
+    "description": "Auto imported from components/employee/Payroll.vue"
+  },
+  "EmployeePersonal": {
+    "description": "Auto imported from components/employee/Personal.vue"
+  },
+  "EmployeeQualification": {
+    "description": "Auto imported from components/employee/Qualification.vue"
+  },
+  "EmployeeSetting": {
+    "description": "Auto imported from components/employee/Setting.vue"
+  },
+  "EmployeeVisa": {
+    "description": "Auto imported from components/employee/Visa.vue"
+  },
+  "EmployeeWorkInfo": {
+    "description": "Auto imported from components/employee/WorkInfo.vue"
+  },
+  "EmployeesLoginEmployeeChangeRequest": {
+    "description": "Auto imported from components/EmployeesLogin/EmployeeChangeRequest.vue"
+  },
+  "EmployeesLoginEmployeeLanding": {
+    "description": "Auto imported from components/EmployeesLogin/EmployeeLanding.vue"
+  },
+  "EmployeesLoginEmployeePayslips": {
+    "description": "Auto imported from components/EmployeesLogin/EmployeePayslips.vue"
+  },
+  "EmployeesLoginEmployeePersonal": {
+    "description": "Auto imported from components/EmployeesLogin/EmployeePersonal.vue"
+  },
+  "EmployeesLoginEmployeeReportComponent": {
+    "description": "Auto imported from components/EmployeesLogin/EmployeeReportComponent.vue"
+  },
+  "EmployeesLoginEmployeeScheduleList": {
+    "description": "Auto imported from components/EmployeesLogin/EmployeeScheduleList.vue"
+  },
+  "HostCreate": {
+    "description": "Auto imported from components/Host/Create.vue"
+  },
+  "HostList": {
+    "description": "Auto imported from components/Host/List.vue"
+  },
+  "LeavesLeavegroups": {
+    "description": "Auto imported from components/Leaves/leavegroups.vue"
+  },
+  "LeavesLeavetype": {
+    "description": "Auto imported from components/Leaves/leavetype.vue"
+  },
+  "ScheduleEmployeeScheduledEmployees": {
+    "description": "Auto imported from components/schedule_employee/ScheduledEmployees.vue"
+  },
+  "ScheduleEmployeeUnScheduledEmployees": {
+    "description": "Auto imported from components/schedule_employee/UnScheduledEmployees.vue"
+  },
+  "SnippetsBack": {
+    "description": "Auto imported from components/Snippets/Back.vue"
+  },
+  "SnippetsCamera": {
+    "description": "Auto imported from components/Snippets/Camera.vue"
+  },
+  "SnippetsDatePickerCommon": {
+    "description": "Auto imported from components/Snippets/DatePickerCommon.vue"
+  },
+  "SnippetsDateRangePickerCommon": {
+    "description": "Auto imported from components/Snippets/DateRangePickerCommon.vue"
+  },
+  "SnippetsDaysPickerCommon": {
+    "description": "Auto imported from components/Snippets/DaysPickerCommon.vue"
+  },
+  "SnippetsMonthlyFlexiHolidays": {
+    "description": "Auto imported from components/Snippets/MonthlyFlexiHolidays.vue"
+  },
+  "SnippetsTimePickerCommon": {
+    "description": "Auto imported from components/Snippets/TimePickerCommon.vue"
+  },
+  "SnippetsTimePickerV1": {
+    "description": "Auto imported from components/Snippets/TimePickerV1.vue"
+  },
+  "SnippetsTimePickerV2": {
+    "description": "Auto imported from components/Snippets/TimePickerV2.vue"
+  },
+  "SnippetsTimePickerV3": {
+    "description": "Auto imported from components/Snippets/TimePickerV3.vue"
+  },
+  "SnippetsTimePickerV4": {
+    "description": "Auto imported from components/Snippets/TimePickerV4.vue"
+  },
+  "SnippetsWeekendPickerCommon": {
+    "description": "Auto imported from components/Snippets/WeekendPickerCommon.vue"
+  },
+  "ThemeCardDesginer": {
+    "description": "Auto imported from components/Theme/CardDesginer.vue"
+  },
+  "VisitorDashboardVisitorHourChart": {
+    "description": "Auto imported from components/Visitor/DashboardVisitorHourChart.vue"
+  },
+  "VisitorDashboardVisitorPieChart": {
+    "description": "Auto imported from components/Visitor/DashboardVisitorPieChart.vue"
+  },
+  "VisitorListOld": {
+    "description": "Auto imported from components/Visitor/List_old.vue"
+  },
+  "VisitorHistory": {
+    "description": "Auto imported from components/Visitor/VisitorHistory.vue"
+  },
+  "VisitorInfo": {
+    "description": "Auto imported from components/Visitor/VisitorInfo.vue"
+  },
+  "VisitorLogs": {
+    "description": "Auto imported from components/Visitor/VisitorLogs.vue"
+  },
+  "VisitorLogsOld": {
+    "description": "Auto imported from components/Visitor/VisitorLogs_old.vue"
+  },
+  "VisitorReport": {
+    "description": "Auto imported from components/Visitor/VisitorReport.vue"
+  },
+  "VisitorRequestsList": {
+    "description": "Auto imported from components/Visitor/VisitorRequestsList.vue"
+  },
+  "WidgetsAnnouncement": {
+    "description": "Auto imported from components/widgets/Announcement.vue"
+  },
+  "WidgetsAttendanceLog": {
+    "description": "Auto imported from components/widgets/AttendanceLog.vue"
+  },
+  "WidgetsAttendancePIE": {
+    "description": "Auto imported from components/widgets/AttendancePIE.vue"
+  },
+  "WidgetsDashboardCardComponent": {
+    "description": "Auto imported from components/widgets/DashboardCardComponent.vue"
+  },
+  "WidgetsDashboardComponent": {
+    "description": "Auto imported from components/widgets/DashboardComponent.vue"
+  },
+  "WidgetsDepartmentMappingCreate": {
+    "description": "Auto imported from components/widgets/DepartmentMappingCreate.vue"
+  },
+  "WidgetsDevice": {
+    "description": "Auto imported from components/widgets/Device.vue"
+  },
+  "WidgetsDevicePIE": {
+    "description": "Auto imported from components/widgets/DevicePIE.vue"
+  },
+  "WidgetsRealTimeLog": {
+    "description": "Auto imported from components/widgets/RealTimeLog.vue"
+  },
+  "WidgetsReportNotification": {
+    "description": "Auto imported from components/widgets/ReportNotification.vue"
+  },
+  "ZoneList": {
+    "description": "Auto imported from components/Zone/List.vue"
+  },
+  "EmployeesLoginDashboardEmpDashbaordAnnouncementsV1": {
+    "description": "Auto imported from components/EmployeesLogin/Dashboard/EmpDashbaordAnnouncementsV1.vue"
+  },
+  "EmployeesLoginDashboardEmpDashboardAttendanceChartV1": {
+    "description": "Auto imported from components/EmployeesLogin/Dashboard/EmpDashboardAttendanceChartV1.vue"
+  },
+  "EmployeesLoginDashboardEmpDashboardLoginActivitiesV1": {
+    "description": "Auto imported from components/EmployeesLogin/Dashboard/EmpDashboardLoginActivitiesV1.vue"
+  },
+  "EmployeesLoginDashboardEmpDashboardRealTimeLogV1": {
+    "description": "Auto imported from components/EmployeesLogin/Dashboard/EmpDashboardRealTimeLogV1.vue"
+  },
+  "SnippetsCommonSearch": {
+    "description": "Auto imported from components/Snippets/Common/Search.vue"
+  },
+  "SnippetsCommunityCategory": {
+    "description": "Auto imported from components/Snippets/Community/Category.vue"
+  },
+  "SnippetsCommunityFloor": {
+    "description": "Auto imported from components/Snippets/Community/Floor.vue"
+  },
+  "SnippetsCommunity": {
+    "description": "Auto imported from components/Snippets/Community/index.vue"
+  },
+  "SnippetsCommunityRoom": {
+    "description": "Auto imported from components/Snippets/Community/Room.vue"
+  },
+  "SnippetsEmployeeBank": {
+    "description": "Auto imported from components/Snippets/Employee/Bank.vue"
+  },
+  "SnippetsEmployeeContact": {
+    "description": "Auto imported from components/Snippets/Employee/Contact.vue"
+  },
+  "SnippetsEmployeeCreate": {
+    "description": "Auto imported from components/Snippets/Employee/Create.vue"
+  },
+  "SnippetsEmployeeCreateEmployee": {
+    "description": "Auto imported from components/Snippets/Employee/CreateEmployee.vue"
+  },
+  "SnippetsEmployeeDocument": {
+    "description": "Auto imported from components/Snippets/Employee/Document.vue"
+  },
+  "SnippetsEmployeeEdit": {
+    "description": "Auto imported from components/Snippets/Employee/Edit.vue"
+  },
+  "SnippetsEmployeeEmirates": {
+    "description": "Auto imported from components/Snippets/Employee/Emirates.vue"
+  },
+  "SnippetsEmployeeExport": {
+    "description": "Auto imported from components/Snippets/Employee/Export.vue"
+  },
+  "SnippetsEmployeeImport": {
+    "description": "Auto imported from components/Snippets/Employee/Import.vue"
+  },
+  "SnippetsEmployeeKeyValueTable": {
+    "description": "Auto imported from components/Snippets/Employee/KeyValueTable.vue"
+  },
+  "SnippetsEmployeeLogin": {
+    "description": "Auto imported from components/Snippets/Employee/Login.vue"
+  },
+  "SnippetsEmployeeLogs": {
+    "description": "Auto imported from components/Snippets/Employee/Logs.vue"
+  },
+  "SnippetsEmployeePassport": {
+    "description": "Auto imported from components/Snippets/Employee/Passport.vue"
+  },
+  "SnippetsEmployeePayroll": {
+    "description": "Auto imported from components/Snippets/Employee/Payroll.vue"
+  },
+  "SnippetsEmployeePersonal": {
+    "description": "Auto imported from components/Snippets/Employee/Personal.vue"
+  },
+  "SnippetsEmployeeQualification": {
+    "description": "Auto imported from components/Snippets/Employee/Qualification.vue"
+  },
+  "SnippetsEmployeeSearch": {
+    "description": "Auto imported from components/Snippets/Employee/Search.vue"
+  },
+  "SnippetsEmployeeSetting": {
+    "description": "Auto imported from components/Snippets/Employee/Setting.vue"
+  },
+  "SnippetsEmployeeUpdate": {
+    "description": "Auto imported from components/Snippets/Employee/Update.vue"
+  },
+  "SnippetsEmployeeVisa": {
+    "description": "Auto imported from components/Snippets/Employee/Visa.vue"
+  },
+  "SnippetsEmployeeWorkInfo": {
+    "description": "Auto imported from components/Snippets/Employee/WorkInfo.vue"
+  },
+  "SnippetsFiltersDateRangePicker": {
+    "description": "Auto imported from components/Snippets/Filters/DateRangePicker.vue"
+  },
+  "SnippetsFiltersDropDown": {
+    "description": "Auto imported from components/Snippets/Filters/DropDown.vue"
+  },
+  "SnippetsFiltersTextField": {
+    "description": "Auto imported from components/Snippets/Filters/TextField.vue"
+  },
+  "WidgetsShiftsAutoShift": {
+    "description": "Auto imported from components/widgets/Shifts/AutoShift.vue"
+  },
+  "WidgetsShiftsFiloShift": {
+    "description": "Auto imported from components/widgets/Shifts/FiloShift.vue"
+  },
+  "WidgetsShiftsMultiInOutShift": {
+    "description": "Auto imported from components/widgets/Shifts/MultiInOutShift.vue"
+  },
+  "WidgetsShiftsOverNightShift": {
+    "description": "Auto imported from components/widgets/Shifts/OverNightShift.vue"
+  },
+  "WidgetsShiftsSingleShift": {
+    "description": "Auto imported from components/widgets/Shifts/SingleShift.vue"
+  },
+  "WidgetsShiftsSplitShift": {
+    "description": "Auto imported from components/widgets/Shifts/SplitShift.vue"
+  }
+}

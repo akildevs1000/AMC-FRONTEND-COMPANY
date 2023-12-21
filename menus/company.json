@@ -1,0 +1,40 @@
+[
+  {
+    "icon": "mdi-view-dashboard",
+    "title": "Dashboard",
+    "to": "/dashboard2",
+    "submenu": "dashboard",
+    "menu": "dashboard",
+    "module": "dashboard"
+  },
+  {
+    "icon": "mdi-domain",
+    "title": "Companies",
+    "to": "/companies",
+    "submenu": "dashboard",
+    "menu": "companies",
+    "module": "dashboard"
+  },
+  {
+    "icon": "mdi-ticket",
+    "title": "Tickets",
+    "to": "/tickets",
+    "submenu": "tickets",
+    "menu": "tickets",
+    "module": "dashboard"
+  },
+  {
+    "icon": "mdi-domain",
+    "title": "Companies",
+    "to": "/companies",
+    "menu": "companies",
+    "module": "companies"
+  },
+  {
+    "icon": "mdi-ticket",
+    "title": "Tickets",
+    "to": "/tickets",
+    "menu": "tickets",
+    "module": "tickets"
+  }
+]
