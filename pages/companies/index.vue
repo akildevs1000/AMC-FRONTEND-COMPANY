@@ -59,7 +59,7 @@
           <v-data-table
             dense
             v-model="selectedItems"
-            :headers="headers_table"
+            :headers="headers"
             :items="data"
             model-value="data.id"
             :loading="loadinglinear"
@@ -96,6 +96,18 @@
                   <p>{{ item.location }}</p>
                 </v-col>
               </v-row>
+            </template>
+
+            <template v-slot:item.contact="{ item, index }">
+              <div>
+                {{ item.contact.name }}
+              </div>
+              <div>
+                {{ item.contact.number }}
+              </div>
+              <div>
+                {{ item.user.email }}
+              </div>
             </template>
 
             <template v-slot:item.options="{ item }">
@@ -222,7 +234,6 @@ export default {
     ids: [],
     loading: false,
     //total: 0,
-    headers: [],
     editedIndex: -1,
     editedItem: { name: "" },
     defaultItem: { name: "" },
@@ -232,7 +243,7 @@ export default {
     designations: [],
     managers: [],
     dialogVisible: false,
-    headers_table: require("../../menus/amc_company.json"),
+    headers: require("../../menus/amc_company.json"),
     formTitle: "Create",
     disabled: false,
   }),
@@ -254,22 +265,6 @@ export default {
   },
   mounted() {
     //this.getDataFromApi();
-
-    this.headers = [
-      // { text: "#" },
-      { text: "E.ID" },
-      { text: "Profile" },
-      { text: "Name" },
-      { text: "Email" },
-      { text: "Timezone" },
-      { text: "Dept" },
-      { text: "Sub Dept" },
-      { text: "Desgnation" },
-      { text: "Role" },
-      { text: "Mobile" },
-      { text: "Shift" },
-      { text: "Actions" },
-    ];
   },
   watch: {
     options: {

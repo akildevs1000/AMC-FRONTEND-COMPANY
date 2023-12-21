@@ -23,7 +23,7 @@
           >
             <v-row>
               <v-col cols="6">
-                <b>{{ index + 1 }}. {{ item.title }}</b>
+                <b>{{ item.title }}</b>
                 <div>{{ item.comments }}</div>
                 <div>User: {{ item?.user?.email }}</div>
               </v-col>

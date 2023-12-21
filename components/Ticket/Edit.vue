@@ -213,7 +213,10 @@ export default {
       payload.append("description", this.payload.description);
 
       payload.append("user_id", this.$auth.user.id);
-      payload.append("comments", this.payload.comments);
+
+      if (this.payload.comments) {
+        payload.append("comments", this.payload.comments);
+      }
 
       this.$axios
         .post("update-ticket/" + this.payload.id, payload)

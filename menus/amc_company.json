@@ -43,8 +43,8 @@
     "text": "Equipement",
     "align": "left",
     "sortable": true,
-    "key": "contact",
-    "value": "contact",
+    "key": "equipement",
+    "value": "equipement",
     "filterable": true,
     "filterSpecial": false
   },
@@ -54,7 +54,7 @@
     "align": "left",
     "sortable": true,
     "key": "member_from",
-    "value": "member_from",
+    "value": "show_member_from",
     "filterable": true,
     "filterSpecial": false
   },
@@ -64,7 +64,7 @@
     "align": "left",
     "sortable": true,
     "key": "expiry",
-    "value": "expiry",
+    "value": "show_expiry",
     "filterable": true,
     "filterSpecial": false
   },
