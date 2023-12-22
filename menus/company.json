@@ -24,6 +24,14 @@
     "module": "dashboard"
   },
   {
+    "icon": "mdi-shape-square-plus",
+    "title": "Setup",
+    "to": "/setup",
+    "submenu": "setup",
+    "menu": "setup",
+    "module": "dashboard"
+  },
+  {
     "icon": "mdi-domain",
     "title": "Companies",
     "to": "/companies",
