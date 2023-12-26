@@ -65,13 +65,6 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
-        {{ snackText }}
-
-        <template v-slot:action="{ attrs }">
-          <v-btn v-bind="attrs" text @click="snack = false"> Close </v-btn>
-        </template>
-      </v-snackbar>
       <v-container>
         <v-card elevation="0">
           <v-toolbar class="mb-2" dense flat>
