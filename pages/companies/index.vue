@@ -4,13 +4,6 @@
       <v-snackbar v-model="snackbar" small top="top" :color="color">
         {{ response }}
       </v-snackbar>
-      <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
-        {{ snackText }}
-
-        <template v-slot:action="{ attrs }">
-          <v-btn v-bind="attrs" text @click="snack = false"> Close </v-btn>
-        </template>
-      </v-snackbar>
     </div>
     <div v-if="!loading">
       <div v-if="can(`branch_view`)">
@@ -98,7 +91,7 @@
               </v-row>
             </template>
 
-            <template v-slot:item.contact="{ item, index }">
+            <!-- <template v-slot:item.contact="{ item, index }">
               <div>
                 {{ item.contact.name }}
               </div>
@@ -108,7 +101,7 @@
               <div>
                 {{ item.user.email }}
               </div>
-            </template>
+            </template> -->
 
             <template v-slot:item.options="{ item }">
               <v-menu bottom left>
@@ -120,13 +113,13 @@
                 <v-list width="150" dense>
                   <v-list-item>
                     <v-list-item-title>
-                      <AMCCompanySingle :id="item.id" />
+                      <AMCCompanySingle :key="getRandomId()" :item="item" />
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-title>
                       <AMCCompanyEdit
-                        :id="item.id"
+                        :item="item"
                         @success="
                           (e) =>
                             handleSuccessResponse(`Record has been updated`)
@@ -275,6 +268,9 @@ export default {
     },
   },
   methods: {
+    getRandomId() {
+      return Math.random().toString(36).substring(2);
+    },
     caps(str) {
       if (str == "" || str == null) {
         return "---";
@@ -300,40 +296,6 @@ export default {
       this.dialog = false;
       this.errors = [];
       setTimeout(() => {}, 300);
-    },
-    importbranch() {
-      let payload = new FormData();
-      payload.append("branchs", this.files);
-      payload.append("company_id", this.$auth?.user?.company?.id);
-      let options = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      };
-      this.btnLoader = true;
-      this.$axios
-        .post("/branch/import", payload, options)
-        .then(({ data }) => {
-          this.btnLoader = false;
-          if (!data.status) {
-            this.errors = data.errors;
-            payload.delete("branchs");
-          } else {
-            this.errors = [];
-            this.snackbar = true;
-            this.response = "branchs imported successfully";
-            this.getDataFromApi();
-            this.close();
-          }
-        })
-        .catch((e) => {
-          if (e.toString().includes("Error: Network Error")) {
-            this.errors = [
-              "File is modified.Please cancel the current file and try again",
-            ];
-            this.btnLoader = false;
-          }
-        });
     },
     can(per) {
       return this.$pagePermission.can(per, this);

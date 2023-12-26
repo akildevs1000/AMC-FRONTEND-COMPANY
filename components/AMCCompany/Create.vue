@@ -23,10 +23,14 @@
         </v-stepper-step>
         <v-divider></v-divider>
         <v-stepper-step :complete="e1 > 2" step="2" editable>
+          License Info
+        </v-stepper-step>
+        <v-divider></v-divider>
+        <v-stepper-step :complete="e1 > 3" step="3" editable>
           Contact Info
         </v-stepper-step>
         <v-divider></v-divider>
-        <v-stepper-step step="3" editable> Geographic Info </v-stepper-step>
+        <v-stepper-step step="4" editable> Geographic Info </v-stepper-step>
       </v-stepper-header>
       <v-stepper-items>
         <v-stepper-content step="1">
@@ -83,14 +87,16 @@
 
                 <v-col md="6" cols="12" sm="12" dense>
                   <v-text-field
-                    label="Email"
+                    label="Phone Number"
                     dense
                     outlined
                     type="text"
-                    v-model="company_payload.email"
-                    :hide-details="!errors.email"
+                    v-model="company_payload.contact_number"
+                    :hide-details="!errors.contact_number"
                     :error-messages="
-                      errors && errors.email ? errors.email[0] : ''
+                      errors && errors.contact_number
+                        ? errors.contact_number[0]
+                        : ''
                     "
                   ></v-text-field>
                 </v-col>
@@ -166,6 +172,20 @@
                     ></v-date-picker>
                   </v-menu>
                 </v-col>
+
+                <v-col md="6" cols="12" sm="12" dense>
+                  <v-text-field
+                    label="Email"
+                    dense
+                    outlined
+                    type="text"
+                    v-model="company_payload.email"
+                    :hide-details="!errors.email"
+                    :error-messages="
+                      errors && errors.email ? errors.email[0] : ''
+                    "
+                  ></v-text-field>
+                </v-col>
               </v-row>
             </v-col>
             <v-col cols="12" class="text-right my-1">
@@ -173,7 +193,7 @@
               <v-btn
                 small
                 :loading="loading"
-                @click="validate_building"
+                @click="submit_company"
                 class="primary"
                 >Next</v-btn
               >
@@ -181,6 +201,174 @@
           </v-row>
         </v-stepper-content>
         <v-stepper-content step="2">
+          <v-row>
+            <v-col cols="12" md="3">
+              <div class="text-center">
+                <v-img
+                  style="
+                    width: 150px;
+                    height: 150px;
+                    border-radius: 50%;
+                    margin: 0 auto;
+                  "
+                  :src="previewImage"
+                ></v-img>
+                <v-btn
+                  class="mt-2"
+                  style="width: 100%"
+                  small
+                  @click="onpick_attachment"
+                  >{{ !upload.name ? "Upload" : "Change" }}
+                  <v-icon right dark>mdi-cloud-upload</v-icon>
+                </v-btn>
+
+                <input
+                  required
+                  type="file"
+                  @change="attachment"
+                  style="display: none"
+                  accept="image/*"
+                  ref="attachment_input"
+                />
+
+                <span v-if="errors && errors.logo" class="text-danger mt-2">{{
+                  errors.logo[0]
+                }}</span>
+              </div>
+            </v-col>
+            <v-col class="mt-3" md="9" cols="12" sm="12" dense>
+              <v-row>
+                <v-col md="6" cols="12" sm="12" dense>
+                  <v-text-field
+                    label="License Number"
+                    dense
+                    outlined
+                    type="text"
+                    v-model="license_payload.license_no"
+                    :hide-details="!errors.license_no"
+                    :error-messages="
+                      errors && errors.license_no ? errors.license_no[0] : ''
+                    "
+                  ></v-text-field>
+                </v-col>
+
+                <v-col md="6" cols="12" sm="12" dense>
+                  <v-text-field
+                    label="TRN Number"
+                    dense
+                    outlined
+                    type="text"
+                    v-model="license_payload.trn_number"
+                    :hide-details="!errors.trn_number"
+                    :error-messages="
+                      errors && errors.trn_number ? errors.trn_number[0] : ''
+                    "
+                  ></v-text-field>
+                </v-col>
+
+                <v-col md="6" cols="12" sm="12" dense>
+                  <v-menu
+                    v-model="dateMenu3"
+                    :close-on-content-click="false"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="290px"
+                    min-width="auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        label="Issue Date"
+                        :hide-details="!errors.issue_date"
+                        :error-messages="
+                          errors && errors.issue_date
+                            ? errors.issue_date[0]
+                            : ''
+                        "
+                        v-model="license_payload.issue_date"
+                        persistent-hint
+                        append-icon="mdi-calendar"
+                        readonly
+                        outlined
+                        dense
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      style="min-height: 320px"
+                      v-model="license_payload.issue_date"
+                      no-title
+                      @input="dateMenu3 = false"
+                    ></v-date-picker>
+                  </v-menu>
+                </v-col>
+
+                <v-col md="6" cols="12" sm="12" dense>
+                  <v-menu
+                    v-model="dateMenu4"
+                    :close-on-content-click="false"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="290px"
+                    min-width="auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        label="Expiry Date"
+                        :hide-details="!errors.expiry_date"
+                        :error-messages="
+                          errors && errors.expiry_date
+                            ? errors.expiry_date[0]
+                            : ''
+                        "
+                        v-model="license_payload.expiry_date"
+                        persistent-hint
+                        append-icon="mdi-calendar"
+                        readonly
+                        outlined
+                        dense
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      style="min-height: 320px"
+                      v-model="license_payload.expiry_date"
+                      no-title
+                      @input="dateMenu4 = false"
+                    ></v-date-picker>
+                  </v-menu>
+                </v-col>
+
+                <v-col md="6" cols="12" sm="12" dense>
+                  <v-text-field
+                    label="Issue By"
+                    dense
+                    outlined
+                    type="text"
+                    v-model="license_payload.issued_by"
+                    :hide-details="!errors.issued_by"
+                    :error-messages="
+                      errors && errors.issued_by ? errors.issued_by[0] : ''
+                    "
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-col>
+            <v-col cols="12" class="text-right my-1">
+              <v-btn small @click="e1 = 1">Back</v-btn>
+
+              <v-btn
+                small
+                :loading="loading"
+                @click="submit_license"
+                class="primary"
+                >Submit</v-btn
+              >
+            </v-col>
+          </v-row>
+        </v-stepper-content>
+        <v-stepper-content step="3">
           <v-row>
             <v-col cols="12" md="3">
               <div class="text-center">
@@ -273,22 +461,35 @@
                     "
                   ></v-text-field>
                 </v-col>
+                <v-col md="6" cols="12" sm="12" dense>
+                  <v-text-field
+                    label="Email"
+                    dense
+                    outlined
+                    type="text"
+                    v-model="contact_payload.email"
+                    :hide-details="!errors.email"
+                    :error-messages="
+                      errors && errors.email ? errors.email[0] : ''
+                    "
+                  ></v-text-field>
+                </v-col>
               </v-row>
             </v-col>
             <v-col cols="12" class="text-right my-1">
               <v-btn small @click="e1 = 1">Back</v-btn>
-              
+
               <v-btn
                 small
                 :loading="loading"
-                @click="validate_contact"
+                @click="submit_contact"
                 class="primary"
                 >Submit</v-btn
               >
             </v-col>
           </v-row>
         </v-stepper-content>
-        <v-stepper-content step="3">
+        <v-stepper-content step="4">
           <v-row>
             <v-col cols="12" md="3">
               <div class="text-center">
@@ -350,10 +551,40 @@
                   ></v-text-field>
                 </v-col>
 
-                <v-col md="12" cols="12" sm="12" dense>
+                <v-col md="6" cols="12" sm="12" dense>
+                  <v-text-field
+                    label="Makani Number"
+                    dense
+                    outlined
+                    type="text"
+                    v-model="geographic_payload.makani_number"
+                    :hide-details="!errors.makani_number"
+                    :error-messages="
+                      errors && errors.makani_number
+                        ? errors.makani_number[0]
+                        : ''
+                    "
+                  ></v-text-field>
+                </v-col>
+
+                <v-col md="6" cols="12" sm="12" dense>
                   <v-textarea
-                    rows="3"
+                    rows="1"
                     label="Location"
+                    dense
+                    outlined
+                    type="text"
+                    v-model="geographic_payload.address"
+                    :hide-details="!errors.address"
+                    :error-messages="
+                      errors && errors.address ? errors.address[0] : ''
+                    "
+                  ></v-textarea>
+                </v-col>
+
+                <v-col md="12" cols="12" sm="12" dense>
+                  <v-text-field
+                    label="GPS Location"
                     dense
                     outlined
                     type="text"
@@ -362,7 +593,7 @@
                     :error-messages="
                       errors && errors.location ? errors.location[0] : ''
                     "
-                  ></v-textarea>
+                  ></v-text-field>
                 </v-col>
               </v-row>
             </v-col>
@@ -371,7 +602,7 @@
               <v-btn
                 small
                 :loading="loading"
-                @click="validate_geographic_info"
+                @click="submit_geographic"
                 class="primary"
                 >Submit</v-btn
               >
@@ -385,20 +616,12 @@
 
 <script>
 export default {
-  layout({ $auth }) {
-    let { user_type } = $auth.user;
-    if (user_type == "master") {
-      return "master";
-    } else if (user_type == "employee") {
-      return "employee";
-    } else if (user_type == "master") {
-      return "default";
-    }
-  },
-
   data: () => ({
     dateMenu: false,
     dateMenu2: false,
+    dateMenu3: false,
+    dateMenu4: false,
+
     dialog: false,
     snackbar: false,
     response: "",
@@ -407,29 +630,10 @@ export default {
     upload: {
       name: "",
     },
-    company_payload: {
-      name: "",
-      email: "",
-      logo: "",
-      member_from: "",
-      expiry: "",
-      no_branch: "",
-      max_branches: "",
-      max_employee: "",
-      max_devices: "",
-    },
-    contact_payload: {
-      name: "",
-      number: "",
-      position: "",
-      whatsapp: "",
-    },
-    // location: "",
-    geographic_payload: {
-      location: "",
-      lat: "",
-      lon: "",
-    },
+    company_payload: {},
+    license_payload: {},
+    contact_payload: {},
+    geographic_payload: {},
     e1: 1,
     errors: [],
     previewImage: "/no-business_profile.png",
@@ -460,7 +664,7 @@ export default {
         this.$emit("input", file[0]);
       }
     },
-    validate_building() {
+    submit_company() {
       this.loading = true;
       this.errors = [];
 
@@ -475,18 +679,21 @@ export default {
       this.$axios
         .post("/amc/building/validate", payload)
         .then(({ data }) => {
+          this.license_payload.company_id = data.record.id;
+          this.contact_payload.company_id = data.record.id;
+          this.geographic_payload.company_id = data.record.id;
           this.loading = false;
           this.errors = [];
           this.e1 = 2;
         })
         .catch(({ response }) => this.handleErrorResponse(response));
     },
-    validate_contact() {
+    submit_license() {
       this.loading = true;
       this.errors = [];
 
       this.$axios
-        .post("company/contact/validate", this.contact_payload)
+        .post("/amc/license/validate", this.license_payload)
         .then(({ data }) => {
           this.loading = false;
 
@@ -496,67 +703,43 @@ export default {
             this.e1 = 3;
           }
         })
-        .catch((e) => console.log(e));
+        .catch(({ response }) => this.handleErrorResponse(response));
     },
-    validate_geographic_info() {
+    submit_contact() {
       this.loading = true;
       this.errors = [];
 
       this.$axios
-        .post("company/user/validate", this.geographic_payload)
+        .post("/amc/contact/validate", this.contact_payload)
         .then(({ data }) => {
           this.loading = false;
 
           if (!data.status) {
             this.errors = data.errors;
           } else {
-            this.store_data();
+            this.e1 = 4;
           }
         })
-        .catch((e) => console.log(e));
+        .catch(({ response }) => this.handleErrorResponse(response));
     },
-    store_data() {
-      // this.loading = true;
-
-      let payload = new FormData();
-
-      payload.append("logo", this.upload.name);
-      payload.append("company_name", this.company_payload.name);
-      payload.append("email", this.company_payload.email);
-      payload.append("member_from", this.company_payload.member_from);
-      payload.append("expiry", this.company_payload.expiry);
-      payload.append(
-        "management_company",
-        this.company_payload.management_company
-      );
-
-      payload.append("contact_name", this.contact_payload.name);
-      payload.append("number", this.contact_payload.number);
-      payload.append("position", this.contact_payload.position);
-      payload.append("whatsapp", this.contact_payload.whatsapp);
-
-      payload.append("lat", this.geographic_payload.lat);
-      payload.append("lon", this.geographic_payload.lon);
-      payload.append(
-        "location",
-        this.geographic_payload.location || "no location"
-      );
+    submit_geographic() {
+      this.loading = true;
+      this.errors = [];
 
       this.$axios
-        .post("/amc_company", payload)
+        .post("/amc/geographic/validate", this.geographic_payload)
         .then(({ data }) => {
           this.loading = false;
 
           if (!data.status) {
             this.errors = data.errors;
-            return;
+          } else {
+            this.errors = [];
+            this.$emit("success");
+            this.dialog = false;
           }
-
-          this.errors = [];
-          this.$emit("success");
-          this.dialog = false;
         })
-        .catch((e) => console.log(e));
+        .catch(({ response }) => this.handleErrorResponse(response));
     },
     handleErrorResponse(response) {
       this.loading = false;

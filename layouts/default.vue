@@ -185,22 +185,6 @@
                 >
               </v-list-item-content>
             </v-list-item>
-            <v-list-item
-              v-if="$auth.user.user_type != 'company'"
-              @click="changeLoginType()"
-            >
-              <v-list-item-icon>
-                <v-icon>mdi-account-multiple-outline</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title class="black--text">
-                  Login Into employee
-                  <!-- {{
-                    caps(getLoginType == "branch" ? "employee" : "branch")
-                  }} -->
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
 
             <v-list-item @click="logout">
               <v-list-item-icon>
@@ -270,51 +254,6 @@
         </v-list>
       </v-menu>
 
-      <!-- <v-menu
-        bottom
-        origin="center center"
-        offset-y
-        transition="scale-transition"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-badge
-            v-bind="attrs"
-            v-on="on"
-            :color="pendingLeavesCount > 0 ? 'red' : 'red'"
-            content="1"
-            style="top: 10px; left: -19px"
-          >
-            <v-icon style="top: -10px; left: 10px" class="violet--text"
-              >mdi mdi-bell-ring</v-icon
-            >
-          </v-badge>
-        </template>
-
-        <v-list>
-          <v-list-item v-for="(item, i) in notificationItems" :key="i">
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu> -->
-      <!-- <label class=" ">
-        <v-badge
-          v-if="pendingLeavesCount > 0"
-          @click="navigateToLeavePage()"
-          :color="pendingLeavesCount > 0 ? 'red' : 'white'"
-          :content="pendingLeavesCount"
-        >
-          <v-icon class="violet--text" @click="navigateToLeavePage()"
-            >mdi mdi-bell-ring</v-icon
-          >
-        </v-badge>
-        <v-badge v-else @click="navigateToLeavePage()" content="0">
-          <v-icon
-            style="color: #e91919 !important"
-            @click="navigateToLeavePage()"
-            >mdi mdi-bell-ring</v-icon
-          >
-        </v-badge>
-      </label> -->
       <v-snackbar
         top="top"
         v-model="snackNotification"
@@ -604,7 +543,6 @@ export default {
   },
   created() {
     this.$store.commit("loginType", this.$auth.user.user_type);
-    this.getCompanyDetails();
     this.setMenus();
     this.setSubLeftMenuItems("dashboard", "/dashboard2", false);
     this.logo_src = require("@/static/logo22.png");
@@ -658,42 +596,11 @@ export default {
     },
 
     getUser() {
-      const user = this.$auth.user;
-      const userType = user.user_type;
-
-      if (userType === "master") {
-        return user.name;
-      } else if (userType === "company") {
-        return user.company.name;
-      }
-
-      const employee = user.employee;
-      if (employee) {
-        return employee.display_name || employee.first_name;
-      }
-
-      return null; // Or some default value indicating no user found
+      return this.$auth.user.name;
     },
 
     getLogo() {
-      let logosrc = "/no-image.PNG";
-
-      if (
-        this.$auth.user &&
-        this.$auth.user.user_type == "company" &&
-        this.$auth.user.company.logo
-      ) {
-        logosrc = this.$auth.user.company.logo || "/no-image.PNG1111111";
-      } else if (this.$auth.user && this.$auth.user.user_type == "master") {
-        logosrc = "/no-image.PNG";
-      } else if (this.$auth.user && this.$auth.user.user_type == "employee") {
-        logosrc =
-          this.$auth.user.employee.profile_picture || "/no-profile-image.jpg";
-      } else if (this.$auth.user && this.$auth.user.user_type == "branch") {
-        logosrc = this.$auth.user.branch_logo || "/no-profile-image.jpg";
-      }
-
-      return logosrc;
+      return "/no-image.PNG";
     },
     getLoginType() {
       return this.$store.state.loginType;
@@ -736,22 +643,7 @@ export default {
             icon: "mdi-transit-transfer",
           });
         }
-        // if (this.pendingNotificationsCount > 0) {
-        //   //console.log("this.$config", this.$config);
-        //   document.title =
-        //     "Mytime2Cloud " +
-        //     " - Notifications Pending : " +
-        //     this.pendingNotificationsCount;
-        // }
-
-        // let menu1 = { title: "Leave Notifications (2)", click: "Test" };
-        // let menu2 = { title: "Visitor Notifications (2)", click: "Test" };
-        // this.notificationsMenuItems.push(menu1);
-        // this.notificationsMenuItems.push(menu2);
       });
-    },
-    getBranchName() {
-      return this.$auth.user.branch_name;
     },
     getTopMenuItems(i) {
       if (i.module == "dashboard") {
@@ -784,93 +676,9 @@ export default {
     },
 
     setMenus() {
-      if (this.$auth.user.role.role_type == 0) {
-        {
-          alert("Invalid User Type");
-          this.logout();
-        }
-
-        return "";
-      }
-      let roleType = this.$auth.user.role.role_type.toLowerCase();
-
-      if (this.getLoginType === "company" || this.getLoginType === "branch") {
-        // this.items = this.company_menus;
-        this.items = this.company_menus.filter(
-          (item) => item.module === this.topMenu_Selected
-        );
-        return;
-      } else if (this.getLoginType === "employee") {
-        if (/guard/.test(roleType)) {
-          this.items = this.guard_menus;
-          return;
-        } else if (/host/.test(roleType)) {
-          this.items = this.host_menus;
-          return;
-        } else {
-          this.items = this.company_menus.filter(
-            (item) => item.module === this.topMenu_Selected
-          );
-          return;
-        }
-      }
-    },
-
-    changeLoginType() {
-      try {
-        // if (this.getLoginType == "branch")
-        {
-          // this.$store.commit("loginType", "employee");
-          // this.setMenus();
-          let email = this.$store.state.email;
-          let password = this.$store.state.password;
-
-          email = this.$crypto.encrypt(email);
-          password = this.$crypto.encrypt(password);
-
-          email = encodeURIComponent(email);
-          password = encodeURIComponent(password);
-
-          if (email && password) {
-            window.location.href =
-              process.env.EMPLOYEE_APP_URL +
-              "/loginwithtoken?email=" +
-              email +
-              "&password=" +
-              password;
-
-            return "";
-          } else {
-            console.log("Empty Username and Password");
-          }
-          // this.$router.push("/employees/profile");
-        }
-        // else {
-        //   this.$store.commit("loginType", "branch");
-        //   this.setMenus();
-        //   this.$router.push("/dashboard2");
-        // }
-      } catch (e) {
-        console.log(e);
-      }
-    },
-    navigateToLeavePage() {
-      this.$router.push("/leaves");
-    },
-
-    filterBranch(branch) {
-      this.$emit("openalert", "");
-
-      if (branch) {
-        this.selectedBranchName = branch.branch_name;
-        this.seelctedBranchId = branch.id;
-      } else {
-        this.selectedBranchName = "All Branches";
-        this.seelctedBranchId = "";
-      }
-    },
-    collapseSubItems() {
-      this.company_menus.map((item) => (item.active = false));
+      this.items = this.company_menus.filter(
+        (item) => item.module === this.topMenu_Selected
+      );
     },
     changeTopBarColor(color) {
       this.color = color;
@@ -891,30 +699,8 @@ export default {
     goToSetting() {
       this.$router.push("/setting");
     },
-    goToLeaves() {
-      this.$router.push("/leaves");
-    },
     goToCompany() {
       this.$router.push(`/companies/${this.$auth.user?.company_id}`);
-    },
-    getCompanyDetails() {
-      this.$axios
-        .get(`company/${this.$auth.user?.company_id}`)
-        .then(({ data }) => {
-          let { modules } = data.record;
-
-          if (modules !== null) {
-            this.modules = {
-              module_ids: modules.module_ids || [],
-              module_names: modules.module_names.map((e) => ({
-                icon: "mdi-chart-bubble",
-                title: this.caps(e),
-                to: "/" + e + "_modules",
-                permission: true,
-              })),
-            };
-          }
-        });
     },
     can(per) {
       return this.$pagePermission.can(per, this);
