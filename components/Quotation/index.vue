@@ -6,23 +6,26 @@
       </v-snackbar>
     </div>
     <div v-if="!loading">
-      <v-toolbar class="mb-2" dense flat>
-        <v-toolbar-title>
-          <span> {{ Model }}s </span></v-toolbar-title
-        >
-        <span>
-          <v-btn
-            dense
-            class="ma-0 px-0"
-            x-small
-            :ripple="false"
-            text
-            title="Reload"
+      <v-container>
+        <v-toolbar dense flat>
+          <v-toolbar-title>
+            <span> {{ Model }}s </span></v-toolbar-title
           >
-            <v-icon class="ml-2" @click="clearFilters" dark>mdi-reload</v-icon>
-          </v-btn>
-        </span>
-        <!-- <span>
+          <span>
+            <v-btn
+              dense
+              class="ma-0 px-0"
+              x-small
+              :ripple="false"
+              text
+              title="Reload"
+            >
+              <v-icon class="ml-2" @click="clearFilters" dark
+                >mdi mdi-reload</v-icon
+              >
+            </v-btn>
+          </span>
+          <!-- <span>
             <v-btn
               dense
               class="ma-0 px-0"
@@ -37,18 +40,17 @@
             </v-btn>
           </span> -->
 
-        <v-spacer></v-spacer>
+          <v-spacer></v-spacer>
 
-        <InvoiceCreate
-          :key="getRandomId()"
-          :id="id"
-          @success="
-            (e) => handleSuccessResponse(`Invoice Successfully created`)
-          "
-        />
-      </v-toolbar>
-      <v-container
-        ><v-data-table
+          <QuotationCreate
+            :id="id"
+            :key="getRandomId()"
+            @success="
+              (e) => handleSuccessResponse(`Quotation Successfully created`)
+            "
+          />
+        </v-toolbar>
+        <v-data-table
           dense
           :headers="headers"
           :items="data"
@@ -60,6 +62,28 @@
           class="elevation-1"
           :server-items-length="totalRowsCount"
         >
+          <template v-slot:item.company="{ item, index }">
+            <v-card
+              elevation="0"
+              style="background: none"
+              class="d-flex align-center"
+            >
+              <v-avatar class="mr-1">
+                <img
+                  :src="
+                    item.company && item.company.logo
+                      ? item.company.logo
+                      : '/no-image.png'
+                  "
+                  alt="Avatar"
+                />
+              </v-avatar>
+              <div class="mt-2">
+                <strong> {{ item.company && item.company.name }}</strong>
+                <p>{{ item.company && item.company.location }}</p>
+              </div>
+            </v-card>
+          </template>
           <template v-slot:item.status="{ item }">
             <v-chip
               class="mx-2"
@@ -80,21 +104,38 @@
               <v-list width="175" dense>
                 <v-list-item>
                   <v-list-item-title>
-                    <InvoiceViewDocuments :key="getRandomId()" :item="item" />
+                    <QuotationSingle :key="getRandomId()" :item="item" />
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>
-                    <InvoiceSingle :key="getRandomId()" :item="item" />
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>
-                    <InvoiceEdit
+                    <QuotationEdit
                       :id="id"
                       :item="item"
                       @success="
                         (e) => handleSuccessResponse(`Record has been updated`)
+                      "
+                    />
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    <QuotationClone
+                      :id="id"
+                      :item="item"
+                      @success="
+                        (e) => handleSuccessResponse(`Record has been cloned`)
+                      "
+                    />
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    <QuotationInvoice
+                      :id="id"
+                      :item="item"
+                      @success="
+                        (e) => handleSuccessResponse(`Record has been cloned`)
                       "
                     />
                   </v-list-item-title>
@@ -126,14 +167,15 @@ export default {
     },
     payload: {},
     options: {},
-    Model: "Invoice",
-    endpoint: "invoice",
+    Model: "Quotation",
+    endpoint: "quotation",
     snackbar: false,
     loading: false,
     response: "",
     data: [],
     errors: [],
-    headers: require("../../headers/invoice.json"),
+    id: 30,
+    headers: require("../../headers/quotation.json"),
   }),
 
   async created() {
@@ -158,6 +200,7 @@ export default {
         submitted: "blue",
         approved: "green",
         cancelled: "red",
+        invoiced: "primary",
       };
 
       return statusses[status];
@@ -201,12 +244,14 @@ export default {
       this.filters.company_id = this.id;
 
       let json = {
-        key: "invoices",
+        key: "quotations",
         options: this.options,
         refresh: true,
         endpoint: this.endpoint,
         filters: this.filters,
       };
+
+      console.log(json);
 
       const data = await this.$store.dispatch("fetchData", json);
 

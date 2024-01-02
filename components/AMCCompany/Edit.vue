@@ -29,9 +29,9 @@
         <v-tab>
           <v-icon> mdi-file-document </v-icon>
         </v-tab>
-        <!-- <v-tab>
+        <v-tab>
           <v-icon> mdi-cash </v-icon>
-        </v-tab> -->
+        </v-tab>
         <v-tab>
           <v-icon> mdi-cash-multiple </v-icon>
         </v-tab>
@@ -400,9 +400,9 @@
         <v-tab-item>
           <Contract @close-child="dialog = false" :id="item.id" />
         </v-tab-item>
-        <!-- <v-tab-item>
+        <v-tab-item>
           <Quotation @close-child="dialog = false" :id="item.id" />
-        </v-tab-item> -->
+        </v-tab-item>
         <v-tab-item>
           <Invoice @close-child="dialog = false" :id="item.id" />
         </v-tab-item>

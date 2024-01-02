@@ -49,73 +49,59 @@
           </tr>
           <tr v-for="(d, index) in payload.items" :key="index">
             <td style="width: 150px">
-              <input
+              <v-text-field
+                dense
+                outlined
                 v-model="d.title"
-                type="text"
-                class="pa-1"
-                style="
-                  width: 100%;
-                  border-radius: 5px;
-                  border: 1px solid #6946dd;
-                "
-              />
+                :hide-details="true"
+              ></v-text-field>
             </td>
             <td style="width: 150px">
-              <select
+              <v-select
+                :items="[
+                  { id: '', name: 'Warranty' },
+                  { id: 'Yes', name: 'Yes' },
+                  { id: 'No', name: 'No' },
+                ]"
+                item-value="id"
+                item-text="name"
+                dense
+                outlined
                 v-model="d.warranty"
-                class="pa-1"
-                style="
-                  border: 1px solid #6946dd;
-                  width: 100%;
-                  border-radius: 5px;
-                "
-              >
-                <option value="">Select Warranty</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-              </select>
+                :hide-details="true"
+              ></v-select>
             </td>
             <td style="width: 100px">
-              <input
+              <v-text-field
+                dense
+                outlined
                 v-model="d.qty"
+                :hide-details="true"
                 type="number"
-                class="pa-1"
-                style="
-                  border: 1px solid #6946dd;
-                  width: 100%;
-                  border-radius: 5px;
-                "
                 @input="setCalulation"
-              />
+              ></v-text-field>
             </td>
             <td style="width: 100px">
-              <input
+              <v-text-field
+                dense
+                outlined
                 v-model="d.unit_price"
+                :hide-details="true"
                 type="number"
-                class="pa-1"
-                style="
-                  border: 1px solid #6946dd;
-                  width: 100%;
-                  border-radius: 5px;
-                "
                 @input="setCalulation"
-              />
+              ></v-text-field>
             </td>
             <td style="width: 250px">
-              <input
+              <v-text-field
+                dense
+                outlined
                 v-model="d.description"
-                type="text"
-                class="pa-1"
-                style="
-                  border: 1px solid #6946dd;
-                  width: 100%;
-                  border-radius: 5px;
-                "
-              />
+                :hide-details="true"
+              ></v-text-field>
             </td>
-            <td>
+            <td class="text-center">
               <v-icon center color="red" @click="removeItem(index)"
-                >mdi-close-circle-outline</v-icon
+                >mdi-delete</v-icon
               >
             </td>
           </tr>

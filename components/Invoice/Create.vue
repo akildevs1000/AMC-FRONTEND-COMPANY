@@ -13,96 +13,94 @@
         <v-spacer></v-spacer>
         <v-row>
           <v-col md="12" cols="12" sm="12" class="text-right">
-            <v-btn small class="primary" @click="addItem">
-              Add Item(s)
-              <v-icon small>mdi-plus-circle-outline</v-icon></v-btn
+            <v-icon center color="primary" @click="dialog = false"
+              >mdi-close-circle-outline</v-icon
             >
           </v-col>
         </v-row>
       </v-card-title>
+
       <v-card-text>
-        <table>
-          <tr>
-            <td>Title</td>
-            <td>Warranty</td>
-            <td>Qty</td>
-            <td>Unit Price</td>
-            <td>Description</td>
-            <td>Action</td>
-          </tr>
-          <tr v-for="(d, index) in payload.items" :key="index">
-            <td style="width: 150px">
-              <input
-                v-model="d.title"
-                type="text"
-                class="pa-1"
-                style="
-                  border: 1px solid #6946dd;
-                  width: 100%;
-                  border-radius: 5px;
-                "
-              />
-            </td>
-            <td style="width: 150px">
-              <select
-                v-model="d.warranty"
-                class="pa-1"
-                style="
-                  border: 1px solid #6946dd;
-                  width: 100%;
-                  border-radius: 5px;
-                "
+        <v-tabs>
+          <v-tab>Items</v-tab>
+          <v-tab>Document</v-tab>
+
+          <v-tab-item>
+            <div class="text-right">
+              <v-btn small class="primary mb-1" @click="addItem">
+                Add Item(s)
+                <v-icon small>mdi-plus-circle-outline</v-icon></v-btn
               >
-                <option value="">Select Warranty</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-              </select>
-            </td>
-            <td style="width: 100px">
-              <input
-                v-model="d.qty"
-                type="number"
-                class="pa-1"
-                style="
-                  border: 1px solid #6946dd;
-                  width: 100%;
-                  border-radius: 5px;
-                "
-                @input="setCalulation"
-              />
-            </td>
-            <td style="width: 100px">
-              <input
-                v-model="d.unit_price"
-                type="number"
-                class="pa-1"
-                style="
-                  border: 1px solid #6946dd;
-                  width: 100%;
-                  border-radius: 5px;
-                "
-                @input="setCalulation"
-              />
-            </td>
-            <td style="width: 250px">
-              <input
-                v-model="d.description"
-                type="text"
-                class="pa-1"
-                style="
-                  border: 1px solid #6946dd;
-                  width: 100%;
-                  border-radius: 5px;
-                "
-              />
-            </td>
-            <td>
-              <v-icon center color="red" @click="removeItem(index)"
-                >mdi-close-circle-outline</v-icon
-              >
-            </td>
-          </tr>
-        </table>
+            </div>
+            <table>
+              <tr>
+                <td>Title</td>
+                <td>Warranty</td>
+                <td>Qty</td>
+                <td>Unit Price</td>
+                <td>Description</td>
+                <td class="text-center">Action</td>
+              </tr>
+              <tr v-for="(d, index) in payload.items" :key="index">
+                <td style="width: 150px">
+                  <v-text-field
+                    dense
+                    outlined
+                    v-model="d.title"
+                    :hide-details="true"
+                  ></v-text-field>
+                </td>
+                <td style="width: 150px">
+                  <v-select
+                    :items="[
+                      { id: '', name: 'Warranty' },
+                      { id: 'Yes', name: 'Yes' },
+                      { id: 'No', name: 'No' },
+                    ]"
+                    item-value="id"
+                    item-text="name"
+                    dense
+                    outlined
+                    v-model="d.warranty"
+                    :hide-details="true"
+                  ></v-select>
+                </td>
+                <td style="width: 100px">
+                  <v-text-field
+                    dense
+                    outlined
+                    v-model="d.qty"
+                    :hide-details="true"
+                    type="number"
+                    @input="setCalulation"
+                  ></v-text-field>
+                </td>
+                <td style="width: 100px">
+                  <v-text-field
+                    dense
+                    outlined
+                    v-model="d.unit_price"
+                    :hide-details="true"
+                    type="number"
+                    @input="setCalulation"
+                  ></v-text-field>
+                </td>
+                <td style="width: 250px">
+                  <v-text-field
+                    dense
+                    outlined
+                    v-model="d.description"
+                    :hide-details="true"
+                  ></v-text-field>
+                </td>
+                <td class="text-center">
+                  <v-icon center color="red" @click="removeItem(index)"
+                    >mdi-delete</v-icon
+                  >
+                </td>
+              </tr>
+            </table>
+            
         <v-card elevation="0" class="mt-3">
           <v-row>
             <v-col cols="6">
@@ -140,6 +138,44 @@
             </v-col>
           </v-row>
         </v-card>
+          </v-tab-item>
+
+          <v-tab-item>
+            <div class="text-right">
+              <v-btn small class="primary mb-1" @click="addDocumentItem">
+                Add Document(s)
+                <v-icon small>mdi-plus-circle-outline</v-icon></v-btn
+              >
+            </div>
+            <table>
+              <tr>
+                <td>Title</td>
+                <td>Attachment</td>
+                <td class="text-center">Action</td>
+              </tr>
+              <tr v-for="(d, index) in payload.documents" :key="index">
+                <td style="width: 250px">
+                  <v-text-field
+                    dense
+                    outlined
+                    v-model="d.title"
+                    :hide-details="true"
+                  ></v-text-field>
+                </td>
+                <td style="width: 250px">
+                  <UploadAttachment
+                    @file-selected="(e) => handleFileSelected(index, e)"
+                  />
+                </td>
+                <td class="text-center">
+                  <v-icon center color="red" @click="removeDocumentItem(index)"
+                    >mdi-delete</v-icon
+                  >
+                </td>
+              </tr>
+            </table>
+          </v-tab-item>
+        </v-tabs>
       </v-card-text>
     </v-card>
   </v-dialog>
@@ -168,6 +204,7 @@ export default {
           description: "",
         },
       ],
+      documents: [],
       sub_total: 0,
       vat: 0,
       total: 0,
@@ -182,6 +219,9 @@ export default {
     this.defaultPayload = this.payload;
   },
   methods: {
+    handleFileSelected(index, file) {
+      this.payload.documents[index].attachment = file;
+    },
     setCalulation() {
       let sub_total = 0;
       this.payload.items.forEach(({ qty, unit_price }) => {
@@ -195,6 +235,10 @@ export default {
       this.payload.items.splice(index, 1);
       this.setCalulation();
     },
+
+    removeDocumentItem(index) {
+      this.payload.documents.splice(index, 1);
+    },
     addItem() {
       this.payload.items.push({
         title: "",
@@ -202,6 +246,12 @@ export default {
         qty: 0,
         unit_price: "",
         description: "",
+      });
+    },
+    addDocumentItem() {
+      this.payload.documents.push({
+        title: "",
+        attachment: "",
       });
     },
     submit() {
@@ -217,10 +267,44 @@ export default {
             return;
           }
 
+          if (this.payload.documents.length) {
+            this.uploadDocuments(data.record.id);
+            return;
+          }
+
           this.errors = [];
           this.$emit("success");
           this.dialog = false;
           this.payload = this.defaultPayload;
+        })
+        .catch((e) => console.log(e));
+    },
+
+    uploadDocuments(id) {
+      let options = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      let payload = new FormData();
+
+      this.payload.documents.forEach((e, i) => {
+        payload.append(`items[${i}][attachment]`, e.attachment);
+        payload.append(`items[${i}][title]`, e.title);
+      });
+
+      this.$axios
+        .post(`/invoice/document/${id}`, payload, options)
+        .then(({ data }) => {
+          this.loading = false;
+          if (!data.status) {
+            this.errors = data.errors;
+          } else {
+            this.errors = [];
+            this.$emit("success");
+            this.dialog = false;
+            this.payload = this.defaultPayload;
+          }
         })
         .catch((e) => console.log(e));
     },
