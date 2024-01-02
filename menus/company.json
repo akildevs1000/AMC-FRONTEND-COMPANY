@@ -24,6 +24,14 @@
     "module": "dashboard"
   },
   {
+    "icon": "mdi-cash",
+    "title": "Quotations",
+    "to": "/quotation",
+    "submenu": "quotation",
+    "menu": "quotation",
+    "module": "dashboard"
+  },
+  {
     "icon": "mdi-shape-square-plus",
     "title": "Setup",
     "to": "/setup",
@@ -44,5 +52,12 @@
     "to": "/tickets",
     "menu": "tickets",
     "module": "tickets"
+  },
+  {
+    "icon": "mdi-cash",
+    "title": "Quotations",
+    "to": "/quotation",
+    "menu": "quotation",
+    "module": "quotation"
   }
 ]

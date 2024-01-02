@@ -6,8 +6,8 @@
       </v-snackbar>
     </div>
     <div v-if="!loading">
-      <v-card elevation="0" class="mt-2">
-        <v-toolbar class="mb-2" dense flat>
+      <v-container>
+        <v-toolbar dense flat>
           <v-toolbar-title>
             <span> {{ Model }}s </span></v-toolbar-title
           >
@@ -42,21 +42,21 @@
 
           <v-spacer></v-spacer>
 
-          <!-- <TicketCreate
+          <QuotationCreateOpen
+            :key="getRandomId()"
             @success="
-              (e) => handleSuccessResponse(`Ticket Successfully created`)
+              (e) => handleSuccessResponse(`Quotation Successfully created`)
             "
-          /> -->
+          />
         </v-toolbar>
         <v-data-table
           dense
           :headers="headers"
           :items="data"
-          model-value="data.id"
           :loading="loadinglinear"
           :options.sync="options"
           :footer-props="{
-            itemsPerPageOptions: [100, 500, 1000],
+            itemsPerPageOptions: [10, 20, 50, 100, 500],
           }"
           class="elevation-1"
           :server-items-length="totalRowsCount"
@@ -83,34 +83,14 @@
               </div>
             </v-card>
           </template>
-
-          <template v-slot:item.priority="{ item }">
-            <v-chip dark small :color="priorityRelatedColor(item.prority)">{{
-              item.prority
-            }}</v-chip>
-          </template>
-
           <template v-slot:item.status="{ item }">
-            <v-chip dark small :color="statusRelatedColor(item.status)">{{
-              item.status
-            }}</v-chip>
-          </template>
-
-          <template v-slot:item.ticket_history="{ item }">
-            <TimeLine
-              :key="getRandomId()"
-              v-if="item.ticket_history"
-              :id="item.id"
-              :data="item.ticket_history"
-            />
-          </template>
-
-          <template v-slot:item.attachment="{ item }">
-            <ViewAttachment
-              :key="getRandomId()"
-              v-if="item.attachment"
-              :src="item.attachment"
-            />
+            <v-chip
+              class="mx-2"
+              dark
+              small
+              :color="getRelationStatus(item.status)"
+              >{{ item.status }}</v-chip
+            >
           </template>
 
           <template v-slot:item.options="{ item }">
@@ -120,15 +100,16 @@
                   <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
               </template>
-              <v-list width="150" dense>
+              <v-list width="175" dense>
                 <v-list-item>
                   <v-list-item-title>
-                    <TicketSingle :key="getRandomId()" :item="item" />
+                    <QuotationSingle :key="getRandomId()" :item="item" />
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>
-                    <TicketEdit
+                    <QuotationEdit
+                      :id="id"
                       :item="item"
                       @success="
                         (e) => handleSuccessResponse(`Record has been updated`)
@@ -136,11 +117,32 @@
                     />
                   </v-list-item-title>
                 </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    <QuotationClone
+                      :id="id"
+                      :item="item"
+                      @success="
+                        (e) => handleSuccessResponse(`Record has been cloned`)
+                      "
+                    />
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    <QuotationInvoice
+                      :id="id"
+                      :item="item"
+                      @success="
+                        (e) => handleSuccessResponse(`Record has been cloned`)
+                      "
+                    />
+                  </v-list-item-title>
+                </v-list-item>
               </v-list>
             </v-menu>
-          </template>
-        </v-data-table>
-      </v-card>
+          </template> </v-data-table
+      ></v-container>
     </div>
     <Preloader v-else />
   </div>
@@ -148,8 +150,6 @@
 
 <script>
 export default {
-  components: {},
-
   data: () => ({
     totalRowsCount: 0,
     showFilters: false,
@@ -165,14 +165,15 @@ export default {
     },
     payload: {},
     options: {},
-    Model: "Ticket",
-    endpoint: "ticket_all",
+    Model: "Quotation",
+    endpoint: "quotation",
     snackbar: false,
     loading: false,
     response: "",
     data: [],
     errors: [],
-    headers: require("../../headers/ticket.json"),
+    id: 30,
+    headers: require("../../headers/quotation.json"),
   }),
 
   async created() {
@@ -191,6 +192,17 @@ export default {
     },
   },
   methods: {
+    getRelationStatus(status) {
+      let statusses = {
+        pending: "orange",
+        submitted: "blue",
+        approved: "green",
+        cancelled: "red",
+        invoiced: "primary",
+      };
+
+      return statusses[status];
+    },
     getRandomId() {
       return Math.random().toString(36).substring(2);
     },
@@ -227,13 +239,19 @@ export default {
     async getDataFromApi() {
       this.loadinglinear = true;
 
-      const data = await this.$store.dispatch("fetchData", {
-        key: "tickets",
+      this.filters.company_id = this.id;
+
+      let json = {
+        key: "quotations",
         options: this.options,
         refresh: true,
         endpoint: this.endpoint,
         filters: this.filters,
-      });
+      };
+
+      console.log(json);
+
+      const data = await this.$store.dispatch("fetchData", json);
 
       this.data = data.data;
       this.totalRowsCount = data.total;

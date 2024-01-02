@@ -1,0 +1,57 @@
+[
+  {
+    "text": "Reference #",
+    "align": "left",
+    "sortable": true,
+    "key": "invoice_number",
+    "value": "invoice_number",
+    "filterable": true,
+    "filterSpecial": false
+  },
+
+  {
+    "text": "Date",
+    "align": "left",
+    "sortable": true,
+    "key": "date",
+    "value": "date",
+    "filterable": true,
+    "filterSpecial": false
+  },
+
+  {
+    "text": "Description",
+    "align": "left",
+    "sortable": true,
+    "key": "description",
+    "value": "description",
+    "filterable": true,
+    "filterSpecial": false
+  },
+
+  {
+    "text": "Value",
+    "align": "left",
+    "sortable": true,
+    "key": "total",
+    "value": "total",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
+    "text": "Status",
+    "align": "left",
+    "sortable": true,
+    "key": "status",
+    "value": "status",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
+    "text": "Action",
+    "align": "left",
+    "sortable": false,
+    "key": "options",
+    "value": "options"
+  }
+]

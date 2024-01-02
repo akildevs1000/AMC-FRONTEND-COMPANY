@@ -411,22 +411,14 @@
 
 <script>
 import company_menus from "../menus/company.json";
-import employee_menus from "../menus/employee.json";
-import branch_menus from "../menus/branch.json";
-import guard_menus from "../menus/guard.json";
-import host_menus from "../menus/host.json";
 
 import company_top_menu from "../menus/company_modules_top.json";
-import employee_top_menu from "../menus/employee_modules_top.json";
 
 export default {
   data() {
     return {
       notificationsMenuItems: [],
 
-      selectedBranchName: "All Branches",
-      seelctedBranchId: "",
-      branch_id: "",
       menuProperties: {
         dashboard: {
           elevation: 0,
@@ -436,56 +428,7 @@ export default {
           elevation: 0,
           selected: "",
         },
-        employees: {
-          elevation: 0,
-          selected: "",
-        },
-        attendance: {
-          elevation: 0,
-          selected: "",
-        },
-        payroll: {
-          elevation: 0,
-          selected: "",
-        },
-        access_control: {
-          elevation: 0,
-          selected: "",
-        },
-        visitors: {
-          elevation: 0,
-          selected: "",
-        },
         reports: {
-          elevation: 0,
-          selected: "",
-        },
-
-        profile_topmenu: {
-          elevation: 0,
-          selected: "",
-        },
-        attendance_topmenu: {
-          elevation: 0,
-          selected: "",
-        },
-        requests_topmenu: {
-          elevation: 0,
-          selected: "",
-        },
-        announcements_topmenu: {
-          elevation: 0,
-          selected: "",
-        },
-        payslips_topmenu: {
-          elevation: 0,
-          selected: "",
-        },
-        schedule_topmenu: {
-          elevation: 0,
-          selected: "",
-        },
-        community: {
           elevation: 0,
           selected: "",
         },
@@ -493,16 +436,15 @@ export default {
           elevation: 0,
           selected: "",
         },
+        quotation: {
+          elevation: 0,
+          selected: "",
+        },
       },
 
       topMenu_Selected: "dashboard",
       company_menus,
-      employee_menus,
-      branch_menus,
-      guard_menus,
-      host_menus,
       company_top_menu,
-      employee_top_menu,
       pendingLeavesCount: 0,
       pendingNotificationsCount: 0,
       snackNotificationText: "",

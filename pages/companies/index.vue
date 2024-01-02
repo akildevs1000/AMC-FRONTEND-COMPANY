@@ -63,45 +63,34 @@
             class="elevation-1"
             :server-items-length="totalRowsCount"
           >
-            <template v-slot:item.logo="{ item, index }" style="width: 300px">
-              <v-row no-gutters>
-                <v-col
-                  style="
-                    padding: 5px;
-                    padding-left: 0px;
-                    width: 50px;
-                    max-width: 50px;
-                  "
-                >
-                  <v-img
-                    style="
-                      border-radius: 50%;
-                      height: auto;
-                      width: 50px;
-                      max-width: 50px;
-                    "
-                    :src="item.logo ? item.logo : '/no-image.png'"
-                  >
-                  </v-img>
-                </v-col>
-                <v-col style="padding: 10px">
+            <template v-slot:item.logo="{ item }">
+              <div class="d-flex">
+                <div class="ma-2">
+                  <v-avatar size="50">
+                    <img
+                      :src="item.logo ? item.logo : '/no-image.png'"
+                      alt="Avatar"
+                    />
+                  </v-avatar>
+                </div>
+                <div class="pt-3">
                   <strong> {{ item.name }}</strong>
                   <p>{{ item.location }}</p>
-                </v-col>
-              </v-row>
+                </div>
+              </div>
             </template>
 
-            <!-- <template v-slot:item.contact="{ item, index }">
+            <template v-slot:item.contact="{ item, index }">
               <div>
-                {{ item.contact.name }}
+                {{ item.company_contact.name }}
               </div>
               <div>
-                {{ item.contact.number }}
+                {{ item.company_contact.number }}
               </div>
               <div>
-                {{ item.user.email }}
+                {{ item.company_contact.email }}
               </div>
-            </template> -->
+            </template>
 
             <template v-slot:item.options="{ item }">
               <v-menu bottom left>
@@ -119,6 +108,7 @@
                   <v-list-item>
                     <v-list-item-title>
                       <AMCCompanyEdit
+                        :key="getRandomId()"
                         :item="item"
                         @success="
                           (e) =>
@@ -127,6 +117,7 @@
                       />
                     </v-list-item-title>
                   </v-list-item>
+
                   <v-list-item @click="deleteItem(item)">
                     <v-list-item-title style="cursor: pointer">
                       <v-icon color="error" small> mdi-delete </v-icon>

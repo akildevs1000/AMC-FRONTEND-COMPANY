@@ -1,5 +1,5 @@
 <template>
-  <v-dialog persistent v-model="dialog" width="900">
+  <v-dialog persistent v-model="dialog" width="1100">
     <template v-slot:activator="{ on, attrs }">
       <span style="cursor: pointer" text v-bind="attrs" v-on="on">
         <v-icon color="secondary" small> mdi-pencil </v-icon>
@@ -20,6 +20,27 @@
         <v-tab>
           <v-icon> mdi-earth </v-icon>
         </v-tab>
+        <v-tab>
+          <v-icon> mdi-file </v-icon>
+        </v-tab>
+        <v-tab>
+          <v-icon> mdi-cellphone-text </v-icon>
+        </v-tab>
+        <v-tab>
+          <v-icon> mdi-file-document </v-icon>
+        </v-tab>
+        <!-- <v-tab>
+          <v-icon> mdi-cash </v-icon>
+        </v-tab> -->
+        <v-tab>
+          <v-icon> mdi-cash-multiple </v-icon>
+        </v-tab>
+
+        <v-spacer></v-spacer>
+        <v-tab @click="dialog = false">
+          <v-icon> mdi-close-circle </v-icon>
+        </v-tab>
+
         <v-tab-item>
           <v-container class="mt-5">
             <v-row>
@@ -80,69 +101,27 @@
                     ></v-text-field>
                   </v-col>
                   <v-col md="6" cols="12" sm="12" dense>
-                    <v-menu
-                      readonly
-                      v-model="dateMenu"
-                      :close-on-content-click="false"
-                      transition="scale-transition"
-                      offset-y
-                      max-width="290px"
-                      min-width="auto"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          label="Member From"
-                          :hide-details="true"
-                          v-model="payload.member_from"
-                          persistent-hint
-                          append-icon="mdi-calendar"
-                          readonly
-                          outlined
-                          dense
-                          v-bind="attrs"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        style="min-height: 320px"
-                        v-model="payload.member_from"
-                        no-title
-                        @input="dateMenu = false"
-                      ></v-date-picker>
-                    </v-menu>
+                    <DatePicker
+                      label="Member From"
+                      :default_date="payload.member_from"
+                      @date="
+                        (e) => {
+                          payload.member_from = e;
+                        }
+                      "
+                    />
                   </v-col>
 
                   <v-col md="6" cols="12" sm="12" dense>
-                    <v-menu
-                      readonly
-                      v-model="dateMenu2"
-                      :close-on-content-click="false"
-                      transition="scale-transition"
-                      offset-y
-                      max-width="290px"
-                      min-width="auto"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          label="Expiry Date"
-                          :hide-details="true"
-                          v-model="payload.expiry"
-                          persistent-hint
-                          append-icon="mdi-calendar"
-                          readonly
-                          outlined
-                          dense
-                          v-bind="attrs"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        style="min-height: 320px"
-                        v-model="payload.expiry"
-                        no-title
-                        @input="dateMenu2 = false"
-                      ></v-date-picker>
-                    </v-menu>
+                    <DatePicker
+                      label="Expiry Date"
+                      :default_date="payload.expiry"
+                      @date="
+                        (e) => {
+                          payload.expiry = e;
+                        }
+                      "
+                    />
                   </v-col>
                   <v-col md="6" cols="12" sm="12" dense>
                     <v-text-field
@@ -157,7 +136,6 @@
                 </v-row>
               </v-col>
               <v-col cols="12" class="text-right">
-                <v-btn small @click="dialog = false">Close</v-btn>
                 <v-btn small @click="updateCompany" class="primary"
                   >Update</v-btn
                 >
@@ -192,69 +170,27 @@
               </v-col>
 
               <v-col md="6" cols="12" sm="12" dense>
-                <v-menu
-                  readonly
-                  v-model="dateMenu3"
-                  :close-on-content-click="false"
-                  transition="scale-transition"
-                  offset-y
-                  max-width="290px"
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      label="Issue Date"
-                      :hide-details="true"
-                      v-model="payload.trade_license.issue_date"
-                      persistent-hint
-                      append-icon="mdi-calendar"
-                      readonly
-                      outlined
-                      dense
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker
-                    style="min-height: 320px"
-                    v-model="payload.trade_license.issue_date"
-                    no-title
-                    @input="dateMenu3 = false"
-                  ></v-date-picker>
-                </v-menu>
+                <DatePicker
+                  label="Issue Date"
+                  :default_date="payload.trade_license.issue_date"
+                  @date="
+                    (e) => {
+                      payload.trade_license.issue_date = e;
+                    }
+                  "
+                />
               </v-col>
 
               <v-col md="6" cols="12" sm="12" dense>
-                <v-menu
-                  readonly
-                  v-model="dateMenu4"
-                  :close-on-content-click="false"
-                  transition="scale-transition"
-                  offset-y
-                  max-width="290px"
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      label="Expiry Date"
-                      :hide-details="true"
-                      v-model="payload.trade_license.expiry_date"
-                      persistent-hint
-                      append-icon="mdi-calendar"
-                      readonly
-                      outlined
-                      dense
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker
-                    style="min-height: 320px"
-                    v-model="payload.trade_license.expiry_date"
-                    no-title
-                    @input="dateMenu4 = false"
-                  ></v-date-picker>
-                </v-menu>
+                <DatePicker
+                  label="Expiry Date"
+                  :default_date="payload.trade_license.expiry_date"
+                  @date="
+                    (e) => {
+                      payload.trade_license.expiry_date = e;
+                    }
+                  "
+                />
               </v-col>
 
               <v-col md="6" cols="12" sm="12" dense>
@@ -268,7 +204,6 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12" class="text-right">
-                <v-btn small @click="dialog = false">Close</v-btn>
                 <v-btn small @click="updateLicense" class="primary"
                   >Update</v-btn
                 >
@@ -367,7 +302,6 @@
                 </v-row>
               </v-col>
               <v-col cols="12" class="text-right">
-                <v-btn small @click="dialog = false">Close</v-btn>
                 <v-btn small @click="updateContact" class="primary"
                   >Update</v-btn
                 >
@@ -417,9 +351,8 @@
                 ></v-text-field>
               </v-col>
               <v-col md="6" cols="12" sm="12" dense>
-                <v-textarea
-                  rows="1"
-                  label="Location"
+                <v-text-field
+                  label="Address"
                   dense
                   outlined
                   type="text"
@@ -428,7 +361,7 @@
                   :error-messages="
                     errors && errors.address ? errors.address[0] : ''
                   "
-                ></v-textarea>
+                ></v-text-field>
               </v-col>
               <v-col md="6" cols="12" sm="12" dense>
                 <v-text-field
@@ -444,13 +377,34 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12" class="text-right">
-                <v-btn small @click="dialog = false">Close</v-btn>
                 <v-btn small @click="updateGeographic" class="primary"
                   >Update</v-btn
                 >
               </v-col>
             </v-row>
           </v-container>
+        </v-tab-item>
+
+        <v-tab-item>
+          <AMCCompanyUpdateDocument
+            @close-child="dialog = false"
+            @child-success="handlSuccessReponse"
+            :id="item.id"
+            :items="item.company_documents"
+          />
+        </v-tab-item>
+
+        <v-tab-item>
+          <Equipment @close-child="dialog = false" :id="item.id" />
+        </v-tab-item>
+        <v-tab-item>
+          <Contract @close-child="dialog = false" :id="item.id" />
+        </v-tab-item>
+        <!-- <v-tab-item>
+          <Quotation @close-child="dialog = false" :id="item.id" />
+        </v-tab-item> -->
+        <v-tab-item>
+          <Invoice @close-child="dialog = false" :id="item.id" />
         </v-tab-item>
       </v-tabs>
     </v-card>
@@ -462,15 +416,8 @@ export default {
   props: ["item"],
   data: () => ({
     dialog: false,
-    dateMenu: false,
-    dateMenu2: false,
-    dateMenu3: false,
-    dateMenu4: false,
-
     upload: { name: "" },
-
     errors: [],
-
     payload: {},
     previewImage: `/no-business_profile.png`,
   }),
@@ -602,6 +549,11 @@ export default {
           }
         })
         .catch((e) => console.log(e));
+    },
+
+    handlSuccessReponse() {
+      this.dialog = false;
+      this.$emit("success");
     },
   },
 };

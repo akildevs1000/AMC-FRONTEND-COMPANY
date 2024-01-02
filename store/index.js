@@ -11,7 +11,12 @@ export const state = () => ({
   branch_id: "",
 
   devices: null,
+  equipments: null,
+
   tickets: null,
+  contracts: null,
+  quotations: null,
+  invoices: null,
   employees: null,
   employees_with_document_expiry: null,
   access_control_report: null,
@@ -49,8 +54,12 @@ export const mutations = {
       shift_name: "",
       branch_id: "",
       devices: null,
+      equipments: null,
       employees: null,
       tickets: null,
+      contracts: null,
+      quotations: null,
+      invoices: null,
       employees_with_document_expiry: null,
       access_control_report: null,
       employeeList: null,
@@ -86,11 +95,23 @@ export const mutations = {
   devices(state, value) {
     state.devices = value;
   },
+  equipments(state, value) {
+    state.equipments = value;
+  },
   employees(state, value) {
     state.employees = value;
   },
   tickets(state, value) {
     state.tickets = value;
+  },
+  contracts(state, value) {
+    state.contracts = value;
+  },
+  quotations(state, value) {
+    state.quotations = value;
+  },
+  invoices(state, value) {
+    state.invoices = value;
   },
   employees_with_document_expiry(state, value) {
     state.employees_with_document_expiry = value;

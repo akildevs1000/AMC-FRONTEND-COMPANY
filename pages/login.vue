@@ -19,7 +19,7 @@
               <div class="card-body p-md-5 mx-md-4">
                 <v-row class="pb-5">
                   <v-col md="12" cols="12" class="text-center">
-                    <h2>MyTime2Cloud</h2>
+                    <h2>AMC</h2>
                   </v-col>
                 </v-row>
 
@@ -122,7 +122,7 @@
             </div>
             <h3 class="pb-7 pt-15">
               Welcome To
-              <span style="font-size: 20px"> Mytime2Cloud </span>
+              <span style="font-size: 20px"> AMC </span>
             </h3>
           </div>
           <div>
@@ -211,7 +211,7 @@
               For Technical Support :
               <a
                 target="_blank"
-                href="https://wa.me/971529048025?text=Hello MyTime2Cloud. I need your support."
+                href="https://wa.me/971529048025?text=Hello AMC. I need your support."
                 ><v-icon color="black">mdi-whatsapp</v-icon></a
               >
               <a
@@ -225,8 +225,8 @@
             <v-col class="pa-5">
               <a
                 style="text-decoration: none; color: black"
-                href="mailto:support@mytime2cloud.com"
-                >support@mytime2cloud.com</a
+                href="mailto:support@AMC.com"
+                >support@AMC.com</a
               ></v-col
             >
           </v-row>
@@ -241,12 +241,12 @@
         class="hide-on-mobile d-none d-lg-flex"
       >
         <div class="about-content">
-          <h3>About Mytime2Cloud</h3>
+          <h3>About AMC</h3>
           <div style="font-weight: 300">
-            MyTime2Cloud is an innovative and comprehensive platform
+            AMC is an innovative and comprehensive platform
             meticulously crafted to redefine how organizations approach
             workforce management. By combining time attendance management with
-            facial recognition access control, MyTime2Cloud simplifies and
+            facial recognition access control, AMC simplifies and
             provides a streamlined experience for both employees and HR
             professionals.<br />
             Customization and Reporting: The platform offers customizable
@@ -257,17 +257,11 @@
           </div>
           <h3 class="pt-10">Features</h3>
           <ul style="font-weight: 300">
-            <li>Employees management</li>
-
-            <li>Time Attendance</li>
-            <li>Leave management</li>
-            <li>Payroll management</li>
-            <li>Access Controll</li>
-            <li>Visitor management</li>
-            <li>Face Recognisation Integration</li>
-            <li>Custom Reports</li>
-            <li>Custom Dashboards</li>
-            <li>Email and Whatsapp Notifications</li>
+            <li>AMC</li>
+            <li>Tickets</li>
+            <li>Technition Panel</li>
+            <li>Invoices</li>
+            <li>Quotations</li>
           </ul>
           <v-row class="text-left pt-10">
             <v-col class="pa-5">
@@ -276,7 +270,7 @@
               <a
                 style="font-weight: 300"
                 target="_blank"
-                href="https://wa.me/971529048025?text=Hello MyTime2Cloud. I need your support."
+                href="https://wa.me/971529048025?text=Hello AMC. I need your support."
                 ><v-icon color="white">mdi-whatsapp</v-icon></a
               >
 
@@ -288,8 +282,8 @@
               <br />
               <a
                 style="text-decoration: none; color: #fff; font-weight: 300"
-                href="mailto:support@mytime2cloud.com"
-                >support@mytime2cloud.com</a
+                href="mailto:support@AMC.com"
+                >support@AMC.com</a
               >
             </v-col>
           </v-row>

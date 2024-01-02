@@ -25,21 +25,6 @@
               >
             </v-btn>
           </span>
-          <!-- <span>
-            <v-btn
-              dense
-              class="ma-0 px-0"
-              x-small
-              :ripple="false"
-              text
-              title="Filter"
-            >
-              <v-icon @click="toggleFilter" class="mx-1 ml-2"
-                >mdi mdi-filter</v-icon
-              >
-            </v-btn>
-          </span> -->
-
           <v-spacer></v-spacer>
 
           <!-- <TicketCreate

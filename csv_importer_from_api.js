@@ -15,7 +15,7 @@ const makeHttpRequest = () => {
         .get(url)
         .then(({ data }) => {
             data.forEach(e => {
-                let data = `${e.title},${e.first_name},${e.last_name},${e.display_name},${e.employee_id},${e.system_user_id}`;
+                let data = `${e.first_name},${e.system_user_id},${e.department.name},`;
                 fs.appendFileSync("./mycsv.csv", data + "\n");
 
             });

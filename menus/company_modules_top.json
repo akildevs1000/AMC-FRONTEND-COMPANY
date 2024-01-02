@@ -19,5 +19,13 @@
     "to": "/tickets",
     "menu": "tickets",
     "module": "topmenu"
+  },
+  {
+    "icon": "mdi-cash",
+    "title": "Quotations",
+    "to": "/quotation",
+    "submenu": "quotation",
+    "menu": "quotation",
+    "module": "topmenu"
   }
 ]

@@ -1,0 +1,105 @@
+[
+  {
+    "text": "#",
+    "align": "left",
+    "sortable": true,
+    "key": "id",
+    "value": "id",
+    "filterable": true,
+    "filterSpecial": false
+  },
+
+  {
+    "text": "Contract Date",
+    "align": "left",
+    "sortable": true,
+    "key": "date",
+    "value": "date",
+    "filterable": true,
+    "filterSpecial": false
+  },
+
+  {
+    "text": "Start Date",
+    "align": "left",
+    "sortable": true,
+    "key": "start_date",
+    "value": "start_date",
+    "filterable": true,
+    "filterSpecial": false
+  },
+
+  {
+    "text": "Expired Date",
+    "align": "left",
+    "sortable": true,
+    "key": "expire_date",
+    "value": "expire_date",
+    "filterable": true,
+    "filterSpecial": false
+  },
+
+  {
+    "text": "AMC Type",
+    "align": "left",
+    "sortable": true,
+    "key": "amc_type",
+    "value": "amc_type",
+    "filterable": true,
+    "filterSpecial": false
+  },
+
+  {
+    "text": "Visit",
+    "align": "left",
+    "sortable": true,
+    "key": "visit_type",
+    "value": "visit_type",
+    "filterable": true,
+    "filterSpecial": false
+  },
+
+  {
+    "text": "Service",
+    "align": "left",
+    "sortable": true,
+    "key": "service_call_type",
+    "value": "service_call_type",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
+    "text": "Value",
+    "align": "left",
+    "sortable": true,
+    "key": "value",
+    "value": "value",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
+    "text": "Attachment",
+    "align": "left",
+    "sortable": true,
+    "key": "attachment",
+    "value": "attachment",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
+    "text": "Status",
+    "align": "left",
+    "sortable": true,
+    "key": "status",
+    "value": "status",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
+    "text": "Action",
+    "align": "left",
+    "sortable": false,
+    "key": "options",
+    "value": "options"
+  }
+]
