@@ -55,7 +55,7 @@
               "
             />
           </v-col>
-          <v-col md="4" cols="12" sm="12" dense>
+          <v-col md="6" cols="12" sm="12" dense>
             <v-select
               :items="AMCTypes"
               label="Type Of AMC"
@@ -70,7 +70,7 @@
               "
             ></v-select>
           </v-col>
-          <v-col md="4" cols="12" sm="12" dense>
+          <v-col md="6" cols="12" sm="12" dense>
             <v-select
               :items="VisitTypes"
               item-value="id"
@@ -85,7 +85,7 @@
               "
             ></v-select>
           </v-col>
-          <v-col md="4" cols="12" sm="12" dense>
+          <!-- <v-col md="6" cols="12" sm="12" dense>
             <v-select
               :items="ServiceCallTypes"
               item-value="id"
@@ -101,7 +101,7 @@
                   : ''
               "
             ></v-select>
-          </v-col>
+          </v-col> -->
 
           <v-col cols="12" md="3">
             <div class="text-center">

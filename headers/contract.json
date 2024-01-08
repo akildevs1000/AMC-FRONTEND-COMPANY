@@ -43,28 +43,17 @@
     "text": "AMC Type",
     "align": "left",
     "sortable": true,
-    "key": "amc_type",
-    "value": "amc_type",
+    "key": "amc_type.name",
+    "value": "amc_type.name",
     "filterable": true,
     "filterSpecial": false
   },
-
   {
     "text": "Visit",
     "align": "left",
     "sortable": true,
-    "key": "visit_type",
-    "value": "visit_type",
-    "filterable": true,
-    "filterSpecial": false
-  },
-
-  {
-    "text": "Service",
-    "align": "left",
-    "sortable": true,
-    "key": "service_call_type",
-    "value": "service_call_type",
+    "key": "visit_type.name",
+    "value": "visit_type.name",
     "filterable": true,
     "filterSpecial": false
   },

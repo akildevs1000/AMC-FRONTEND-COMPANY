@@ -61,16 +61,6 @@
           class="elevation-1"
           :server-items-length="totalRowsCount"
         >
-          <template v-slot:item.amc_type="{ item }">
-            {{ item.amc_type.name }}
-          </template>
-          <template v-slot:item.visit_type="{ item }">
-            {{ item.visit_type.name }}
-          </template>
-          <template v-slot:item.service_call_type="{ item }">
-            {{ item.service_call_type.name }}
-          </template>
-
           <template v-slot:item.attachment="{ item }">
             <ViewAttachment
               :key="getRandomId()"

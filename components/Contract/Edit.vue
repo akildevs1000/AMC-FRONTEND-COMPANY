@@ -67,7 +67,7 @@
               "
             />
           </v-col>
-          <v-col md="4" cols="12" sm="12" dense>
+          <v-col md="6" cols="12" sm="12" dense>
             <v-select
               :items="AMCTypes"
               label="Type Of AMC"
@@ -82,7 +82,7 @@
               "
             ></v-select>
           </v-col>
-          <v-col md="4" cols="12" sm="12" dense>
+          <v-col md="6" cols="12" sm="12" dense>
             <v-select
               :items="VisitTypes"
               item-value="id"
@@ -94,23 +94,6 @@
               :hide-details="!errors.visit_type_id"
               :error-messages="
                 errors && errors.visit_type_id ? errors.visit_type_id[0] : ''
-              "
-            ></v-select>
-          </v-col>
-          <v-col md="4" cols="12" sm="12" dense>
-            <v-select
-              :items="ServiceCallTypes"
-              item-value="id"
-              item-text="name"
-              label="Type Of Service Call"
-              dense
-              outlined
-              v-model="payload.service_call_type_id"
-              :hide-details="!errors.service_call_type_id"
-              :error-messages="
-                errors && errors.service_call_type_id
-                  ? errors.service_call_type_id[0]
-                  : ''
               "
             ></v-select>
           </v-col>
