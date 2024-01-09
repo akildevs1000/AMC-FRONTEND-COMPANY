@@ -91,7 +91,17 @@
 
             <v-divider></v-divider>
             <v-row class="pt-5">
-              <v-col cols="3" offset="9">
+              <v-col cols="6">
+                <v-select
+                  label="Status"
+                  dense
+                  outlined
+                  v-model="payload.status"
+                  :items="[`pending`, `submitted`, `approved`, `cancelled`]"
+                  :hide-details="true"
+                ></v-select>
+              </v-col>
+              <v-col cols="3" offset="3">
                 <v-row no-gutters>
                   <v-col class="secondary--text">Sub Total AED</v-col>
                   <v-col class="secondary--text text-right"

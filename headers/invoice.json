@@ -10,6 +10,16 @@
   },
 
   {
+    "text": "Company",
+    "align": "left",
+    "sortable": true,
+    "key": "company",
+    "value": "company",
+    "filterable": true,
+    "filterSpecial": false
+  },
+
+  {
     "text": "Date",
     "align": "left",
     "sortable": true,
