@@ -21,6 +21,13 @@
     "module": "topmenu"
   },
   {
+    "icon": "mdi-clipboard-text-clock",
+    "title": "AMC",
+    "to": "/service_calls",
+    "menu": "service_calls",
+    "module": "topmenu"
+  },
+  {
     "icon": "mdi-cash",
     "title": "Quotations",
     "to": "/quotation",

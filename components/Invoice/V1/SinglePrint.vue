@@ -21,7 +21,7 @@
           <h3>
             {{ item.company.name ?? "---" }}
           </h3>
-          <div>Address: {{ item.company.location ?? "---" }}</div>
+          <div>Address: {{ item.company.address ?? "---" }}</div>
           <div>Phone: {{ item.company.contact_number ?? "---" }}</div>
           <div>Email: {{ item.company.email ?? "---" }}</div>
         </v-col>

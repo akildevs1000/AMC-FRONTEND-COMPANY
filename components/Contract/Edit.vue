@@ -178,9 +178,9 @@ export default {
     this.$axios.get(`visit_type_list`).then(({ data }) => {
       this.VisitTypes = data;
     });
-    this.$axios.get(`service_call_type_list`).then(({ data }) => {
-      this.ServiceCallTypes = data;
-    });
+    // this.$axios.get(`service_call_type_list`).then(({ data }) => {
+    //   this.ServiceCallTypes = data;
+    // });
   },
   methods: {
     onpick_attachment() {
@@ -209,7 +209,7 @@ export default {
       payload.append("expire_date", this.payload.expire_date);
       payload.append("amc_type_id", this.payload.amc_type_id);
       payload.append("visit_type_id", this.payload.visit_type_id);
-      payload.append("service_call_type_id", this.payload.service_call_type_id);
+      // payload.append("service_call_type_id", this.payload.service_call_type_id);
       payload.append("value", this.payload.value);
       if (this.upload.name) {
         payload.append("attachment", this.upload.name);

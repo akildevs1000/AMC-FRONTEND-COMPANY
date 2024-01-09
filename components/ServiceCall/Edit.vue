@@ -1,37 +1,16 @@
 <template>
   <v-dialog persistent v-model="dialog" width="700">
     <template v-slot:activator="{ on, attrs }">
-      <span>
-        <v-btn
-          v-bind="attrs"
-          v-on="on"
-          dense
-          small
-          class="primary"
-          text
-          title="Create Community"
-        >
-          Create Ticket
-          <v-icon right dark>mdi-plus-circle-outline</v-icon>
-        </v-btn>
+      <span style="cursor: pointer" text v-bind="attrs" v-on="on">
+        <v-icon color="secondary" small> mdi-pencil </v-icon>
+        Edit
       </span>
     </template>
     <v-card>
-      <v-card-title> Create Ticket </v-card-title>
+      <v-card-title> Edit Service Call </v-card-title>
       <v-card-text>
         <v-row>
           <v-col md="6" cols="12" sm="12" dense>
-            <v-text-field
-              label="Title"
-              dense
-              outlined
-              type="text"
-              v-model="payload.title"
-              :hide-details="!errors.title"
-              :error-messages="errors && errors.title ? errors.title[0] : ''"
-            ></v-text-field>
-          </v-col>
-          <v-col md="6" cols="12" sm="12">
             <v-select
               :items="companies"
               item-text="name"
@@ -40,26 +19,54 @@
               dense
               outlined
               v-model="payload.company_id"
+              @change="getContracts(payload.company_id)"
               :hide-details="!errors.company_id"
               :error-messages="
                 errors && errors.company_id ? errors.company_id[0] : ''
               "
             ></v-select>
           </v-col>
-          <v-col md="12" cols="12" sm="12" dense>
-            <v-textarea
-              rows="4"
-              label="Description"
+
+          <v-col md="6" cols="12" sm="12" dense>
+            <v-select
+              :items="contracts"
+              :item-text="`date_range`"
+              item-value="id"
+              label="Select Contract"
               dense
               outlined
-              type="text"
-              v-model="payload.description"
-              :hide-details="!errors.description"
+              v-model="payload.contract_id"
+              :hide-details="!errors.contract_id"
               :error-messages="
-                errors && errors.description ? errors.description[0] : ''
+                errors && errors.contract_id ? errors.contract_id[0] : ''
               "
-            ></v-textarea>
+            ></v-select>
           </v-col>
+
+          <v-col md="6" cols="12" sm="12" dense>
+            <DatePicker
+              label="Schedule Start Date"
+              :default_date="payload.schedule_start_date"
+              @date="
+                (e) => {
+                  payload.schedule_start_date = e;
+                }
+              "
+            />
+          </v-col>
+
+          <v-col md="6" cols="12" sm="12" dense>
+            <DatePicker
+              label="Schedule End Date"
+              :default_date="payload.schedule_end_date"
+              @date="
+                (e) => {
+                  payload.schedule_end_date = e;
+                }
+              "
+            />
+          </v-col>
+
           <v-col md="6" cols="12" sm="12" dense>
             <v-select
               :items="priorities"
@@ -68,47 +75,14 @@
               label="Prority"
               dense
               outlined
-              v-model="payload.prority"
-              :hide-details="!errors.prority"
+              v-model="payload.prority_id"
+              :hide-details="!errors.prority_id"
               :error-messages="
-                errors && errors.prority ? errors.prority[0] : ''
+                errors && errors.prority_id ? errors.prority_id[0] : ''
               "
             ></v-select>
           </v-col>
-          <v-col cols="12" md="12">
-            <div class="text-">
-              <!-- <v-img
-                style="
-                  width: 150px;
-                  height: 150px;
-                  border-radius: 50%;
-                  margin: 0 auto;
-                "
-                :src="previewImage"
-              ></v-img> -->
-              <v-btn
-                rounded
-                class="mt-2 primary"
-                small
-                @click="onpick_attachment"
-                >{{ !upload.name ? "Upload" : "Change" }}
-                <v-icon right dark>mdi-cloud-upload</v-icon>
-              </v-btn>
 
-              <input
-                required
-                type="file"
-                @change="attachment"
-                style="display: none"
-                accept="image/*"
-                ref="attachment_input"
-              />
-
-              <span v-if="errors && errors.logo" class="text-danger mt-2">{{
-                errors.logo[0]
-              }}</span>
-            </div>
-          </v-col>
           <v-col cols="12" class="text-right my-1">
             <v-btn small @click="dialog = false">Close</v-btn>
             <v-btn small :loading="loading" @click="submit" class="primary"
@@ -124,8 +98,6 @@
 <script>
 export default {
   data: () => ({
-    dateMenu: false,
-    dateMenu2: false,
     dialog: false,
     snackbar: false,
     response: "",
@@ -134,33 +106,14 @@ export default {
     upload: {
       name: "",
     },
-    payload: {
-      name: "",
-      email: "",
-      logo: "",
-      member_from: "",
-      expiry: "",
-      no_branch: "",
-      max_branches: "",
-      max_employee: "",
-      max_devices: "",
-    },
-    contact_payload: {
-      name: "",
-      number: "",
-      position: "",
-      whatsapp: "",
-    },
-    // location: "",
-    geographic_payload: {
-      location: "",
-      lat: "",
-      lon: "",
-    },
+    payload: {},
+
     e1: 1,
     errors: [],
     previewImage: "/no-business_profile.png",
+
     companies: [],
+    contracts: [],
     priorities: [],
   }),
   created() {
@@ -175,6 +128,15 @@ export default {
       .then(({ data }) => (this.priorities = data));
   },
   methods: {
+    getContracts(id) {
+      this.$axios.get(`/contract_list/${id}`).then(
+        ({ data }) =>
+          (this.contracts = data.map((e) => ({
+            id: e.id,
+            date_range: `Contract (${e.start_date + " to " + e.expire_date})`,
+          })))
+      );
+    },
     can(per) {
       return this.$pagePermission.can(per, this);
     },
@@ -199,19 +161,8 @@ export default {
     },
 
     submit() {
-      // this.loading = true;
-
-      let payload = new FormData();
-
-      payload.append("title", this.payload.title);
-      payload.append("prority", this.payload.prority);
-      payload.append("description", this.payload.description);
-      payload.append("company_id", this.payload.company_id);
-      payload.append("user_id", 0);
-      payload.append("attachment", this.upload.name);
-
       this.$axios
-        .post("/ticket", payload)
+        .post("/service_call", this.payload)
         .then(({ data }) => {
           this.loading = false;
 

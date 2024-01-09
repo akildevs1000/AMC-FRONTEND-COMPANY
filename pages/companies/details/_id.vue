@@ -211,7 +211,7 @@
                   </div>
 
                   <div>
-                    {{ item.location }}
+                    {{ item.address }}
                   </div>
                 </v-card-text>
               </v-card>
@@ -256,7 +256,7 @@
                     <b>{{ item.name }}</b>
                   </div>
                   <div>
-                    {{ item.location }}
+                    {{ item.address }}
                   </div>
                 </v-card-text>
               </v-card>

@@ -54,10 +54,24 @@
     "module": "tickets"
   },
   {
+    "icon": "mdi-account-wrench-outline ",
+    "title": "AMC",
+    "to": "/service_calls",
+    "menu": "service_calls",
+    "module": "service_calls"
+  },
+  {
     "icon": "mdi-cash",
     "title": "Quotations",
     "to": "/quotation",
     "menu": "quotation",
     "module": "quotation"
+  },
+  {
+    "icon": "mdi-cash-multiple",
+    "title": "Invoices",
+    "to": "/invoice",
+    "menu": "invoice",
+    "module": "invoice"
   }
 ]

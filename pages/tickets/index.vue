@@ -42,11 +42,11 @@
 
           <v-spacer></v-spacer>
 
-          <!-- <TicketCreate
+          <TicketCreate
             @success="
               (e) => handleSuccessResponse(`Ticket Successfully created`)
             "
-          /> -->
+          />
         </v-toolbar>
         <v-data-table
           dense
@@ -79,16 +79,16 @@
               </v-avatar>
               <div class="mt-2">
                 <strong> {{ item.company && item.company.name }}</strong>
-                <p>{{ item.company && item.company.location }}</p>
+                <p>{{ item.company && item.company.address }}</p>
               </div>
             </v-card>
           </template>
 
-          <template v-slot:item.priority="{ item }">
-            <v-chip dark small :color="priorityRelatedColor(item.prority)">{{
-              item.prority
+          <!-- <template v-slot:item.priority="{ item }">
+            <v-chip dark small :color="priorityRelatedColor(item.priority && item.priority.name ? item.priority.name :  '---') ">{{
+              item.priority && item.priority.name ? item.priority.name :  "---"
             }}</v-chip>
-          </template>
+          </template> -->
 
           <template v-slot:item.status="{ item }">
             <v-chip dark small :color="statusRelatedColor(item.status)">{{

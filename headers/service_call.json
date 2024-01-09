@@ -1,0 +1,84 @@
+[
+  {
+    "text": "Reference Id",
+    "align": "left",
+    "sortable": true,
+    "key": "id",
+    "value": "id",
+    "filterable": true,
+    "filterSpecial": false,
+    "width": "130px"
+  },
+
+  {
+    "text": "Company",
+    "align": "left",
+    "sortable": true,
+    "key": "contract",
+    "value": "contract",
+    "filterable": true,
+    "filterSpecial": false,
+    "width": "250px"
+  },
+
+  {
+    "text": "Priority",
+    "align": "left",
+    "sortable": true,
+    "key": "priority.name",
+    "value": "priority.name",
+    "filterable": true,
+    "filterSpecial": false,
+    "width": "130px"
+  },
+
+  {
+    "text": "Status",
+    "align": "left",
+    "sortable": true,
+    "key": "status",
+    "value": "status",
+    "filterable": true,
+    "filterSpecial": false,
+    "width": "130px"
+  },
+ 
+  {
+    "text": "Schedule Start Date",
+    "align": "left",
+    "sortable": true,
+    "key": "schedule_start_date",
+    "value": "schedule_start_date",
+    "filterable": true,
+    "filterSpecial": false,
+    "width": "200px"
+  },
+  {
+    "text": "Schedule End Date",
+    "align": "left",
+    "sortable": true,
+    "key": "schedule_end_date",
+    "value": "schedule_end_date",
+    "filterable": true,
+    "filterSpecial": false,
+    "width": "200px"
+  },
+  {
+    "text": "Created Date",
+    "align": "left",
+    "sortable": true,
+    "key": "date",
+    "value": "date",
+    "filterable": true,
+    "filterSpecial": false,
+    "width": "200px"
+  },
+  {
+    "text": "Action",
+    "align": "left",
+    "sortable": false,
+    "key": "options",
+    "value": "options",
+    "width": "200px"
+  }
+]

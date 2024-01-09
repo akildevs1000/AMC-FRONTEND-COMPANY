@@ -75,7 +75,7 @@
                 </div>
                 <div class="pt-3">
                   <strong> {{ item.name }}</strong>
-                  <p>{{ item.location }}</p>
+                  <p>{{ item.address }}</p>
                 </div>
               </div>
             </template>

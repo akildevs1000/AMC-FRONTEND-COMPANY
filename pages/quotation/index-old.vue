@@ -79,7 +79,7 @@
               </v-avatar>
               <div class="mt-2">
                 <strong> {{ item.company && item.company.name }}</strong>
-                <p>{{ item.company && item.company.location }}</p>
+                <p>{{ item.company && item.company.address }}</p>
               </div>
             </v-card>
           </template>
