@@ -72,7 +72,7 @@ export default {
     "~/plugins/custom-methods.js",
     { src: "~/plugins/crypto.js", mode: "client" },
     { src: "~/plugins/axios.js" },
-    { src: "~/plugins/TiptapVuetify", mode: "client" },
+    // { src: "~/plugins/TiptapVuetify", mode: "client" },
     { src: "~/plugins/vue-apexchart.js", ssr: false },
   ],
 

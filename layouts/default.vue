@@ -121,15 +121,7 @@
       <v-spacer></v-spacer>
 
       <span style="100%">
-        <template
-          v-if="
-            getLoginType == 'company' ||
-            getLoginType == 'branch' ||
-            (getLoginType == 'employee' &&
-              $auth.user.role.role_type.toLowerCase() != 'guard' &&
-              $auth.user.role.role_type.toLowerCase() != 'host')
-          "
-        >
+        <template>
           <v-row align="center" justify="space-around" class="">
             <v-col v-for="(items, index) in company_top_menu" :key="index">
               <v-btn
@@ -172,10 +164,7 @@
 
         <v-list light nav dense>
           <v-list-item-group color="primary">
-            <v-list-item
-              v-if="this.$auth && this.$auth.user.user_type == 'company'"
-              @click="goToCompany()"
-            >
+            <v-list-item @click="goToCompany()">
               <v-list-item-icon>
                 <v-icon>mdi-account-multiple-outline</v-icon>
               </v-list-item-icon>
@@ -200,17 +189,6 @@
         </v-list>
       </v-menu>
 
-      <!-- <v-btn
-        v-if="getLoginType == 'company' || getLoginType == 'branch'"
-        icon
-        plan
-        @click="goToSettings()"
-        class="mr-3"
-        ><v-icon class="violet--text" style="text-align: center"
-          >mdi-settings</v-icon
-        ></v-btn
-      > -->
-
       <v-menu
         bottom
         origin="center center"
@@ -220,7 +198,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon dark v-bind="attrs" v-on="on">
             <v-badge
-              :color="pendingNotificationsCount > 0 ? 'red' : 'red'"
+              :color="pendingNotificationsCount > 0 ? 'red' : ''"
               :content="pendingNotificationsCount"
               style="top: 10px; left: -19px"
             >
@@ -484,16 +462,9 @@ export default {
     };
   },
   created() {
-    this.$store.commit("loginType", this.$auth.user.user_type);
     this.setMenus();
     this.setSubLeftMenuItems("dashboard", "/dashboard2", false);
     this.logo_src = require("@/static/logo22.png");
-
-    this.loadNotificationMenu();
-
-    setInterval(() => {
-      this.loadNotificationMenu();
-    }, 1000 * 60);
   },
 
   mounted() {
@@ -503,33 +474,31 @@ export default {
 
     menu_name = menu_name.replaceAll("-", "/");
 
-    if (this.getLoginType === "company" || this.getLoginType === "branch") {
-      loadSelectedMenu = this.company_menus.filter(
-        (item) => item.to === "/" + menu_name && item.submenu == null
-      );
+    loadSelectedMenu = this.company_menus.filter(
+      (item) => item.to === "/" + menu_name && item.submenu == null
+    );
 
-      if (loadSelectedMenu[0]) {
-        menu_name = loadSelectedMenu[0].module;
+    if (loadSelectedMenu[0]) {
+      menu_name = loadSelectedMenu[0].module;
 
-        if (this.menuProperties.hasOwnProperty(menu_name)) {
-          for (const key in this.menuProperties) {
-            this.menuProperties[key].elevation = 0;
-            this.menuProperties[key].selected = "";
-          }
-
-          this.menuProperties[menu_name].elevation = 0;
-          this.menuProperties[menu_name].selected = bgColor;
+      if (this.menuProperties.hasOwnProperty(menu_name)) {
+        for (const key in this.menuProperties) {
+          this.menuProperties[key].elevation = 0;
+          this.menuProperties[key].selected = "";
         }
-        //Color is changed and Now display sub menu - click - load left sub menu items
 
-        this.items = this.company_menus.filter(
-          (item) => item.module === loadSelectedMenu[0].module
-        );
+        this.menuProperties[menu_name].elevation = 0;
+        this.menuProperties[menu_name].selected = bgColor;
       }
+      //Color is changed and Now display sub menu - click - load left sub menu items
+
+      this.items = this.company_menus.filter(
+        (item) => item.module === loadSelectedMenu[0].module
+      );
     }
-    setTimeout(() => {
-      this.$router.push(`/dashboard2`);
-    }, 1000 * 60 * 15); //15 minutes
+    // setTimeout(() => {
+    //   this.$router.push(`/dashboard2`);
+    // }, 1000 * 60 * 15); //15 minutes
   },
   watch: {},
   computed: {
@@ -537,55 +506,14 @@ export default {
       return "#ecf0f4"; //this.$store.state.color;
     },
 
-    getUser() {
-      return this.$auth.user.name;
-    },
-
     getLogo() {
       return "/no-image.PNG";
-    },
-    getLoginType() {
-      return this.$store.state.loginType;
-    },
-
-    hasDepartments() {
-      return this.$auth.user && this.$auth.user.assignedDepartments.length > 0;
     },
   },
   methods: {
     gotoHomePage() {
       //location.href = process.env.APP_URL + "/dashboard2";
       location.href = location.href; // process.env.APP_URL + "/dashboard2";
-    },
-    loadNotificationMenu() {
-      let options = {
-        params: {
-          company_id: this.$auth.user?.company?.id || 0,
-        },
-      };
-      this.$axios.get(`get-notifications-count`, options).then(({ data }) => {
-        this.notificationsMenuItems = [];
-        this.pendingNotificationsCount = 0;
-
-        if (data.employee_leaves_pending_count) {
-          this.pendingNotificationsCount += data.employee_leaves_pending_count;
-          this.notificationsMenuItems.push({
-            title:
-              "Leaves Pending (" + data.employee_leaves_pending_count + ")",
-            click: "/leaves",
-            icon: "mdi-calendar-account",
-          });
-        }
-        if (data.visitor_request_pending_count) {
-          this.pendingNotificationsCount += data.visitor_request_pending_count;
-          this.notificationsMenuItems.push({
-            title:
-              "Visitors Pending (" + data.visitor_request_pending_count + ")",
-            click: "/visitor/requests",
-            icon: "mdi-transit-transfer",
-          });
-        }
-      });
     },
     getTopMenuItems(i) {
       if (i.module == "dashboard") {

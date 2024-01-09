@@ -42,11 +42,12 @@
 
           <v-spacer></v-spacer>
 
-          <v-icon
-            color="primary"
-            @click="() => $router.push(`/quotation/create`)"
-            >mdi-plus-circle-outline</v-icon
-          >
+          <QuotationCreateOpen
+            :key="getRandomId()"
+            @success="
+              (e) => handleSuccessResponse(`Quotation Successfully created`)
+            "
+          />
         </v-toolbar>
         <v-data-table
           dense
@@ -100,42 +101,34 @@
                 </v-btn>
               </template>
               <v-list width="175" dense>
-                <!-- <v-list-item>
+                <v-list-item>
                   <v-list-item-title>
                     <QuotationSingle :key="getRandomId()" :item="item" />
                   </v-list-item-title>
-                </v-list-item> -->
+                </v-list-item>
                 <v-list-item>
                   <v-list-item-title>
-                    <QuotationV1SinglePreview
-                      :key="getRandomId()"
-                      :payload="item"
+                    <QuotationEdit
+                      :id="id"
+                      :item="item"
+                      @success="
+                        (e) => handleSuccessResponse(`Record has been updated`)
+                      "
                     />
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>
-                    <QuotationV1SinglePrint :key="getRandomId()" :item="item" />
+                    <QuotationClone
+                      :id="id"
+                      :item="item"
+                      @success="
+                        (e) => handleSuccessResponse(`Record has been cloned`)
+                      "
+                    />
                   </v-list-item-title>
                 </v-list-item>
-                <v-list-item :to="`/quotation/${item.id}`">
-                  <v-list-item-title>
-                    <v-icon small color="black">mdi-pencil</v-icon> Edit
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item :to="`/quotation/clone/${item.id}`">
-                  <v-list-item-title>
-                    <v-icon small color="black">mdi-content-duplicate</v-icon>
-                    Clone
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item :to="`/quotation/invoice/${item.id}`">
-                  <v-list-item-title>
-                    <v-icon small color="black">mdi-file-document</v-icon>
-                    Convert to Invoice
-                  </v-list-item-title>
-                </v-list-item>
-                <!-- <v-list-item>
+                <v-list-item>
                   <v-list-item-title>
                     <QuotationInvoice
                       :id="id"
@@ -145,7 +138,7 @@
                       "
                     />
                   </v-list-item-title>
-                </v-list-item> -->
+                </v-list-item>
               </v-list>
             </v-menu>
           </template> </v-data-table
@@ -157,7 +150,6 @@
 
 <script>
 export default {
-  auth: false,
   data: () => ({
     totalRowsCount: 0,
     showFilters: false,
@@ -257,10 +249,11 @@ export default {
         filters: this.filters,
       };
 
+      console.log(json);
+
       const data = await this.$store.dispatch("fetchData", json);
 
       this.data = data.data;
-
       this.totalRowsCount = data.total;
       this.loadinglinear = false;
     },
