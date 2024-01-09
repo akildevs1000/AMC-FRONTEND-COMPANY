@@ -27,5 +27,13 @@
     "submenu": "quotation",
     "menu": "quotation",
     "module": "topmenu"
+  },
+  {
+    "icon": "mdi-cash",
+    "title": "Invoices",
+    "to": "/invoice",
+    "submenu": "invoice",
+    "menu": "invoice",
+    "module": "topmenu"
   }
 ]

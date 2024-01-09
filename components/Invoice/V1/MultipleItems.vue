@@ -111,28 +111,28 @@ export default {
     },
     payload: {
       type: Object,
-      default: function () {
+      default: function() {
         return {
-          items: [
-            {
-              title: "Item Name",
-              warranty: "Yes",
-              qty: 10,
-              unit_price: 10,
-              description: "item description",
-            },
-            {
-              title: "Item Name 2",
-              warranty: "No",
-              qty: 5,
-              unit_price: 5,
-              description: "item description 2",
-            },
-          ],
-          sub_total: 0,
-          vat: 0,
-          total: 0,
-        };
+        items: [
+          {
+            title: "Item Name",
+            warranty: "Yes",
+            qty: 10,
+            unit_price: 10,
+            description: "item description",
+          },
+          {
+            title: "Item Name 2",
+            warranty: "No",
+            qty: 5,
+            unit_price: 5,
+            description: "item description 2",
+          },
+        ],
+        sub_total: 0,
+        vat: 0,
+        total: 0,
+      }
       },
     },
   },

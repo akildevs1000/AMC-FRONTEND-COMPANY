@@ -44,7 +44,7 @@
 
           <v-icon
             color="primary"
-            @click="() => $router.push(`/quotation/create`)"
+            @click="() => $router.push(`/invoice/create`)"
             >mdi-plus-circle-outline</v-icon
           >
         </v-toolbar>
@@ -100,14 +100,9 @@
                 </v-btn>
               </template>
               <v-list width="175" dense>
-                <!-- <v-list-item>
-                  <v-list-item-title>
-                    <QuotationSingle :key="getRandomId()" :item="item" />
-                  </v-list-item-title>
-                </v-list-item> -->
                 <v-list-item>
                   <v-list-item-title>
-                    <QuotationV1SinglePreview
+                    <InvoiceV1SinglePreview
                       :key="getRandomId()"
                       :payload="item"
                     />
@@ -115,37 +110,20 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>
-                    <QuotationV1SinglePrint :key="getRandomId()" :item="item" />
+                    <InvoiceV1SinglePrint :key="getRandomId()" :item="item" />
                   </v-list-item-title>
                 </v-list-item>
-                <v-list-item :to="`/quotation/${item.id}`">
+                <v-list-item :to="`/invoice/${item.id}`">
                   <v-list-item-title>
                     <v-icon small color="black">mdi-pencil</v-icon> Edit
                   </v-list-item-title>
                 </v-list-item>
-                <v-list-item :to="`/quotation/clone/${item.id}`">
+                <v-list-item :to="`/invoice/clone/${item.id}`">
                   <v-list-item-title>
                     <v-icon small color="black">mdi-content-duplicate</v-icon>
                     Clone
                   </v-list-item-title>
                 </v-list-item>
-                <v-list-item :to="`/quotation/invoice/${item.id}`">
-                  <v-list-item-title>
-                    <v-icon small color="black">mdi-file-document</v-icon>
-                    Convert to Invoice
-                  </v-list-item-title>
-                </v-list-item>
-                <!-- <v-list-item>
-                  <v-list-item-title>
-                    <QuotationInvoice
-                      :id="id"
-                      :item="item"
-                      @success="
-                        (e) => handleSuccessResponse(`Record has been cloned`)
-                      "
-                    />
-                  </v-list-item-title>
-                </v-list-item> -->
               </v-list>
             </v-menu>
           </template> </v-data-table
@@ -173,15 +151,15 @@ export default {
     },
     payload: {},
     options: {},
-    Model: "Quotation",
-    endpoint: "quotation",
+    Model: "Invoice",
+    endpoint: "invoice",
     snackbar: false,
     loading: false,
     response: "",
     data: [],
     errors: [],
     id: 30,
-    headers: require("../../headers/quotation.json"),
+    headers: require("../../headers/invoice.json"),
   }),
 
   async created() {
@@ -214,23 +192,6 @@ export default {
     getRandomId() {
       return Math.random().toString(36).substring(2);
     },
-    priorityRelatedColor(value) {
-      let color = {
-        High: "red",
-        Medium: "blue",
-        Low: "grey",
-      };
-      return color[value];
-    },
-
-    statusRelatedColor(value) {
-      let color = {
-        Open: "green",
-        "In Progress": "blue",
-        Close: "grey",
-      };
-      return color[value];
-    },
     applyFilters() {
       this.getDataFromApi();
     },
@@ -247,10 +208,9 @@ export default {
     async getDataFromApi() {
       this.loadinglinear = true;
 
-      this.filters.company_id = this.id;
 
       let json = {
-        key: "quotations",
+        key: "invoice",
         options: this.options,
         refresh: true,
         endpoint: this.endpoint,
