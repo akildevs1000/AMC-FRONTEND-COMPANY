@@ -43,9 +43,7 @@
           <v-spacer></v-spacer>
 
           <ServiceCallCreate
-            @success="
-              (e) => handleSuccessResponse(`AMC Successfully created`)
-            "
+            @success="(e) => handleSuccessResponse(`AMC Successfully created`)"
           />
         </v-toolbar>
         <v-data-table
@@ -61,7 +59,7 @@
           class="elevation-1"
           :server-items-length="totalRowsCount"
         >
-          <template v-slot:item.contract="{ item: { contract }, index }">
+          <template v-slot:item.company="{ item: { contract }, index }">
             <v-card
               elevation="0"
               style="background: none"
@@ -79,22 +77,22 @@
               </v-avatar>
               <div class="mt-2">
                 <strong>
-                  {{
-                    contract.company && contract.company.name
-                  }}</strong
+                  {{ contract.company && contract.company.name }}</strong
                 >
                 <p>
-                  {{ contract.company && contract.company.location }}
+                  {{ contract.company && contract.company.address }}
                 </p>
               </div>
             </v-card>
           </template>
-          <!--  -->
 
           <template v-slot:item.priority.name="{ item }">
-            <v-chip dark small :color="priorityRelatedColor(item.priority.name)">{{
-              item.priority.name ?? "---"
-            }}</v-chip>
+            <v-chip
+              dark
+              small
+              :color="priorityRelatedColor(item.priority.name)"
+              >{{ item.priority.name ?? "---" }}</v-chip
+            >
           </template>
 
           <template v-slot:item.status="{ item }">
