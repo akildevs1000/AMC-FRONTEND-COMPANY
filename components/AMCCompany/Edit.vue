@@ -35,6 +35,12 @@
         <v-tab>
           <v-icon> mdi-cash-multiple </v-icon>
         </v-tab>
+        <v-tab>
+          <v-icon>mdi-clipboard</v-icon>
+        </v-tab>
+        <v-tab>
+          <v-icon>mdi-clipboard-check</v-icon>
+        </v-tab>
 
         <v-spacer></v-spacer>
         <v-tab @click="dialog = false">
@@ -405,6 +411,114 @@
         </v-tab-item>
         <v-tab-item>
           <Invoice @close-child="dialog = false" :id="item.id" />
+        </v-tab-item>
+        <v-tab-item>
+          <ServiceCall @close-child="dialog = false" :id="item.id" />
+        </v-tab-item>
+        <v-tab-item>
+          <FormEntryAMCCompany @close-child="dialog = false" :id="item.id" />
+        </v-tab-item>
+        <v-tab-item>
+          <v-container class="mt-5">
+            <v-row>
+              <v-col cols="12" md="3">
+                <div class="text-center">
+                  <v-img
+                    style="
+                      width: 150px;
+                      height: 150px;
+                      border-radius: 50%;
+                      margin: 0 auto;
+                    "
+                    :src="previewImage"
+                  ></v-img>
+                  <v-btn
+                    class="mt-2"
+                    style="width: 100%"
+                    small
+                    @click="onpick_attachment"
+                    >{{ !upload.name ? "Upload" : "Change" }}
+                    <v-icon right dark>mdi-cloud-upload</v-icon>
+                  </v-btn>
+
+                  <input
+                    required
+                    type="file"
+                    @change="attachment"
+                    style="display: none"
+                    accept="image/*"
+                    ref="attachment_input"
+                  />
+
+                  <span v-if="errors && errors.logo" class="text-danger mt-2">{{
+                    errors.logo[0]
+                  }}</span>
+                </div>
+              </v-col>
+              <v-col class="mt-3" md="9" sm="12" cols="12" dense>
+                <v-row>
+                  <v-col md="6" cols="12" sm="12" dense>
+                    <v-text-field
+                      label="Company Name"
+                      dense
+                      outlined
+                      type="text"
+                      v-model="payload.name"
+                      :hide-details="true"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col md="6" cols="12" sm="12" dense>
+                    <v-text-field
+                      label="Phone Number"
+                      dense
+                      outlined
+                      type="text"
+                      v-model="payload.contact_number"
+                      :hide-details="true"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col md="6" cols="12" sm="12" dense>
+                    <DatePicker
+                      label="Member From"
+                      :default_date="payload.member_from"
+                      @date="
+                        (e) => {
+                          payload.member_from = e;
+                        }
+                      "
+                    />
+                  </v-col>
+
+                  <v-col md="6" cols="12" sm="12" dense>
+                    <DatePicker
+                      label="Expiry Date"
+                      :default_date="payload.expiry"
+                      @date="
+                        (e) => {
+                          payload.expiry = e;
+                        }
+                      "
+                    />
+                  </v-col>
+                  <v-col md="6" cols="12" sm="12" dense>
+                    <v-text-field
+                      label="Email"
+                      dense
+                      outlined
+                      type="text"
+                      v-model="payload.email"
+                      :hide-details="true"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col cols="12" class="text-right">
+                <v-btn small @click="updateCompany" class="primary"
+                  >Update</v-btn
+                >
+              </v-col>
+            </v-row>
+          </v-container>
         </v-tab-item>
       </v-tabs>
     </v-card>

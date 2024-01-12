@@ -42,5 +42,12 @@
     "submenu": "invoice",
     "menu": "invoice",
     "module": "topmenu"
+  },
+  {
+    "icon": "mdi-form",
+    "title": "Reports",
+    "to": "/form_entry/amc",
+    "menu": "form_entry",
+    "module": "form_entry"
   }
 ]

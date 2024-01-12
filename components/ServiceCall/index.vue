@@ -46,7 +46,9 @@
             @success="(e) => handleSuccessResponse(`AMC Successfully created`)"
           /> -->
         </v-toolbar>
+       <v-container >
         <v-data-table
+        style="max-height: 600px; overflow-y: scroll;"
           dense
           :headers="headers"
           :items="data"
@@ -157,6 +159,7 @@
             </v-menu>
           </template>
         </v-data-table>
+       </v-container>
       </v-card>
     </div>
     <Preloader v-else />
@@ -165,6 +168,7 @@
 
 <script>
 export default {
+  props: ["id"],
   components: {},
 
   data: () => ({
@@ -248,6 +252,9 @@ export default {
     },
     async getDataFromApi() {
       this.loadinglinear = true;
+
+
+      this.filters.company_id = this.id;
 
       const data = await this.$store.dispatch("fetchData", {
         key: "service_calls",

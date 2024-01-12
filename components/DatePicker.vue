@@ -33,7 +33,7 @@
 
 <script>
 export default {
-  props: ["label", "default_date"],
+  props: ["label", "default_date","errors"],
   data: () => ({
     menu: false,
     date: null,

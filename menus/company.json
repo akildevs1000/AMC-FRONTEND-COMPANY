@@ -73,5 +73,12 @@
     "to": "/invoice",
     "menu": "invoice",
     "module": "invoice"
+  },
+  {
+    "icon": "mdi-clipboard-check",
+    "title": "Reports",
+    "to": "/form_entry/amc",
+    "menu": "form_entry",
+    "module": "form_entry"
   }
 ]

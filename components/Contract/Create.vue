@@ -1,10 +1,10 @@
 <template>
   <v-dialog persistent v-model="dialog" width="700">
     <template v-slot:activator="{ on, attrs }">
-      <span>
-        <v-icon v-bind="attrs" v-on="on" outlined dark color="primary">
+      <span v-bind="attrs" v-on="on">
+        <v-icon outlined dark color="primary">
           mdi-plus-circle
-        </v-icon>
+        </v-icon> Add 
       </span>
     </template>
     <v-card>
@@ -312,14 +312,42 @@ export default {
 
     submit() {
       let payload = new FormData();
-      payload.append("date", this.payload.date);
-      payload.append("start_date", this.payload.start_date);
-      payload.append("expire_date", this.payload.expire_date);
-      payload.append("amc_type_id", this.payload.amc_type_id);
-      payload.append("visit_type_id", this.payload.visit_type_id);
-      payload.append("service_call_type_id", this.payload.service_call_type_id);
-      payload.append("value", this.payload.value);
-      payload.append("attachment", this.upload.name);
+
+      if (this.payload.date) {
+        payload.append("date", this.payload.date);
+      }
+
+      if (this.payload.start_date) {
+        payload.append("start_date", this.payload.start_date);
+      }
+
+      if (this.payload.expire_date) {
+        payload.append("expire_date", this.payload.expire_date);
+      }
+
+      if (this.payload.amc_type_id) {
+        payload.append("amc_type_id", this.payload.amc_type_id);
+      }
+
+      if (this.payload.visit_type_id) {
+        payload.append("visit_type_id", this.payload.visit_type_id);
+      }
+
+      if (this.payload.service_call_type_id) {
+        payload.append(
+          "service_call_type_id",
+          this.payload.service_call_type_id
+        );
+      }
+
+      if (this.payload.value) {
+        payload.append("value", this.payload.value);
+      }
+
+      if (this.upload.name) {
+        payload.append("attachment", this.upload.name);
+      }
+
       payload.append("status", 1);
       payload.append("company_id", this.id);
 
@@ -342,7 +370,7 @@ export default {
 
           this.processServiceCalls(data.record.id);
         })
-        .catch((e) => console.log(e));
+        .catch(({ response }) => this.handleErrorResponse(response));
     },
     processServiceCalls(contract_id) {
       this.jobs = this.jobs.map((e) => ({
@@ -353,11 +381,26 @@ export default {
       this.$axios
         .post("/service_call_bulk_store", this.jobs)
         .then(({ data }) => {
-          this.errors = [];
           this.$emit("success");
           this.dialog = false;
         })
         .catch((e) => console.log(e));
+    },
+
+    handleErrorResponse(response) {
+      this.loading = false;
+      if (!response) {
+        this.$emit("error", "An unexpected error occurred.");
+        return;
+      }
+      let { status, data, statusText } = response;
+
+      if (status && status == 422) {
+        this.errors = data.errors;
+        return;
+      }
+
+      this.$emit("error", statusText);
     },
   },
 };

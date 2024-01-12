@@ -18,7 +18,7 @@
     "value": "company",
     "filterable": true,
     "filterSpecial": false,
-    "width": "250px"
+    "width": "200px"
   },
 
   {
@@ -72,18 +72,25 @@
     "key": "schedule_start_date",
     "value": "schedule_start_date",
     "filterable": true,
-    "filterSpecial": false,
-    "width": "200px"
+    "filterSpecial": false
   },
   {
-    "text": "Schedule End Date",
+    "text": "Schedule Expire Date",
     "align": "left",
     "sortable": true,
     "key": "schedule_end_date",
     "value": "schedule_end_date",
     "filterable": true,
-    "filterSpecial": false,
-    "width": "200px"
+    "filterSpecial": false
+  },
+  {
+    "text": "Technicians",
+    "align": "left",
+    "sortable": true,
+    "key": "technicians",
+    "value": "technicians",
+    "filterable": true,
+    "filterSpecial": false
   },
   {
     "text": "Created Date",
@@ -92,15 +99,13 @@
     "key": "date",
     "value": "date",
     "filterable": true,
-    "filterSpecial": false,
-    "width": "200px"
+    "filterSpecial": false
   },
   {
     "text": "Action",
     "align": "left",
     "sortable": false,
     "key": "options",
-    "value": "options",
-    "width": "200px"
+    "value": "options"
   }
 ]

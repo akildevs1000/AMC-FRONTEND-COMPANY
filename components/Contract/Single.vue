@@ -62,11 +62,6 @@
           </tr>
 
           <tr>
-            <th>Service Call Type</th>
-            <td>{{ payload.service_call_type.name }}</td>
-          </tr>
-
-          <tr>
             <th>Attachment</th>
             <td>
               <ViewAttachment

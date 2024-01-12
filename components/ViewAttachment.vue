@@ -1,7 +1,10 @@
 <template>
   <v-dialog v-model="dialog" height="700" width="700">
     <template v-slot:activator="{ on, attrs }">
-      <v-icon color="primary" v-bind="attrs" v-on="on">mdi-image</v-icon>
+      <!-- <v-icon color="primary" v-bind="attrs" v-on="on">mdi-attachment</v-icon> -->
+      <v-icon color="primary" v-bind="attrs" v-on="on">mdi-file-multiple</v-icon>
+      <!-- <v-icon color="primary" v-bind="attrs" v-on="on">mdi-file-pdf</v-icon>
+      <v-icon color="primary" v-bind="attrs" v-on="on">mdi-paperclip</v-icon> -->
     </template>
     <div class="text-right white">
       <v-btn icon @click="dialog = false"
