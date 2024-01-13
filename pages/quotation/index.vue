@@ -5,49 +5,39 @@
         {{ response }}
       </v-snackbar>
     </div>
-    <div v-if="!loading">
-      <v-container>
-        <v-toolbar dense flat>
-          <v-toolbar-title>
-            <span> {{ Model }}s </span></v-toolbar-title
-          >
-          <span>
+    <v-container>
+      <v-row>
+        <v-col cols="12">
+          <v-toolbar flat>
+            {{ Model }}s
+            <v-icon color="black" @click="getDataFromApi">mdi-reload</v-icon>
+            <v-row no-gutters class="mx-5">
+              <v-col cols="2">
+                <CompanyList
+                  @id="
+                    (e) => {
+                      filters.company_id = e;
+                      getDataFromApi();
+                    }
+                  "
+                />
+              </v-col>
+            </v-row>
             <v-btn
               dense
-              class="ma-0 px-0"
-              x-small
-              :ripple="false"
+              small
+              class="primary"
               text
-              title="Reload"
+              title="Create Quotation"
+              @click="() => $router.push(`/quotation/create`)"
             >
-              <v-icon class="ml-2" @click="clearFilters" dark
-                >mdi mdi-reload</v-icon
-              >
+              Create Quotation
+              <v-icon right dark>mdi-plus-circle-outline</v-icon>
             </v-btn>
-          </span>
-          <!-- <span>
-            <v-btn
-              dense
-              class="ma-0 px-0"
-              x-small
-              :ripple="false"
-              text
-              title="Filter"
-            >
-              <v-icon @click="toggleFilter" class="mx-1 ml-2"
-                >mdi mdi-filter</v-icon
-              >
-            </v-btn>
-          </span> -->
-
-          <v-spacer></v-spacer>
-
-          <v-icon
-            color="primary"
-            @click="() => $router.push(`/quotation/create`)"
-            >mdi-plus-circle-outline</v-icon
-          >
-        </v-toolbar>
+          </v-toolbar>
+        </v-col>
+      </v-row>
+      <v-card elevation="1">
         <v-data-table
           dense
           :headers="headers"
@@ -66,7 +56,7 @@
               style="background: none"
               class="d-flex align-center"
             >
-              <v-avatar class="mr-1">
+              <!-- <v-avatar class="mr-1">
                 <img
                   :src="
                     item.company && item.company.logo
@@ -75,12 +65,19 @@
                   "
                   alt="Avatar"
                 />
-              </v-avatar>
+              </v-avatar> -->
               <div class="mt-2">
                 <strong> {{ item.company && item.company.name }}</strong>
                 <p>{{ item.company && item.company.address }}</p>
               </div>
             </v-card>
+          </template>
+          
+          <template v-slot:item.quotation_number="{ item }">
+           <p class="blue--text" style="cursor: pointer;" @click="() => $router.push(`/quotation/single/${item.id}`)">{{ item.quotation_number }}</p>
+          </template>
+          <template v-slot:item.description="{ item }">
+            <ReadMore :text="item.description" />
           </template>
           <template v-slot:item.status="{ item }">
             <v-chip
@@ -148,16 +145,15 @@
                 </v-list-item> -->
               </v-list>
             </v-menu>
-          </template> </v-data-table
-      ></v-container>
-    </div>
-    <Preloader v-else />
+          </template>
+        </v-data-table>
+      </v-card>
+    </v-container>
   </div>
 </template>
 
 <script>
 export default {
-  auth: false,
   data: () => ({
     totalRowsCount: 0,
     showFilters: false,
@@ -181,6 +177,7 @@ export default {
     data: [],
     errors: [],
     id: 30,
+    // short_headers: require("../../headers/short-quotation.json"),
     headers: require("../../headers/quotation.json"),
   }),
 
@@ -247,8 +244,6 @@ export default {
     async getDataFromApi() {
       this.loadinglinear = true;
 
-      this.filters.company_id = this.id;
-
       let json = {
         key: "quotations",
         options: this.options,
@@ -263,6 +258,9 @@ export default {
 
       this.totalRowsCount = data.total;
       this.loadinglinear = false;
+
+      this.showCard = true;
+      this.cardItem = data.data[0];
     },
     handleSuccessResponse(message) {
       this.snackbar = true;

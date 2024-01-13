@@ -1,14 +1,13 @@
 [
   {
-    "text": "Reference #",
+    "text": "Date",
     "align": "left",
     "sortable": true,
-    "key": "quotation_number",
-    "value": "quotation_number",
+    "key": "date",
+    "value": "date",
     "filterable": true,
     "filterSpecial": false
   },
-
   {
     "text": "Company",
     "align": "left",
@@ -18,23 +17,12 @@
     "filterable": true,
     "filterSpecial": false
   },
-
   {
-    "text": "Date",
+    "text": "Reference #",
     "align": "left",
     "sortable": true,
-    "key": "date",
-    "value": "date",
-    "filterable": true,
-    "filterSpecial": false
-  },
-
-  {
-    "text": "Description",
-    "align": "left",
-    "sortable": true,
-    "key": "description",
-    "value": "description",
+    "key": "quotation_number",
+    "value": "quotation_number",
     "filterable": true,
     "filterSpecial": false
   },
@@ -54,6 +42,15 @@
     "sortable": true,
     "key": "status",
     "value": "status",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
+    "text": "Description",
+    "align": "left",
+    "sortable": true,
+    "key": "description",
+    "value": "description",
     "filterable": true,
     "filterSpecial": false
   },

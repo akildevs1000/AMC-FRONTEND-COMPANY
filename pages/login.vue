@@ -195,7 +195,7 @@
                 </span>
                 <v-btn
                   :loading="loading"
-                  @click="loginWithOTP()"
+                  @click="login"
                   class="btn primary btn-black btn-block mt-1 mb-3 p-4 btntext"
                   style="width: 100%; height: 48px"
                 >
@@ -243,12 +243,11 @@
         <div class="about-content">
           <h3>About AMC</h3>
           <div style="font-weight: 300">
-            AMC is an innovative and comprehensive platform
-            meticulously crafted to redefine how organizations approach
-            workforce management. By combining time attendance management with
-            facial recognition access control, AMC simplifies and
-            provides a streamlined experience for both employees and HR
-            professionals.<br />
+            AMC is an innovative and comprehensive platform meticulously crafted
+            to redefine how organizations approach workforce management. By
+            combining time attendance management with facial recognition access
+            control, AMC simplifies and provides a streamlined experience for
+            both employees and HR professionals.<br />
             Customization and Reporting: The platform offers customizable
             settings to fit the specific needs of different organizations. It
             generates comprehensive reports and analytics based on attendance
@@ -322,33 +321,18 @@ export default {
     otp: "",
     userId: "",
     credentials: {
-      email: "",
-      password: "",
+      email: "demo@gmail.com",
+      password: "secret",
     },
   }),
   created() {
     // this.$store.commit("dashboard/resetState", null);
     this.$store.dispatch("dashboard/resetState");
     this.$store.dispatch("resetState");
-
-    this.verifyToken();
-  },
-  mounted() {
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 1000 * 60 * 15); //15 minutes
   },
   methods: {
     openForgotPassword() {
       this.dialogForgotPassword = true;
-    },
-    verifyToken() {
-      if (this.$route.query.email && this.$route.query.password) {
-        this.email = this.$route.query.email;
-        this.password = this.$route.query.password;
-
-        this.loginWithOTP();
-      }
     },
     hideMobileNumber(inputString) {
       // Check if the input is a valid string
@@ -368,71 +352,6 @@ export default {
       } else {
         return inputString; // Return input as is if there are fewer than 3 digits
       }
-    },
-
-    handleInputChange() {},
-    // mxVerify(res) {
-    //   this.reCaptcha = res;
-    //   this.showGRC = this.reCaptcha ? false : true;
-    // },
-    checkOTP(otp) {
-      if (otp == "") {
-        alert("Enter OTP");
-        return;
-      }
-      let payload = {
-        userId: this.userId,
-      };
-      this.$axios
-        .post(`check_otp/${otp}`, payload)
-        .then(({ data }) => {
-          if (!data.status) {
-            alert("Invalid OTP. Please try again");
-          } else {
-            this.login();
-          }
-        })
-        .catch((err) => console.log(err));
-    },
-
-    loginWithOTP() {
-      if (this.$refs.form.validate()) {
-        this.loading = true;
-        this.$store.commit("email", this.credentials.email);
-        this.$store.commit("password", this.credentials.password);
-
-        this.$axios
-          .post("loginwith_otp", this.credentials)
-          .then(({ data }) => {
-            if (!data.status) {
-              //alert("OTP Verification: " + data.message);
-              alert("Invalid Login Deails");
-            } else if (data.user_id) {
-              if (data.enable_whatsapp_otp == 1) {
-                this.dialogWhatsapp = true;
-                this.userId = data.user_id;
-                if (data.mobile_number) {
-                  this.maskMobileNumber = this.hideMobileNumber(
-                    data.mobile_number
-                  );
-                }
-
-                this.loading = false;
-              } else {
-                this.login();
-              }
-            } else {
-              this.snackbar = true;
-              this.snackbarMessage = "Invalid Login Details";
-              //alert("Invalid Login Deails");
-            }
-          })
-          .catch((err) => console.log(err));
-      } else {
-        this.snackbar = true;
-        this.snackbarMessage = "Invalid Emaild and Password";
-      }
-      this.loading = false;
     },
     login() {
       if (this.$refs.form.validate()) {

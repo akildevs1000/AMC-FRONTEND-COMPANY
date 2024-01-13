@@ -161,7 +161,6 @@
 
 <script>
 export default {
-  auth: false,
   data: () => ({
     dialog: false,
     loading: false,

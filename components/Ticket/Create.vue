@@ -65,13 +65,13 @@
               :items="priorities"
               item-text="name"
               item-value="id"
-              label="Prority"
+              label="Priority"
               dense
               outlined
-              v-model="payload.prority"
-              :hide-details="!errors.prority"
+              v-model="payload.priority_id"
+              :hide-details="!errors.priority_id"
               :error-messages="
-                errors && errors.prority ? errors.prority[0] : ''
+                errors && errors.priority_id ? errors.priority_id[0] : ''
               "
             ></v-select>
           </v-col>
@@ -204,7 +204,7 @@ export default {
       let payload = new FormData();
 
       payload.append("title", this.payload.title);
-      payload.append("prority", this.payload.prority);
+      payload.append("priority_id", this.payload.priority_id);
       payload.append("description", this.payload.description);
       payload.append("company_id", this.payload.company_id);
       payload.append("user_id", 0);

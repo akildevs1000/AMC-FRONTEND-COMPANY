@@ -6,11 +6,10 @@ export const state = () => ({
   main_report_type: "",
   loginType: "manager",
 
-  devices: null,
+  amc_reports: null,
   equipments: null,
-
   tickets: null,
-  service_calls: null,
+  amc: null,
   contracts: null,
   quotations: null,
   invoices: null,
@@ -31,9 +30,10 @@ export const mutations = {
       employee_id: "",
       main_report_type: "",
       loginType: "manager",
+      amc_reports: null,
       equipments: null,
       tickets: null,
-      service_calls: null,
+      amc: null,
       contracts: null,
       quotations: null,
       invoices: null,
@@ -61,11 +61,14 @@ export const mutations = {
   equipments(state, value) {
     state.equipments = value;
   },
+  amc_reports(state, value) {
+    state.amc_reports = value;
+  },
   tickets(state, value) {
     state.tickets = value;
   },
-  service_calls(state, value) {
-    state.service_calls = value;
+  amc(state, value) {
+    state.amc = value;
   },
   contracts(state, value) {
     state.contracts = value;

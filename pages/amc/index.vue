@@ -7,44 +7,21 @@
     </div>
     <div v-if="!loading">
       <v-card elevation="0" class="mt-2">
-        <v-toolbar class="mb-2" dense flat>
-          <v-toolbar-title>
-            <span> {{ Model }}s </span></v-toolbar-title
-          >
-          <span>
-            <v-btn
-              dense
-              class="ma-0 px-0"
-              x-small
-              :ripple="false"
-              text
-              title="Reload"
-            >
-              <v-icon class="ml-2" @click="clearFilters" dark
-                >mdi mdi-reload</v-icon
-              >
-            </v-btn>
-          </span>
-          <!-- <span>
-            <v-btn
-              dense
-              class="ma-0 px-0"
-              x-small
-              :ripple="false"
-              text
-              title="Filter"
-            >
-              <v-icon @click="toggleFilter" class="mx-1 ml-2"
-                >mdi mdi-filter</v-icon
-              >
-            </v-btn>
-          </span> -->
-
-          <v-spacer></v-spacer>
-
-          <!-- <ServiceCallCreate
-            @success="(e) => handleSuccessResponse(`AMC Successfully created`)"
-          /> -->
+        <v-toolbar flat>
+          AMCs
+          <v-icon color="black" @click="getDataFromApi">mdi-reload</v-icon>
+          <v-row no-gutters class="mx-5">
+            <v-col cols="2">
+              <CompanyList
+                @id="
+                  (e) => {
+                    filters.company_id = e;
+                    getDataFromApi();
+                  }
+                "
+              />
+            </v-col>
+          </v-row>
         </v-toolbar>
         <v-data-table
           dense
@@ -84,15 +61,6 @@
                 </p>
               </div>
             </v-card>
-          </template>
-
-          <template v-slot:item.priority.name="{ item }">
-            <v-chip
-              dark
-              small
-              :color="priorityRelatedColor(item.priority.name)"
-              >{{ item.priority.name ?? "---" }}</v-chip
-            >
           </template>
 
           <template v-slot:item.status="{ item }">
@@ -194,9 +162,7 @@ export default {
 
   async created() {
     this.loading = false;
-
     this.getDataFromApi();
-    //this.getDepartments(options);
   },
   mounted() {},
   watch: {
@@ -227,9 +193,8 @@ export default {
 
     statusRelatedColor(value) {
       let color = {
-        Open: "green",
-        "In Progress": "blue",
-        Close: "grey",
+        completed: "green",
+        pending: "red",
       };
       return color[value];
     },
@@ -250,7 +215,7 @@ export default {
       this.loadinglinear = true;
 
       const data = await this.$store.dispatch("fetchData", {
-        key: "service_calls",
+        key: "amc",
         options: this.options,
         refresh: true,
         endpoint: this.endpoint,

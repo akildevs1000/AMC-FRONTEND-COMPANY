@@ -56,9 +56,9 @@
   {
     "icon": "mdi-account-wrench-outline ",
     "title": "AMC",
-    "to": "/service_calls",
-    "menu": "service_calls",
-    "module": "service_calls"
+    "to": "/amc",
+    "menu": "amc",
+    "module": "amc"
   },
   {
     "icon": "mdi-cash",
@@ -73,12 +73,5 @@
     "to": "/invoice",
     "menu": "invoice",
     "module": "invoice"
-  },
-  {
-    "icon": "mdi-clipboard-check",
-    "title": "Reports",
-    "to": "/form_entry/amc",
-    "menu": "form_entry",
-    "module": "form_entry"
   }
 ]

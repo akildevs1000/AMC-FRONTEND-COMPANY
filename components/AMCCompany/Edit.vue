@@ -1,5 +1,5 @@
 <template>
-  <v-dialog persistent v-model="dialog" width="1100">
+  <v-dialog persistent v-model="dialog" width="1300">
     <template v-slot:activator="{ on, attrs }">
       <span style="cursor: pointer" text v-bind="attrs" v-on="on">
         <v-icon color="secondary" small> mdi-pencil </v-icon>
@@ -416,7 +416,7 @@
           <ServiceCall @close-child="dialog = false" :id="item.id" />
         </v-tab-item>
         <v-tab-item>
-          <FormEntryAMCCompany @close-child="dialog = false" :id="item.id" />
+          <FormEntryCompany @close-child="dialog = false" :id="item.id" />
         </v-tab-item>
         <v-tab-item>
           <v-container class="mt-5">

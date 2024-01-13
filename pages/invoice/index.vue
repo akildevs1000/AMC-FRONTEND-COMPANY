@@ -7,46 +7,32 @@
     </div>
     <div v-if="!loading">
       <v-container>
-        <v-toolbar dense flat>
-          <v-toolbar-title>
-            <span> {{ Model }}s </span></v-toolbar-title
-          >
-          <span>
-            <v-btn
-              dense
-              class="ma-0 px-0"
-              x-small
-              :ripple="false"
-              text
-              title="Reload"
-            >
-              <v-icon class="ml-2" @click="clearFilters" dark
-                >mdi mdi-reload</v-icon
-              >
-            </v-btn>
-          </span>
-          <!-- <span>
-            <v-btn
-              dense
-              class="ma-0 px-0"
-              x-small
-              :ripple="false"
-              text
-              title="Filter"
-            >
-              <v-icon @click="toggleFilter" class="mx-1 ml-2"
-                >mdi mdi-filter</v-icon
-              >
-            </v-btn>
-          </span> -->
-
-          <v-spacer></v-spacer>
-
-          <v-icon
-            color="primary"
+        <v-toolbar flat>
+          {{ Model }}s
+          <v-icon color="black" @click="getDataFromApi">mdi-reload</v-icon>
+          <v-row no-gutters class="mx-5">
+            <v-col cols="2">
+              <CompanyList
+                @id="
+                  (e) => {
+                    filters.company_id = e;
+                    getDataFromApi();
+                  }
+                "
+              />
+            </v-col>
+          </v-row>
+          <v-btn
+            dense
+            small
+            class="primary"
+            text
+            title="Create Invoice"
             @click="() => $router.push(`/invoice/create`)"
-            >mdi-plus-circle-outline</v-icon
           >
+            Create Invoice
+            <v-icon right dark>mdi-plus-circle-outline</v-icon>
+          </v-btn>
         </v-toolbar>
         <v-data-table
           dense
@@ -126,7 +112,8 @@
                 </v-list-item>
               </v-list>
             </v-menu>
-          </template> </v-data-table
+          </template> 
+          </v-data-table
       ></v-container>
     </div>
     <Preloader v-else />

@@ -41,10 +41,10 @@
             <td>{{ payload.description }}</td>
           </tr>
           <tr>
-            <th>Prority</th>
+            <th>Priority</th>
             <td>
-              <v-chip dark small :color="priorityRelatedColor(item.prority)">{{
-                item.prority
+              <v-chip dark small :color="priorityRelatedColor(item?.priority?.name)">{{
+                item?.priority?.name
               }}</v-chip>
             </td>
           </tr>

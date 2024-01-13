@@ -4,7 +4,7 @@
       <span v-bind="attrs" v-on="on">
         <v-icon outlined dark color="primary">
           mdi-plus-circle
-        </v-icon> Add 
+        </v-icon> 
       </span>
     </template>
     <v-card>

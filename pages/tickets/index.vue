@@ -7,46 +7,21 @@
     </div>
     <div v-if="!loading">
       <v-card elevation="0" class="mt-2">
-        <v-toolbar class="mb-2" dense flat>
-          <v-toolbar-title>
-            <span> {{ Model }}s </span></v-toolbar-title
-          >
-          <span>
-            <v-btn
-              dense
-              class="ma-0 px-0"
-              x-small
-              :ripple="false"
-              text
-              title="Reload"
-            >
-              <v-icon class="ml-2" @click="clearFilters" dark
-                >mdi mdi-reload</v-icon
-              >
-            </v-btn>
-          </span>
-          <!-- <span>
-            <v-btn
-              dense
-              class="ma-0 px-0"
-              x-small
-              :ripple="false"
-              text
-              title="Filter"
-            >
-              <v-icon @click="toggleFilter" class="mx-1 ml-2"
-                >mdi mdi-filter</v-icon
-              >
-            </v-btn>
-          </span> -->
-
-          <v-spacer></v-spacer>
-
-          <TicketCreate
-            @success="
-              (e) => handleSuccessResponse(`Ticket Successfully created`)
-            "
-          />
+        <v-toolbar flat>
+          Tickets
+          <v-icon color="black" @click="getDataFromApi">mdi-reload</v-icon>
+          <v-row no-gutters class="mx-5">
+            <v-col cols="2">
+              <CompanyList
+                @id="
+                  (e) => {
+                    filters.company_id = e;
+                    getDataFromApi();
+                  }
+                "
+              />
+            </v-col>
+          </v-row>
         </v-toolbar>
         <v-data-table
           dense
@@ -84,11 +59,22 @@
             </v-card>
           </template>
 
-          <!-- <template v-slot:item.priority="{ item }">
-            <v-chip dark small :color="priorityRelatedColor(item.priority && item.priority.name ? item.priority.name :  '---') ">{{
-              item.priority && item.priority.name ? item.priority.name :  "---"
-            }}</v-chip>
-          </template> -->
+          <template v-slot:item.priority="{ item }">
+            <v-chip
+              dark
+              small
+              :color="
+                priorityRelatedColor(
+                  item.priority && item.priority.name
+                    ? item.priority.name
+                    : '---'
+                )
+              "
+              >{{
+                item.priority && item.priority.name ? item.priority.name : "---"
+              }}</v-chip
+            >
+          </template>
 
           <template v-slot:item.status="{ item }">
             <v-chip dark small :color="statusRelatedColor(item.status)">{{
@@ -113,6 +99,24 @@
             />
           </template>
 
+          <template v-slot:item.technicians="{ item }">
+            <v-avatar
+              size="30"
+              color="primary"
+              v-for="(technician, index) in item.technicians"
+              :key="index"
+            >
+              <v-tooltip top color="deep-purple">
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs" v-on="on" class="white--text">{{
+                    getCapitalFirstLetters(technician.name)
+                  }}</span>
+                </template>
+                <span>{{ technician.name }}</span>
+              </v-tooltip>
+            </v-avatar>
+          </template>
+
           <template v-slot:item.options="{ item }">
             <v-menu bottom left>
               <template v-slot:activator="{ on, attrs }">
@@ -124,6 +128,17 @@
                 <v-list-item>
                   <v-list-item-title>
                     <TicketSingle :key="getRandomId()" :item="item" />
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    <TicketAssign
+                      :key="getRandomId()"
+                      :item="item"
+                      @success="
+                        (e) => handleSuccessResponse(`Record has been assigned`)
+                      "
+                    />
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
@@ -148,8 +163,6 @@
 
 <script>
 export default {
-  components: {},
-
   data: () => ({
     totalRowsCount: 0,
     showFilters: false,
@@ -166,7 +179,7 @@ export default {
     payload: {},
     options: {},
     Model: "Ticket",
-    endpoint: "ticket_all",
+    endpoint: "ticket",
     snackbar: false,
     loading: false,
     response: "",
@@ -177,7 +190,6 @@ export default {
 
   async created() {
     this.loading = false;
-
     this.getDataFromApi();
     //this.getDepartments(options);
   },
@@ -191,6 +203,11 @@ export default {
     },
   },
   methods: {
+    getCapitalFirstLetters(name) {
+      const words = name.split(" ");
+      const firstLetters = words.map((word) => word.charAt(0).toUpperCase());
+      return firstLetters.join("");
+    },
     getRandomId() {
       return Math.random().toString(36).substring(2);
     },

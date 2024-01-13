@@ -1,10 +1,12 @@
 <template>
   <v-dialog v-model="dialog" height="700" width="1100">
     <template v-slot:activator="{ on, attrs }">
-      <v-icon color="primary" v-bind="attrs" v-on="on"
-        >mdi-clipboard-check</v-icon
+      <span v-bind="attrs" v-on="on"
+        ><v-icon color="primary" v-bind="attrs" v-on="on"
+          >mdi-clipboard-check</v-icon
+        >
+        Checklist</span
       >
-      Checklist
     </template>
     <v-card>
       <v-card-title>
@@ -26,7 +28,7 @@
             <th style="width: 0px; padding: 0px !important" class="text-center">
               Attachment
             </th>
-            <th style="width: 230px">Remarks</th>
+            <th style="width: 50px; ">Remarks</th>
           </tr>
 
           <tr v-for="(item, index) in items" :key="index">
@@ -35,7 +37,7 @@
             <td style="width: 0px; padding: 0px !important" class="text-center">
               <ViewAttachment v-if="item.attachment" :src="item.attachment" />
             </td>
-            <td>{{ item.remarks }}</td>
+            <td style="width: 10px;">{{ item.remarks }}</td>
           </tr>
         </table>
       </v-card-text>

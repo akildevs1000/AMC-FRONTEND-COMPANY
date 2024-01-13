@@ -46,106 +46,107 @@
             @success="(e) => handleSuccessResponse(`AMC Successfully created`)"
           /> -->
         </v-toolbar>
-       <v-container >
-        <v-data-table
-        style="max-height: 600px; overflow-y: scroll;"
-          dense
-          :headers="headers"
-          :items="data"
-          model-value="data.id"
-          :loading="loadinglinear"
-          :options.sync="options"
-          :footer-props="{
-            itemsPerPageOptions: [100, 500, 1000],
-          }"
-          class="elevation-1"
-          :server-items-length="totalRowsCount"
-        >
-          <template v-slot:item.company="{ item: { contract }, index }">
-            <v-card
-              elevation="0"
-              style="background: none"
-              class="d-flex align-center"
-            >
-              <v-avatar class="mr-1">
-                <img
-                  :src="
-                    contract.company && contract.company.logo
-                      ? contract.company.logo
-                      : '/no-image.png'
-                  "
-                  alt="Avatar"
-                />
+        <v-container>
+          <v-data-table
+            style="max-height: 600px; overflow-y: scroll"
+            dense
+            :headers="headers"
+            :items="data"
+            model-value="data.id"
+            :loading="loadinglinear"
+            :options.sync="options"
+            :footer-props="{
+              itemsPerPageOptions: [100, 500, 1000],
+            }"
+            class="elevation-1"
+            :server-items-length="totalRowsCount"
+          >
+            <template v-slot:item.company="{ item: { contract }, index }">
+              <v-card
+                elevation="0"
+                style="background: none"
+                class="d-flex align-center"
+              >
+                <v-avatar class="mr-1">
+                  <img
+                    :src="
+                      contract.company && contract.company.logo
+                        ? contract.company.logo
+                        : '/no-image.png'
+                    "
+                    alt="Avatar"
+                  />
+                </v-avatar>
+                <div class="mt-2">
+                  <strong>
+                    {{ contract.company && contract.company.name }}</strong
+                  >
+                  <p>
+                    {{ contract.company && contract.company.address }}
+                  </p>
+                </div>
+              </v-card>
+            </template>
+
+            <template v-slot:item.priority.name="{ item }">
+              <v-chip
+                dark
+                small
+                :color="priorityRelatedColor(item.priority.name)"
+                >{{ item.priority.name ?? "---" }}</v-chip
+              >
+            </template>
+
+            <template v-slot:item.status="{ item }">
+              <v-chip dark small :color="statusRelatedColor(item.status)">{{
+                item.status
+              }}</v-chip>
+            </template>
+
+            <template v-slot:item.technicians="{ item }">
+              <v-avatar
+                size="30"
+                color="primary"
+                v-for="(technician, index) in item.technicians"
+                :key="index"
+              >
+                <v-tooltip top color="deep-purple">
+                  <template v-slot:activator="{ on, attrs }">
+                    <span v-bind="attrs" v-on="on" class="white--text">{{
+                      getCapitalFirstLetters(technician.name)
+                    }}</span>
+                  </template>
+                  <span>{{ technician.name }}</span>
+                </v-tooltip>
               </v-avatar>
-              <div class="mt-2">
-                <strong>
-                  {{ contract.company && contract.company.name }}</strong
-                >
-                <p>
-                  {{ contract.company && contract.company.address }}
-                </p>
-              </div>
-            </v-card>
-          </template>
+            </template>
 
-          <template v-slot:item.priority.name="{ item }">
-            <v-chip
-              dark
-              small
-              :color="priorityRelatedColor(item.priority.name)"
-              >{{ item.priority.name ?? "---" }}</v-chip
-            >
-          </template>
-
-          <template v-slot:item.status="{ item }">
-            <v-chip dark small :color="statusRelatedColor(item.status)">{{
-              item.status
-            }}</v-chip>
-          </template>
-
-          <template v-slot:item.technicians="{ item }">
-            <v-avatar
-              size="30"
-              color="primary"
-              v-for="(technician, index) in item.technicians"
-              :key="index"
-            >
-              <v-tooltip top color="deep-purple">
+            <template v-slot:item.options="{ item }">
+              <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
-                  <span v-bind="attrs" v-on="on" class="white--text">{{
-                    getCapitalFirstLetters(technician.name)
-                  }}</span>
+                  <v-btn dark-2 icon v-bind="attrs" v-on="on">
+                    <v-icon>mdi-dots-vertical</v-icon>
+                  </v-btn>
                 </template>
-                <span>{{ technician.name }}</span>
-              </v-tooltip>
-            </v-avatar>
-          </template>
-
-          <template v-slot:item.options="{ item }">
-            <v-menu bottom left>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn dark-2 icon v-bind="attrs" v-on="on">
-                  <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
-              </template>
-              <v-list width="150" dense>
-                <v-list-item>
-                  <v-list-item-title>
-                    <ServiceCallAssign
-                      :key="getRandomId()"
-                      :item="item"
-                      @success="
-                        (e) => handleSuccessResponse(`Record has been assigned`)
-                      "
-                    />
-                  </v-list-item-title>
-                </v-list-item>
-                <!-- <v-list-item>
+                <v-list width="150" dense>
+                  <v-list-item>
+                    <v-list-item-title>
+                      <ServiceCallAssign
+                        :key="getRandomId()"
+                        :item="item"
+                        @success="
+                          (e) =>
+                            handleSuccessResponse(`Record has been assigned`)
+                        "
+                      />
+                    </v-list-item-title>
+                  </v-list-item>
+                  <!-- <v-list-item>
                   <v-list-item-title>
                     <ServiceCallSingle :key="getRandomId()" :item="item" />
                   </v-list-item-title>
                 </v-list-item> -->
-                <!-- <v-list-item>
+                  <!-- <v-list-item>
                   <v-list-item-title>
                     <ServiceCallEdit
                       :item="item"
@@ -155,11 +156,11 @@
                     />
                   </v-list-item-title>
                 </v-list-item> -->
-              </v-list>
-            </v-menu>
-          </template>
-        </v-data-table>
-       </v-container>
+                </v-list>
+              </v-menu>
+            </template>
+          </v-data-table>
+        </v-container>
       </v-card>
     </div>
     <Preloader v-else />
@@ -193,7 +194,72 @@ export default {
     response: "",
     data: [],
     errors: [],
-    headers: require("../../headers/service_call.json"),
+    headers: [
+      {
+        text: "Reference Id",
+        align: "left",
+        sortable: true,
+        key: "id",
+        value: "id",
+        filterable: true,
+        filterSpecial: false,
+        width: "130px",
+      },
+      {
+        text: "Status",
+        align: "left",
+        sortable: true,
+        key: "status",
+        value: "status",
+        filterable: true,
+        filterSpecial: false,
+        width: "130px",
+      },
+
+      {
+        text: "Schedule Start Date",
+        align: "left",
+        sortable: true,
+        key: "schedule_start_date",
+        value: "schedule_start_date",
+        filterable: true,
+        filterSpecial: false,
+      },
+      {
+        text: "Schedule Expire Date",
+        align: "left",
+        sortable: true,
+        key: "schedule_end_date",
+        value: "schedule_end_date",
+        filterable: true,
+        filterSpecial: false,
+      },
+      {
+        text: "Technicians",
+        align: "left",
+        sortable: true,
+        key: "technicians",
+        value: "technicians",
+        filterable: true,
+        filterSpecial: false,
+      },
+      {
+        text: "Created Date",
+        align: "left",
+        sortable: true,
+        key: "date",
+        value: "date",
+        filterable: true,
+        filterSpecial: false,
+      },
+      {
+        text: "Action",
+        align: "left",
+        sortable: false,
+        key: "options",
+        value: "options",
+      },
+    ],
   }),
 
   async created() {
@@ -231,9 +297,8 @@ export default {
 
     statusRelatedColor(value) {
       let color = {
-        Open: "green",
-        "In Progress": "blue",
-        Close: "grey",
+        completed: "green",
+        pending: "red",
       };
       return color[value];
     },
@@ -253,11 +318,10 @@ export default {
     async getDataFromApi() {
       this.loadinglinear = true;
 
-
       this.filters.company_id = this.id;
 
       const data = await this.$store.dispatch("fetchData", {
-        key: "service_calls",
+        key: "amc",
         options: this.options,
         refresh: true,
         endpoint: this.endpoint,

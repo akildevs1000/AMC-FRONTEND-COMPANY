@@ -38,13 +38,6 @@
               @change="setValue"
             />
           </v-col>
-          <v-col v-if="!disable" cols="1" class="text-center">
-            <v-icon color="red" @click="removeItem(index)"
-              >mdi-close-circle-outline</v-icon
-            >
-          </v-col>
-        </v-row>
-        <v-row>
           <v-col cols="3">
             <v-text-field
               dense
@@ -61,7 +54,7 @@
             ></v-text-field>
           </v-col>
 
-          <v-col cols="3">
+          <v-col cols="2">
             <v-text-field
               dense
               outlined
@@ -76,6 +69,14 @@
               "
             ></v-text-field>
           </v-col>
+          <v-col v-if="!disable" cols="1" class="text-center">
+            <v-icon color="red" @click="removeItem(index)"
+              >mdi-close-circle-outline</v-icon
+            >
+          </v-col>
+        </v-row>
+        <v-row>
+          
         </v-row>
         <v-row>
           <v-col cols="4">
@@ -95,7 +96,7 @@
     <v-row>
       <v-col v-if="!disable">
         <v-btn class="primary" @click="addItemRow">
-          <v-icon>mdi-plus</v-icon> Add Item</v-btn
+          <v-icon>mdi-plus</v-icon> Add</v-btn
         >
       </v-col>
     </v-row>

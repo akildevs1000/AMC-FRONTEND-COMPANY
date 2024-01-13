@@ -107,6 +107,15 @@
     "filterSpecial": false
   },
   {
+    "text": "Technicians",
+    "align": "left",
+    "sortable": true,
+    "key": "technicians",
+    "value": "technicians",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
     "text": "Action",
     "align": "left",
     "sortable": false,

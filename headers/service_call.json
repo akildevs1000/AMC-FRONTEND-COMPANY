@@ -21,39 +21,7 @@
     "width": "200px"
   },
 
-  {
-    "text": "Contract Start",
-    "align": "left",
-    "sortable": true,
-    "key": "contract.start_date",
-    "value": "contract.start_date",
-    "filterable": true,
-    "filterSpecial": false,
-    "width": "150px"
-  },
-
-  {
-    "text": "Contract Expire",
-    "align": "left",
-    "sortable": true,
-    "key": "contract.expire_date",
-    "value": "contract.expire_date",
-    "filterable": true,
-    "filterSpecial": false,
-    "width": "150px"
-  },
-
-  {
-    "text": "Priority",
-    "align": "left",
-    "sortable": true,
-    "key": "priority.name",
-    "value": "priority.name",
-    "filterable": true,
-    "filterSpecial": false,
-    "width": "130px"
-  },
-
+ 
   {
     "text": "Status",
     "align": "left",

@@ -23,8 +23,8 @@
   {
     "icon": "mdi-clipboard-text-clock",
     "title": "AMC",
-    "to": "/service_calls",
-    "menu": "service_calls",
+    "to": "/amc",
+    "menu": "amc",
     "module": "topmenu"
   },
   {
@@ -46,7 +46,7 @@
   {
     "icon": "mdi-form",
     "title": "Reports",
-    "to": "/form_entry/amc",
+    "to": "/form_entry",
     "menu": "form_entry",
     "module": "form_entry"
   }

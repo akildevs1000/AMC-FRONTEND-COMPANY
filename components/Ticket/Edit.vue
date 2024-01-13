@@ -66,13 +66,15 @@
             <th>Prority</th>
             <td>
               <v-select
-                :items="[`High`, `Medium`, `Low`]"
+                :items="priorities"
+                item-value="id"
+                item-text="name"
                 dense
                 outlined
-                v-model="payload.prority"
-                :hide-details="!errors.prority"
+                v-model="payload.priority_id"
+                :hide-details="!errors.priority_id"
                 :error-messages="
-                  errors && errors.prority ? errors.prority[0] : ''
+                  errors && errors.priority_id ? errors.priority_id[0] : ''
                 "
               ></v-select>
             </td>
@@ -161,10 +163,14 @@ export default {
     },
     payload: {},
     errors: [],
+    priorities: [],
     previewImage: "/no-business_profile.png",
   }),
   created() {
     this.payload = this.item;
+    this.$axios
+      .get("/priority_list")
+      .then(({ data }) => (this.priorities = data));
   },
   methods: {
     priorityRelatedColor(value) {
@@ -208,7 +214,7 @@ export default {
       let payload = new FormData();
 
       payload.append("title", this.payload.title);
-      payload.append("prority", this.payload.prority);
+      payload.append("priority_id", this.payload.priority_id);
       payload.append("status", this.payload.status);
       payload.append("description", this.payload.description);
 

@@ -1,13 +1,31 @@
 [
   {
-    "text": "Summary",
+    "text": "Company",
     "align": "left",
     "sortable": true,
-    "key": "summary",
-    "value": "summary",
+    "key": "company",
+    "value": "company",
     "filterable": true,
     "filterSpecial": false,
-    "width": "250px"
+    "width": "300px"
+  },
+  {
+    "text": "Job Type",
+    "align": "left",
+    "sortable": true,
+    "key": "work_type",
+    "value": "work_type",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
+    "text": "Equipment Category",
+    "align": "left",
+    "sortable": true,
+    "key": "equipment_category.name",
+    "value": "equipment_category.name",
+    "filterable": true,
+    "filterSpecial": false
   },
 
   {
@@ -29,22 +47,14 @@
     "filterSpecial": false
   },
   {
-    "text": "Service Call Id",
+    "text": "Summary",
     "align": "left",
     "sortable": true,
-    "key": "service_call_id",
-    "value": "service_call_id",
+    "key": "summary",
+    "value": "summary",
     "filterable": true,
-    "filterSpecial": false
-  },
-  {
-    "text": "Equipment Category",
-    "align": "left",
-    "sortable": true,
-    "key": "equipment_category.name",
-    "value": "equipment_category.name",
-    "filterable": true,
-    "filterSpecial": false
+    "filterSpecial": false,
+    "width": "300px"
   },
   {
     "text": "Created Date",
