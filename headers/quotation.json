@@ -9,15 +9,6 @@
     "filterSpecial": false
   },
   {
-    "text": "Company",
-    "align": "left",
-    "sortable": true,
-    "key": "company",
-    "value": "company",
-    "filterable": true,
-    "filterSpecial": false
-  },
-  {
     "text": "Reference #",
     "align": "left",
     "sortable": true,
@@ -26,7 +17,15 @@
     "filterable": true,
     "filterSpecial": false
   },
-
+  {
+    "text": "Company",
+    "align": "left",
+    "sortable": true,
+    "key": "company",
+    "value": "company",
+    "filterable": true,
+    "filterSpecial": false
+  },
   {
     "text": "Value",
     "align": "left",
@@ -42,15 +41,6 @@
     "sortable": true,
     "key": "status",
     "value": "status",
-    "filterable": true,
-    "filterSpecial": false
-  },
-  {
-    "text": "Description",
-    "align": "left",
-    "sortable": true,
-    "key": "description",
-    "value": "description",
     "filterable": true,
     "filterSpecial": false
   },

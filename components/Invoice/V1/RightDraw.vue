@@ -9,7 +9,7 @@
     >
       <v-toolbar flat color="" dense
         >Send Invoice <v-spacer></v-spacer
-        ><v-icon @click="rightDrawer = false"
+        ><v-icon @click="closeRightDrawer"
           >mdi-close-circle-outline</v-icon
         ></v-toolbar
       >
@@ -53,7 +53,11 @@
             ></v-textarea>
           </v-col>
           <v-col cols="12">
-            <InvoiceV1Preview :payload="payload" label="Attachment" icon="attachment" />
+            <InvoiceV1Preview
+              :payload="payload"
+              label="Attachment"
+              icon="attachment"
+            />
           </v-col>
           <v-col cols="12">
             <v-btn outlined dense color="primary">Submit</v-btn>
@@ -64,9 +68,9 @@
         </v-row>
       </v-container>
     </v-navigation-drawer>
-    <v-btn ref="rdBTN" block class="primary" @click="rightDrawer = true">
+    <!-- <v-btn outlined ref="rdBTN"  class="" @click="rightDrawer = true">
       <v-icon small>mdi-email</v-icon> Send Invoice</v-btn
-    >
+    > -->
   </div>
 </template>
 <script>
@@ -77,6 +81,14 @@ export default {
       rightDrawer: false,
     };
   },
-  methods: {},
+  watch: {},
+  methods:{
+    openRightDrawer() {
+      this.rightDrawer = true;
+    },
+    closeRightDrawer() {
+      this.rightDrawer = false;
+    },
+  }
 };
 </script>

@@ -1,5 +1,8 @@
 <template>
-  <v-container class="px-10">
+  <div>
+    <div class="text-right">
+      <SnippetsBack />
+    </div>
     <div class="text-center ma-2">
       <v-dialog
         transition="dialog-top-transition"
@@ -22,7 +25,7 @@
         <v-card outlined>
           <v-container class="pa-10">
             <div class="pb-5 text-center">
-              <h2>QUOTATION</h2>
+              <h2>INVOICE</h2>
             </div>
             <v-row class="my-3">
               <v-col cols="4">
@@ -57,13 +60,23 @@
                 <v-col cols="4"></v-col>
                 <v-col cols="4" class="text-right">
                   <div>
-                    <b>Quotaion #: {{ payload.invoice_number }}</b>
+                    <b>Invoice #: {{ payload.invoice_number }}</b>
                   </div>
                   <div>Date: {{ payload.date }}</div>
                 </v-col>
               </v-row>
             </v-container>
-            <v-row no-gutters class="mt-2">
+            <v-row class="mt-2">
+              <v-col cols="12">
+                <v-text-field
+                  label="LPO Number"
+                  rows="3"
+                  outlined
+                  dense
+                  :hide-details="true"
+                  v-model="payload.lpo_number"
+                ></v-text-field>
+              </v-col>
               <v-col cols="12">
                 <v-textarea
                   label="Description"
@@ -136,17 +149,27 @@
           <v-container class="pa-10">
             <v-row no-gutters>
               <v-col cols="12" class="my-1">
-                <InvoiceV1RightDraw
-                  @click="$refs.rdBTN.click()"
-                  :payload="payload"
-                />
+                <v-btn
+                  block
+                  color="primary"
+                  dense
+                  @click="$refs.RightDrawRef.openRightDrawer()"
+                >
+                  <v-icon small color="white">mdi-email</v-icon>
+                  Send Invoice
+                </v-btn>
+                <InvoiceV1RightDraw ref="RightDrawRef" :payload="payload" />
               </v-col>
               <v-col cols="12" class="my-1">
-                <InvoiceV1Preview
-                  :payload="payload"
-                  label="Preview"
-                  icon="eye"
-                />
+                <v-btn
+                  block
+                  color="primary"
+                  dark
+                  @click="$refs.PreviewRef.dialog = true"
+                >
+                  <v-icon small>mdi-email</v-icon>Preview
+                </v-btn>
+                <InvoiceV1Preview ref="PreviewRef" :payload="payload" />
               </v-col>
               <v-col cols="12" class="my-1">
                 <InvoiceV1Print :payload="payload" />
@@ -156,7 +179,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>

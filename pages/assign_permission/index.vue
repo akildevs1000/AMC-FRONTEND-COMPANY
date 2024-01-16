@@ -114,127 +114,12 @@
         </v-card>
       </v-col>
     </v-row>
-
-    <!-- <v-row>
-      <v-col>
-        <div class="display-1 pa-2">Assign Permissions</div>
-      </v-col>
-      <v-col>
-        <div class="display-1 pa-2 text-right">
-          <v-btn small class="primary" to="/assign_permission">
-            <v-icon small>mdi-arrow-left</v-icon>&nbsp;Back
-          </v-btn>
-        </div>
-      </v-col>
-      <v-col cols="12">
-        <v-expansion-panels v-model="panel" :readonly="readonly" multiple>
-          <v-expansion-panel v-for="(item, index) in data" :key="index">
-            <v-expansion-panel-header>
-              <b>{{ item.role.name }}</b>
-            </v-expansion-panel-header>
-            <v-divider class="p-0 mt-0"></v-divider>
-            <v-expansion-panel-content>
-              <v-chip
-                color="primary ma-2 px-5 py-1"
-                v-for="(p, i) in item.permission_names"
-                :key="i"
-              >
-                {{ p }}
-              </v-chip>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </v-col>
-    </v-row> -->
-
-    <!-- <v-card elevation="0" class="mb-15">
-      <v-form ref="form" lazy-validation>
-        <v-card-text>
-          <v-container> </v-container>
-        </v-card-text>
-      </v-form>
-
-      <template v-slot:item.action="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)">
-          mdi-pencil
-        </v-icon>
-        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-      </template>
-    </v-card> -->
-    <!-- <v-data-table
-      v-if="can(`assign_permission_view`)"
-      v-model="ids"
-      show-select
-      item-key="id"
-      :headers="headers"
-      :items="data"
-      :server-items-length="total"
-      :loading="loading"
-      :options.sync="options"
-      :footer-props="{
-        itemsPerPageOptions: [50, 100, 500, 1000]
-      }"
-      class="elevation-1 mt-15"
-    >
-      <template v-slot:top>
-        <v-toolbar dark class="primary">{{ Module }}s</v-toolbar>
-        <v-toolbar flat color="">
-          <v-toolbar-title>List</v-toolbar-title>
-          <v-divider class="mx-4" inset vertical></v-divider>
-          <v-text-field
-            @input="searchIt"
-            v-model="search"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field>
-        </v-toolbar>
-      </template>
-      <template v-slot:item.permission_names="{ item }">
-        <v-chip
-          class="ma-1"
-          small
-          color="primary"
-          v-for="(pa, idx) in item.permission_names"
-          :key="idx"
-        >
-          {{ pa }}
-        </v-chip>
-
-        <v-chip class="ma-1" small v-if="item.permission_names.length == 0">
-          No permissions assigned
-        </v-chip>
-      </template>
-      <template v-slot:item.action="{ item }">
-        <v-icon
-          v-if="can(`assign_permission_edit`)"
-          color="secondary"
-          small
-          class="mr-2"
-          @click="editItem(item)"
-        >
-          mdi-pencil
-        </v-icon>
-        <v-icon
-          v-if="can(`assign_permission_delete`)"
-          color="error"
-          small
-          @click="deleteItem(item)"
-        >
-          mdi-delete
-        </v-icon>
-      </template>
-      <template v-slot:no-data> </template>
-    </v-data-table> -->
   </div>
   <NoAccess v-else />
 </template>
 <script>
-import Back from "../../components/Snippets/Back.vue";
 
 export default {
-  components: { Back },
-
   data: () => ({
     panel: [0, 1, 2],
     readonly: false,

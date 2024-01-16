@@ -5,7 +5,7 @@
         >mdi-close-circle-outline</v-icon
       >
     </div>
-    <InvoiceV1PreviewCard :payload="payload" />
+    <InvoiceV1DOPreviewCard :payload="payload" />
   </v-dialog>
 </template>
 <script>

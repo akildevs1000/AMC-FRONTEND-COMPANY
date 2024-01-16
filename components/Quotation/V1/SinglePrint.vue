@@ -1,11 +1,11 @@
 <template>
-  <v-dialog v-model="dialog" width="720">
+  <v-dialog v-model="dialog" width="620">
     <v-overlay :value="loading">
       <v-progress-circular color="primary" indeterminate></v-progress-circular>
     </v-overlay>
     <template v-slot:activator="{ on, attrs }">
       <span style="cursor: pointer" text v-bind="attrs" v-on="on">
-        <v-icon color="secondary" small> mdi-printer </v-icon>
+        <v-icon :color="iconColor" small> mdi-printer </v-icon>
         Print
       </span>
     </template>
@@ -131,7 +131,7 @@
 </template>
 <script>
 export default {
-  props: ["item"],
+  props: ["item","iconColor"],
   data() {
     return {
       dialog: false,

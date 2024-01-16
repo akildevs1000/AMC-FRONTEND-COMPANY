@@ -160,16 +160,6 @@
           style="background: none"
           class="d-flex align-center"
         >
-          <v-avatar class="mr-1">
-            <img
-              :src="
-                item.ticket.company && item.ticket.company.logo
-                  ? item.ticket.company.logo
-                  : '/no-image.png'
-              "
-              alt="Avatar"
-            />
-          </v-avatar>
           <div class="mt-2">
             <strong>
               {{ item.ticket.company && item.ticket.company.name }}</strong
@@ -213,9 +203,18 @@
             </v-btn>
           </template>
           <v-list width="150" dense>
-            <v-list-item>
+            <!-- <v-list-item>
               <v-list-item-title>
                 <FormEntryTableView :items="item.checklists" />
+              </v-list-item-title>
+            </v-list-item> -->
+            <v-list-item @click="sendEmail">
+              <v-list-item-title>
+                <v-icon class="mr-1" color="secondary"
+                  >mdi-email-outline</v-icon
+                >
+                <span class="mt-2">Send to Email</span>
+                <!-- <FormEntryTableView :items="item.checklists" /> -->
               </v-list-item-title>
             </v-list-item>
           </v-list>
@@ -269,6 +268,9 @@ export default {
     },
   },
   methods: {
+    sendEmail() {
+      console.log(`mail to be sent`);
+    },
     exportCSV() {
       if (this.totalRowsCount === 0) {
         alert("No record to download");

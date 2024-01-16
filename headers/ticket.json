@@ -31,40 +31,16 @@
     "filterSpecial": false,
     "width": "150px"
   },
-
-  {
-    "text": "Desciption",
-    "align": "left",
-    "sortable": true,
-    "key": "description",
-    "value": "description",
-    "filterable": true,
-    "filterSpecial": false,
-    "width": "250px"
-  },
-
   {
     "text": "Priority",
     "align": "left",
     "sortable": true,
     "key": "priority",
-    "value": "priority",
+    "value": "priority.name",
     "filterable": true,
     "filterSpecial": false,
     "width": "130px"
   },
-
-  {
-    "text": "Status",
-    "align": "left",
-    "sortable": true,
-    "key": "status",
-    "value": "status",
-    "filterable": true,
-    "filterSpecial": false,
-    "width": "130px"
-  },
-
   {
     "text": "Ticket Open Date Time",
     "align": "left",
@@ -75,7 +51,15 @@
     "filterSpecial": false,
     "width": "180px"
   },
-
+  {
+    "text": "Schedule Date/Technician",
+    "align": "left",
+    "sortable": true,
+    "key": "technicians",
+    "value": "technicians",
+    "filterable": true,
+    "filterSpecial": false
+  },
   {
     "text": "Ticket Close Date Time",
     "align": "left",
@@ -85,17 +69,6 @@
     "filterable": true,
     "filterSpecial": false,
     "width": "180px"
-  },
-
-  {
-    "text": "Attachment",
-    "align": "left",
-    "sortable": true,
-    "key": "attachment",
-    "value": "attachment",
-    "filterable": true,
-    "filterSpecial": false,
-    "width": "130px"
   },
   {
     "text": "History",
@@ -107,13 +80,14 @@
     "filterSpecial": false
   },
   {
-    "text": "Technicians",
+    "text": "Status",
     "align": "left",
     "sortable": true,
-    "key": "technicians",
-    "value": "technicians",
+    "key": "status",
+    "value": "status",
     "filterable": true,
-    "filterSpecial": false
+    "filterSpecial": false,
+    "width": "130px"
   },
   {
     "text": "Action",

@@ -406,15 +406,23 @@ export default {
           elevation: 0,
           selected: "",
         },
-        reports: {
+        tickets: {
           elevation: 0,
           selected: "",
         },
-        companies: {
+        amc: {
           elevation: 0,
           selected: "",
         },
         quotation: {
+          elevation: 0,
+          selected: "",
+        },
+        invoice: {
+          elevation: 0,
+          selected: "",
+        },
+        form_entry: {
           elevation: 0,
           selected: "",
         },

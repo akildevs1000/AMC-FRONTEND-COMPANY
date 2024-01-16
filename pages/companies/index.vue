@@ -46,14 +46,14 @@
       >
         <template v-slot:item.logo="{ item }">
           <div class="d-flex">
-            <div class="ma-2">
+            <!-- <div class="ma-2">
               <v-avatar size="50">
                 <img
                   :src="item.logo ? item.logo : '/no-image.png'"
                   alt="Avatar"
                 />
               </v-avatar>
-            </div>
+            </div> -->
             <div class="pt-3">
               <strong> {{ item.name }}</strong>
               <p>{{ item.address }}</p>

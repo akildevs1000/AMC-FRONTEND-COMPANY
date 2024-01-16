@@ -5,9 +5,21 @@
         {{ response }}
       </v-snackbar>
     </div>
-    <v-container>
-      <v-row>
-        <v-col cols="12">
+
+    <v-card elevation="1">
+      <v-data-table
+        dense
+        :headers="headers"
+        :items="data"
+        :loading="loadinglinear"
+        :options.sync="options"
+        :footer-props="{
+          itemsPerPageOptions: [10, 20, 50, 100, 500],
+        }"
+        class="elevation-1"
+        :server-items-length="totalRowsCount"
+      >
+        <template v-slot:top>
           <v-toolbar flat>
             {{ Model }}s
             <v-icon color="black" @click="getDataFromApi">mdi-reload</v-icon>
@@ -35,28 +47,14 @@
               <v-icon right dark>mdi-plus-circle-outline</v-icon>
             </v-btn>
           </v-toolbar>
-        </v-col>
-      </v-row>
-      <v-card elevation="1">
-        <v-data-table
-          dense
-          :headers="headers"
-          :items="data"
-          :loading="loadinglinear"
-          :options.sync="options"
-          :footer-props="{
-            itemsPerPageOptions: [10, 20, 50, 100, 500],
-          }"
-          class="elevation-1"
-          :server-items-length="totalRowsCount"
-        >
-          <template v-slot:item.company="{ item, index }">
-            <v-card
-              elevation="0"
-              style="background: none"
-              class="d-flex align-center"
-            >
-              <!-- <v-avatar class="mr-1">
+        </template>
+        <template v-slot:item.company="{ item, index }">
+          <v-card
+            elevation="0"
+            style="background: none"
+            class="d-flex align-center"
+          >
+            <!-- <v-avatar class="mr-1">
                 <img
                   :src="
                     item.company && item.company.logo
@@ -66,73 +64,101 @@
                   alt="Avatar"
                 />
               </v-avatar> -->
-              <div class="mt-2">
-                <strong> {{ item.company && item.company.name }}</strong>
-                <p>{{ item.company && item.company.address }}</p>
-              </div>
-            </v-card>
-          </template>
-          
-          <template v-slot:item.quotation_number="{ item }">
-           <p class="blue--text" style="cursor: pointer;" @click="() => $router.push(`/quotation/single/${item.id}`)">{{ item.quotation_number }}</p>
-          </template>
-          <template v-slot:item.description="{ item }">
-            <ReadMore :text="item.description" />
-          </template>
-          <template v-slot:item.status="{ item }">
-            <v-chip
-              class="mx-2"
-              dark
-              small
-              :color="getRelationStatus(item.status)"
-              >{{ item.status }}</v-chip
-            >
-          </template>
+            <div class="mt-2">
+              <strong> {{ item.company && item.company.name }}</strong>
+              <p>{{ item.company && item.company.address }}</p>
+            </div>
+          </v-card>
+        </template>
 
-          <template v-slot:item.options="{ item }">
-            <v-menu bottom left>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn dark-2 icon v-bind="attrs" v-on="on">
-                  <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
-              </template>
-              <v-list width="175" dense>
-                <!-- <v-list-item>
+        <template v-slot:item.quotation_number="{ item }">
+          <p
+            class="blue--text"
+            style="cursor: pointer"
+            @click="() => $router.push(`/quotation/single/${item.id}`)"
+          >
+            {{ item.quotation_number }}
+          </p>
+        </template>
+        <template v-slot:item.description="{ item }">
+          <ReadMore :text="item.description" />
+        </template>
+        <template v-slot:item.status="{ item }">
+          <v-chip
+            class="mx-2"
+            dark
+            small
+            :color="getRelationStatus(item.status)"
+            >{{ item.status }}</v-chip
+          >
+        </template>
+
+        <template v-slot:item.options="{ item }">
+          <v-menu bottom left>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn dark-2 icon v-bind="attrs" v-on="on">
+                <v-icon>mdi-dots-vertical</v-icon>
+              </v-btn>
+            </template>
+            <v-list width="175" dense>
+              <!-- <v-list-item>
                   <v-list-item-title>
                     <QuotationSingle :key="getRandomId()" :item="item" />
                   </v-list-item-title>
                 </v-list-item> -->
-                <v-list-item>
-                  <v-list-item-title>
-                    <QuotationV1SinglePreview
-                      :key="getRandomId()"
-                      :payload="item"
-                    />
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>
-                    <QuotationV1SinglePrint :key="getRandomId()" :item="item" />
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item :to="`/quotation/${item.id}`">
-                  <v-list-item-title>
-                    <v-icon small color="black">mdi-pencil</v-icon> Edit
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item :to="`/quotation/clone/${item.id}`">
-                  <v-list-item-title>
-                    <v-icon small color="black">mdi-content-duplicate</v-icon>
-                    Clone
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item :to="`/quotation/invoice/${item.id}`">
-                  <v-list-item-title>
-                    <v-icon small color="black">mdi-file-document</v-icon>
-                    Convert to Invoice
-                  </v-list-item-title>
-                </v-list-item>
-                <!-- <v-list-item>
+              <v-list-item>
+                <v-list-item-title>
+                  <v-dialog v-model="dialog" width="620">
+                    <template v-slot:activator="{ on, attrs }">
+                      <span
+                        style="cursor: pointer"
+                        text
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        <v-icon color="secondary" small> mdi-eye </v-icon>
+                        View
+                      </span>
+                    </template>
+                    <div class="white text-right">
+                      <v-icon
+                        @click="dialog = false"
+                        class="mx-3 mt-3"
+                        color="primary"
+                        >mdi-close-circle-outline</v-icon
+                      >
+                    </div>
+                    <QuotationV1SinglePreviewCard :payload="item" />
+                  </v-dialog>
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>
+                  <QuotationV1SinglePrint
+                    iconColor="black"
+                    :key="getRandomId()"
+                    :item="item"
+                  />
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item :to="`/quotation/${item.id}`">
+                <v-list-item-title>
+                  <v-icon small color="black">mdi-pencil</v-icon> Edit
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item :to="`/quotation/clone/${item.id}`">
+                <v-list-item-title>
+                  <v-icon small color="black">mdi-content-duplicate</v-icon>
+                  Clone
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item :to="`/quotation/invoice/${item.id}`">
+                <v-list-item-title>
+                  <v-icon small color="black">mdi-file-document</v-icon>
+                  Convert to Invoice
+                </v-list-item-title>
+              </v-list-item>
+              <!-- <v-list-item>
                   <v-list-item-title>
                     <QuotationInvoice
                       :id="id"
@@ -143,18 +169,18 @@
                     />
                   </v-list-item-title>
                 </v-list-item> -->
-              </v-list>
-            </v-menu>
-          </template>
-        </v-data-table>
-      </v-card>
-    </v-container>
+            </v-list>
+          </v-menu>
+        </template>
+      </v-data-table>
+    </v-card>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
+    dialog: false,
     totalRowsCount: 0,
     showFilters: false,
     filters: {},

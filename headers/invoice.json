@@ -1,5 +1,14 @@
 [
   {
+    "text": "Date",
+    "align": "left",
+    "sortable": true,
+    "key": "date",
+    "value": "date",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
     "text": "Reference #",
     "align": "left",
     "sortable": true,
@@ -8,7 +17,15 @@
     "filterable": true,
     "filterSpecial": false
   },
-
+  {
+    "text": "LPO Number",
+    "align": "left",
+    "sortable": true,
+    "key": "lpo_number",
+    "value": "lpo_number",
+    "filterable": true,
+    "filterSpecial": false
+  },
   {
     "text": "Company",
     "align": "left",
@@ -18,27 +35,6 @@
     "filterable": true,
     "filterSpecial": false
   },
-
-  {
-    "text": "Date",
-    "align": "left",
-    "sortable": true,
-    "key": "date",
-    "value": "date",
-    "filterable": true,
-    "filterSpecial": false
-  },
-
-  {
-    "text": "Description",
-    "align": "left",
-    "sortable": true,
-    "key": "description",
-    "value": "description",
-    "filterable": true,
-    "filterSpecial": false
-  },
-
   {
     "text": "Value",
     "align": "left",

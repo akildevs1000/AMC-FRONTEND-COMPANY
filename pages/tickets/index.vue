@@ -22,6 +22,8 @@
               />
             </v-col>
           </v-row>
+          <v-spacer></v-spacer>
+          <TicketCreate />
         </v-toolbar>
         <v-data-table
           dense
@@ -42,7 +44,7 @@
               style="background: none"
               class="d-flex align-center"
             >
-              <v-avatar class="mr-1">
+              <!-- <v-avatar class="mr-1">
                 <img
                   :src="
                     item.company && item.company.logo
@@ -51,31 +53,13 @@
                   "
                   alt="Avatar"
                 />
-              </v-avatar>
+              </v-avatar> -->
               <div class="mt-2">
                 <strong> {{ item.company && item.company.name }}</strong>
                 <p>{{ item.company && item.company.address }}</p>
               </div>
             </v-card>
           </template>
-
-          <template v-slot:item.priority="{ item }">
-            <v-chip
-              dark
-              small
-              :color="
-                priorityRelatedColor(
-                  item.priority && item.priority.name
-                    ? item.priority.name
-                    : '---'
-                )
-              "
-              >{{
-                item.priority && item.priority.name ? item.priority.name : "---"
-              }}</v-chip
-            >
-          </template>
-
           <template v-slot:item.status="{ item }">
             <v-chip dark small :color="statusRelatedColor(item.status)">{{
               item.status
@@ -100,21 +84,10 @@
           </template>
 
           <template v-slot:item.technicians="{ item }">
-            <v-avatar
-              size="30"
-              color="primary"
-              v-for="(technician, index) in item.technicians"
-              :key="index"
-            >
-              <v-tooltip top color="deep-purple">
-                <template v-slot:activator="{ on, attrs }">
-                  <span v-bind="attrs" v-on="on" class="white--text">{{
-                    getCapitalFirstLetters(technician.name)
-                  }}</span>
-                </template>
-                <span>{{ technician.name }}</span>
-              </v-tooltip>
-            </v-avatar>
+            <div v-if="item.technicians && item.technicians[0]">
+              <div>{{ item.technicians[0].pivot.schedule_date }}</div>
+                <v-chip x-small color="primary">{{ item.technicians[0].name }}</v-chip>
+            </div>
           </template>
 
           <template v-slot:item.options="{ item }">
@@ -148,6 +121,14 @@
                       @success="
                         (e) => handleSuccessResponse(`Record has been updated`)
                       "
+                    />
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    <TicketViewAttachment
+                      :key="getRandomId()"
+                      :src="item.attachment"
                     />
                   </v-list-item-title>
                 </v-list-item>

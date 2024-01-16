@@ -1,5 +1,6 @@
 <template>
-  <v-container class="px-10">
+  <div>
+    <div class="text-right"><SnippetsBack /></div>
     <div class="text-center ma-2">
       <v-dialog
         transition="dialog-top-transition"
@@ -67,7 +68,19 @@
                 </v-col>
               </v-row>
             </v-container>
-            <v-row no-gutters class="mt-2">
+            <v-row class="mt-2">
+              <v-col cols="12">
+                <v-text-field
+                  label="LPO Number"
+                  outlined
+                  dense
+                  :hide-details="!errors.lpo_number"
+                  :error-messages="
+                    errors && errors.lpo_number ? errors.lpo_number[0] : ''
+                  "
+                  v-model="payload.lpo_number"
+                ></v-text-field>
+              </v-col>
               <v-col cols="12">
                 <v-textarea
                   label="Description"
@@ -131,8 +144,19 @@
           <v-container class="pa-10">
             <v-row no-gutters>
               <v-col cols="12" class="my-1">
+                <v-btn
+                  class="primary"
+                  block
+                  dense
+                  @click="$refs.childComponentRef.openRightDrawer()"
+                >
+                  <v-icon small color="black" class="white--text" dark
+                    >mdi-email</v-icon
+                  >
+                  Send Quotation
+                </v-btn>
                 <QuotationV1RightDraw
-                  @click="$refs.rdBTN.click()"
+                  ref="childComponentRef"
                   :payload="payload"
                 />
               </v-col>
@@ -151,7 +175,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>

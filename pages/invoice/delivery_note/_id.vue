@@ -16,7 +16,7 @@
               >mdi-close-circle-outline</v-icon
             ></v-card-title
           >
-          <v-card-text> Quotation has been created </v-card-text>
+          <v-card-text> Delivery Note has been cloned </v-card-text>
         </v-card>
       </v-dialog>
     </div>
@@ -25,7 +25,7 @@
         <v-card outlined>
           <v-container class="pa-10">
             <div class="pb-5 text-center">
-              <h2>QUOTATION</h2>
+              <h2>Delivery Note</h2>
             </div>
             <v-row class="my-3">
               <v-col cols="4">
@@ -60,13 +60,23 @@
                 <v-col cols="4"></v-col>
                 <v-col cols="4" class="text-right">
                   <div>
-                    <b>Quotaion #: {{ payload.quotation_number }}</b>
+                    <b>DO #: {{ payload.invoice_number }}</b>
                   </div>
                   <div>Date: {{ payload.date }}</div>
                 </v-col>
               </v-row>
             </v-container>
-            <v-row no-gutters class="mt-2">
+            <v-row class="mt-2">
+              <v-col cols="12">
+                <v-text-field
+                  label="LPO Number"
+                  rows="3"
+                  outlined
+                  dense
+                  :hide-details="true"
+                  v-model="payload.lpo_number"
+                ></v-text-field>
+              </v-col>
               <v-col cols="12">
                 <v-textarea
                   label="Description"
@@ -80,8 +90,9 @@
             </v-row>
 
             <v-row class="py-5">
-              <v-col>
-                <QuotationV1MultipleItems
+              <v-col v-if="payload.id">
+                <InvoiceV1MultipleItems
+                  :payload="payload"
                   @selected="
                     (e) => {
                       payload = { ...payload, ...e };
@@ -93,7 +104,7 @@
 
             <v-divider></v-divider>
             <v-row class="pt-5">
-              <v-col cols="3" offset="9">
+              <!-- <v-col cols="3" offset="9">
                 <v-row no-gutters>
                   <v-col class="secondary--text">Sub Total AED</v-col>
                   <v-col class="secondary--text text-right"
@@ -112,7 +123,7 @@
                     >{{ payload.total ?? 0 }}
                   </v-col>
                 </v-row>
-              </v-col>
+              </v-col> -->
               <v-col cols="12" class="my-1 text-right">
                 <v-btn class="primary" :loading="loading" @click="submit">
                   <v-icon small>mdi-floppy</v-icon> Save</v-btn
@@ -128,24 +139,30 @@
           <v-container class="pa-10">
             <v-row no-gutters>
               <v-col cols="12" class="my-1">
-                <v-btn class="primary" block dense @click="$refs.childComponentRef.openRightDrawer()">
-                  <v-icon small color="black" class="white--text" dark>mdi-email</v-icon>
-                  Send Quotation
+                <v-btn
+                  block
+                  color="primary"
+                  dense
+                  @click="$refs.RightDrawRef.openRightDrawer()"
+                >
+                  <v-icon small color="white">mdi-email</v-icon>
+                  Send Invoice
                 </v-btn>
-                <QuotationV1RightDraw
-                  ref="childComponentRef"
-                  :payload="payload"
-                />
+                <InvoiceV1RightDraw ref="RightDrawRef" :payload="payload" />
               </v-col>
               <v-col cols="12" class="my-1">
-                <QuotationV1Preview
-                  :payload="payload"
-                  label="Preview"
-                  icon="eye"
-                />
+                <v-btn
+                  block
+                  color="primary"
+                  dark
+                  @click="$refs.PreviewRef.dialog = true"
+                >
+                  <v-icon small>mdi-email</v-icon>Preview
+                </v-btn>
+                <InvoiceV1DOPreview ref="PreviewRef" :payload="payload" />
               </v-col>
               <v-col cols="12" class="my-1">
-                <QuotationV1Print :payload="payload" />
+                <InvoiceV1Print :payload="payload" />
               </v-col>
             </v-row>
           </v-container>
@@ -166,7 +183,7 @@ export default {
       company_id: 1,
       description: null,
       company: {},
-      quotation_number: 0,
+      invoice_number: 0,
       date: null,
     },
 
@@ -176,32 +193,25 @@ export default {
   async created() {
     this.$axios.get("/amc_company_list").then(({ data }) => {
       this.companies = data;
-
-      if (data.length) {
-        this.payload.company_id = data.at(0).id;
-        this.getRelatedCompany(data.at(0).id);
-      }
     });
 
-    this.$axios.get("/getLastQuotation").then(({ data }) => {
-      let qn = data.id + 1;
-      this.payload.quotation_number = "QTN-" + (qn < 1000 ? qn + 1000 : qn);
-      this.payload.date = data.date;
+    this.$axios.get(`/invoice/${this.$route.params.id}`).then(({ data }) => {
+      this.payload = data;
     });
   },
   methods: {
     getRelatedCompany(id) {
       this.payload.company = this.companies.find((e) => e.id == id);
-      this.payload.description = `Dear ${this.payload.company.name}, Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi amet et fugiat, blanditiis ducimus voluptas nisi veritatis, atque magnam aperiam vel eaque placeat.`;
     },
+
     submit() {
       this.$axios
-        .post("/quotation", this.payload)
+        .post("/invoice", this.payload)
         .then(({ data }) => {
           this.loading = false;
           this.errors = [];
           this.dialog = true;
-          setTimeout(() => this.$router.push("/quotation"), 3000);
+          setTimeout(() => this.$router.push("/invoice"), 3000);
         })
         .catch(({ response }) => this.handleErrorResponse(response));
     },

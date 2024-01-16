@@ -42,7 +42,7 @@
               style="background: none"
               class="d-flex align-center"
             >
-              <v-avatar class="mr-1">
+              <!-- <v-avatar class="mr-1">
                 <img
                   :src="
                     contract.company && contract.company.logo
@@ -51,7 +51,7 @@
                   "
                   alt="Avatar"
                 />
-              </v-avatar>
+              </v-avatar> -->
               <div class="mt-2">
                 <strong>
                   {{ contract.company && contract.company.name }}</strong
@@ -69,7 +69,7 @@
             }}</v-chip>
           </template>
 
-          <template v-slot:item.technicians="{ item }">
+          <!-- <template v-slot:item.technicians="{ item }">
             <v-avatar
               size="30"
               color="primary"
@@ -85,6 +85,12 @@
                 <span>{{ technician.name }}</span>
               </v-tooltip>
             </v-avatar>
+          </template> -->
+          <template v-slot:item.technicians="{ item }">
+            <div v-if="item.technicians && item.technicians[0]">
+              <div>{{ item.technicians[0].pivot.schedule_date }}</div>
+                <v-chip x-small color="primary">{{ item.technicians[0].name }}</v-chip>
+            </div>
           </template>
 
           <template v-slot:item.options="{ item }">

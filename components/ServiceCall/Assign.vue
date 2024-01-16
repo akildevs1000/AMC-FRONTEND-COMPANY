@@ -12,17 +12,28 @@
         <v-row>
           <v-col cols="12">
             <v-autocomplete
-              multiple
               :items="technicians"
               :item-text="`name`"
               item-value="id"
               label="Select Technician(s)"
               dense
               outlined
-              v-model="payload.technicianIds"
+              v-model="technicianId"
+              hide-details
             ></v-autocomplete>
           </v-col>
-          <v-col cols="12" class="text-right my-1">
+          <v-col cols="12">
+            <DatePicker
+              label="Schedule Date"
+              :default_date="payload.schedule_date"
+              @date="
+                (e) => {
+                  payload.schedule_date = e;
+                }
+              "
+            />
+          </v-col>
+          <v-col cols="12" class="text-right">
             <v-btn small @click="dialog = false">Close</v-btn>
             <v-btn small :loading="loading" @click="submit" class="primary"
               >Submit</v-btn
@@ -51,6 +62,7 @@ export default {
       serviceCallIds: [],
       technicianIds: [],
     },
+    technicianId: null,
 
     e1: 1,
     errors: [],
@@ -63,14 +75,20 @@ export default {
   created() {
     this.preloader = false;
 
-    this.payload.serviceCallIds = [this.item.id];
-
     this.$axios
       .get("/technician_list")
-      .then(({ data }) => (this.technicians = data.filter(tech => !this.item.technicians.some(call => call.id == tech.id))));
+      .then(
+        ({ data }) =>
+          (this.technicians = data.filter(
+            (tech) => !this.item.technicians.some((call) => call.id == tech.id)
+          ))
+      );
   },
   methods: {
     submit() {
+    this.payload.serviceCallIds = [this.item.id];
+    this.payload.technicianIds = [this.technicianId];
+
       this.$axios
         .post("/service_call_technician_assigning", this.payload)
         .then(({ data }) => {

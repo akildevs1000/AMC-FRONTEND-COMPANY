@@ -8,7 +8,6 @@
     "filterable": true,
     "filterSpecial": false
   },
-
   {
     "text": "Company",
     "align": "left",
@@ -38,17 +37,6 @@
     "filterable": true,
     "filterSpecial": false
   },
-
-  {
-    "text": "Equipement",
-    "align": "left",
-    "sortable": true,
-    "key": "equipement",
-    "value": "equipement",
-    "filterable": true,
-    "filterSpecial": false
-  },
-
   {
     "text": "Since",
     "align": "left",
@@ -58,7 +46,6 @@
     "filterable": true,
     "filterSpecial": false
   },
-
   {
     "text": "Expiry",
     "align": "left",

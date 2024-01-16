@@ -226,15 +226,6 @@ export default {
         filterSpecial: false,
       },
       {
-        text: "Schedule Expire Date",
-        align: "left",
-        sortable: true,
-        key: "schedule_end_date",
-        value: "schedule_end_date",
-        filterable: true,
-        filterSpecial: false,
-      },
-      {
         text: "Technicians",
         align: "left",
         sortable: true,

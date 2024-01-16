@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="text-right"><SnippetsBack /></div>
+    <div class="text-right">
+      <SnippetsBack />
+    </div>
     <div class="text-center ma-2">
       <v-snackbar v-model="snackbar" small top="top" :color="color">
         {{ response }}
@@ -28,10 +30,10 @@
             small
             class="primary"
             text
-            title="Create Quotation"
-            @click="() => $router.push(`/quotation/create`)"
+            title="Create Invoice"
+            @click="() => $router.push(`/invoice/create`)"
           >
-            Create Quotation
+            Create Invoice
             <v-icon right dark>mdi-plus-circle-outline</v-icon>
           </v-btn>
         </v-toolbar>
@@ -62,9 +64,7 @@
                   <v-col cols="6">
                     <strong> {{ item.company && item.company.name }}</strong>
                     <p @click="handleClick(item)" style="cursor: pointer">
-                      <span class="blue--text">{{
-                        item.quotation_number
-                      }}</span>
+                      <span class="blue--text">{{ item.invoice_number }}</span>
                       | {{ item.date }}
                     </p>
                   </v-col>
@@ -81,28 +81,30 @@
         </v-col>
         <v-col cols="9" v-if="item.id">
           <v-container>
-            <v-btn outlined color="primary" dense :to="`/quotation/${item.id}`"
+            <v-btn outlined color="primary" dense :to="`/invoice/${item.id}`"
               ><v-icon small color="primary">mdi-pencil</v-icon> Edit</v-btn
             >
             <v-btn
               outlined
               color="primary"
               dense
-              :to="`/quotation/clone/${item.id}`"
+              :to="`/invoice/clone/${item.id}`"
               ><v-icon small color="primary">mdi-content-duplicate</v-icon>
               Clone</v-btn
             >
+
             <v-btn
               outlined
               color="primary"
-              dense
-              :to="`/quotation/invoice/${item.id}`"
-              ><v-icon small color="primary">mdi-file-document</v-icon> Convert
-              to Invoice</v-btn
+              dark
+              @click="$refs.PrintRef.dialog = true"
             >
-            <v-btn outlined color="primary" dense>
-              <QuotationV1SinglePrint :key="getRandomId()" :item="item" />
+              <v-icon small>mdi-printer</v-icon>Print
             </v-btn>
+            <v-btn outlined color="primary" dense :to="`/invoice/delivery_note/${item.id}`"
+              ><v-icon small color="primary">mdi-pencil</v-icon> Add Delivery
+              Note</v-btn
+            >
             <v-btn
               outlined
               color="primary"
@@ -110,15 +112,17 @@
               @click="$refs.childComponentRef.openRightDrawer()"
             >
               <v-icon small color="primary">mdi-email</v-icon>
-              Send Quotation
+              Send Email
             </v-btn>
-            <QuotationV1RightDraw
+            <InvoiceV1Print ref="PrintRef" :payload="item" />
+
+            <InvoiceV1RightDraw
               ref="childComponentRef"
               :key="getRandomId()"
               :payload="item"
             />
-            <v-card elevation="5" class="mt-4 pa-5">
-              <QuotationV1SinglePreviewCard
+            <v-card elevation="5" class="my-4 pa-5">
+              <InvoiceV1PreviewCard
                 v-if="item && item.id"
                 :key="getRandomId()"
                 :payload="item"
@@ -148,8 +152,8 @@ export default {
     },
     payload: {},
     options: {},
-    Model: "Quotation",
-    endpoint: "quotation",
+    Model: "Invoice",
+    endpoint: "invoice",
     snackbar: false,
     loading: false,
     response: "",
@@ -172,7 +176,7 @@ export default {
 
   async created() {
     this.loading = false;
-    this.$axios.get(`quotation/${this.$route.params.id}`).then(({ data }) => {
+    this.$axios.get(`invoice/${this.$route.params.id}`).then(({ data }) => {
       this.item = data;
     });
 
@@ -241,7 +245,7 @@ export default {
       this.loadinglinear = true;
 
       let json = {
-        key: "quotations",
+        key: "invoices",
         options: this.options,
         refresh: true,
         endpoint: this.endpoint,

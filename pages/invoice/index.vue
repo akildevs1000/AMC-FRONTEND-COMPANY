@@ -6,34 +6,9 @@
       </v-snackbar>
     </div>
     <div v-if="!loading">
+      <InvoiceV1Preview ref="PreviewRef" :payload="currentItem" />
+
       <v-container>
-        <v-toolbar flat>
-          {{ Model }}s
-          <v-icon color="black" @click="getDataFromApi">mdi-reload</v-icon>
-          <v-row no-gutters class="mx-5">
-            <v-col cols="2">
-              <CompanyList
-                @id="
-                  (e) => {
-                    filters.company_id = e;
-                    getDataFromApi();
-                  }
-                "
-              />
-            </v-col>
-          </v-row>
-          <v-btn
-            dense
-            small
-            class="primary"
-            text
-            title="Create Invoice"
-            @click="() => $router.push(`/invoice/create`)"
-          >
-            Create Invoice
-            <v-icon right dark>mdi-plus-circle-outline</v-icon>
-          </v-btn>
-        </v-toolbar>
         <v-data-table
           dense
           :headers="headers"
@@ -46,13 +21,42 @@
           class="elevation-1"
           :server-items-length="totalRowsCount"
         >
+          <template v-slot:top>
+            <v-toolbar flat>
+              {{ Model }}s
+              <v-icon color="black" @click="getDataFromApi">mdi-reload</v-icon>
+              <v-row no-gutters class="mx-5">
+                <v-col cols="2">
+                  <CompanyList
+                    @id="
+                      (e) => {
+                        filters.company_id = e;
+                        getDataFromApi();
+                      }
+                    "
+                  />
+                </v-col>
+              </v-row>
+              <v-btn
+                dense
+                small
+                class="primary"
+                text
+                title="Create Invoice"
+                @click="() => $router.push(`/invoice/create`)"
+              >
+                Create Invoice
+                <v-icon right dark>mdi-plus-circle-outline</v-icon>
+              </v-btn>
+            </v-toolbar>
+          </template>
           <template v-slot:item.company="{ item, index }">
             <v-card
               elevation="0"
               style="background: none"
               class="d-flex align-center"
             >
-              <v-avatar class="mr-1">
+              <!-- <v-avatar class="mr-1">
                 <img
                   :src="
                     item.company && item.company.logo
@@ -61,7 +65,7 @@
                   "
                   alt="Avatar"
                 />
-              </v-avatar>
+              </v-avatar> -->
               <div class="mt-2">
                 <strong> {{ item.company && item.company.name }}</strong>
                 <p>{{ item.company && item.company.address }}</p>
@@ -77,6 +81,18 @@
               >{{ item.status }}</v-chip
             >
           </template>
+          <template v-slot:item.invoice_number="{ item }">
+            <p
+              class="blue--text"
+              style="cursor: pointer"
+              @click="() => $router.push(`/invoice/single/${item.id}`)"
+            >
+              {{ item.invoice_number }}
+            </p>
+          </template>
+          <template v-slot:item.description="{ item }">
+            <ReadMore :text="item.description" />
+          </template>
 
           <template v-slot:item.options="{ item }">
             <v-menu bottom left>
@@ -86,17 +102,25 @@
                 </v-btn>
               </template>
               <v-list width="175" dense>
-                <v-list-item>
+                <v-list-item
+                  @click="
+                    () => {
+                      ($refs.PreviewRef.dialog = true), (currentItem = item);
+                    }
+                  "
+                >
                   <v-list-item-title>
-                    <InvoiceV1SinglePreview
-                      :key="getRandomId()"
-                      :payload="item"
-                    />
+                    <v-icon color="secondary" small> mdi-eye </v-icon>
+                    View
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>
-                    <InvoiceV1SinglePrint :key="getRandomId()" :item="item" />
+                    <InvoiceV1SinglePrint
+                      iconColor="black"
+                      :key="getRandomId()"
+                      :item="item"
+                    />
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item :to="`/invoice/${item.id}`">
@@ -112,9 +136,9 @@
                 </v-list-item>
               </v-list>
             </v-menu>
-          </template> 
-          </v-data-table
-      ></v-container>
+          </template>
+        </v-data-table></v-container
+      >
     </div>
     <Preloader v-else />
   </div>
@@ -124,6 +148,8 @@
 export default {
   auth: false,
   data: () => ({
+    currentItem: {},
+    dialog: false,
     totalRowsCount: 0,
     showFilters: false,
     filters: {},
@@ -194,7 +220,6 @@ export default {
     },
     async getDataFromApi() {
       this.loadinglinear = true;
-
 
       let json = {
         key: "invoice",

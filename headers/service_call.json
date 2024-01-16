@@ -6,10 +6,8 @@
     "key": "id",
     "value": "id",
     "filterable": true,
-    "filterSpecial": false,
-    "width": "130px"
+    "filterSpecial": false
   },
-
   {
     "text": "Company",
     "align": "left",
@@ -17,24 +15,10 @@
     "key": "company",
     "value": "company",
     "filterable": true,
-    "filterSpecial": false,
-    "width": "200px"
+    "filterSpecial": false
   },
-
- 
   {
-    "text": "Status",
-    "align": "left",
-    "sortable": true,
-    "key": "status",
-    "value": "status",
-    "filterable": true,
-    "filterSpecial": false,
-    "width": "130px"
-  },
- 
-  {
-    "text": "Schedule Start Date",
+    "text": "Month",
     "align": "left",
     "sortable": true,
     "key": "schedule_start_date",
@@ -43,16 +27,7 @@
     "filterSpecial": false
   },
   {
-    "text": "Schedule Expire Date",
-    "align": "left",
-    "sortable": true,
-    "key": "schedule_end_date",
-    "value": "schedule_end_date",
-    "filterable": true,
-    "filterSpecial": false
-  },
-  {
-    "text": "Technicians",
+    "text": "Schedule Date/Technician",
     "align": "left",
     "sortable": true,
     "key": "technicians",
@@ -61,11 +36,11 @@
     "filterSpecial": false
   },
   {
-    "text": "Created Date",
+    "text": "Status",
     "align": "left",
     "sortable": true,
-    "key": "date",
-    "value": "date",
+    "key": "status",
+    "value": "status",
     "filterable": true,
     "filterSpecial": false
   },
