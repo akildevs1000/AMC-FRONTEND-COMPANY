@@ -1,21 +1,39 @@
 <template>
-  <v-dialog v-model="dialog" width="620">
+  <v-dialog v-model="dialog" width="750">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn block color="primary" dark v-bind="attrs" v-on="on">
-        <v-icon small>mdi-{{ icon }}</v-icon
-        >{{ label }}
-      </v-btn>
+      <span style="cursor: pointer" text v-bind="attrs" v-on="on">
+        <v-icon :color="iconColor" small> mdi-eye </v-icon>
+        Preview
+      </span>
     </template>
-    <QuotationV1SinglePreviewCard :payload="payload" />
+
+    <QuotationV1SinglePreviewCard :payload="item" />
   </v-dialog>
 </template>
 <script>
 export default {
-  props: ["payload", "label", "icon"],
+  props: ["item","iconColor"],
   data() {
     return {
       dialog: false,
+      loading: true,
     };
+  },
+  watch: {
+    dialog(value) {
+      if (value) {
+        this.loading = true;
+        setTimeout(() => {
+          this.loading = false;
+          // this.printContent();
+        }, 3000);
+      }
+    },
+  },
+  methods: {
+    printContent() {
+      window.print();
+    },
   },
 };
 </script>

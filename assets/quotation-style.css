@@ -5,19 +5,29 @@
 }
 .quotation-body th,
 .quotation-body td {
-  border-top: 1px solid #8d8d8d;
   padding: 5px;
-  font-size: 11px;
+  font-size: 14px;
   text-align: left;
 }
 .quotation-body th {
-  background-color: #8c57ff;
-  border: 1px solid #8c57ff;
+  background-color: #757575;
   color: #fff;
+}
+.quotation-body td {
+  border-top: 1px solid #8d8d8d;
+}
+.quotation-font-size {
+  font-size: 14px;
+}
+.description-td {
+  width: 350px;
 }
 @media print {
   body {
     font-family: Arial, sans-serif;
+  }
+  .quotation-font-size {
+    font-size: 14px;
   }
   .quotation {
     margin: 20px;
@@ -46,14 +56,24 @@
   }
   .quotation-body th,
   .quotation-body td {
-    border-top: 1px solid #8d8d8d;
     padding: 5px;
-    font-size: 11px;
+    font-size: 14px;
     text-align: left;
   }
   .quotation-body th {
-    background-color: #8c57ff;
-    border: 1px solid #8c57ff;
+    background-color: #757575;
     color: #fff;
+  }
+  .quotation-body td {
+    border-top: 1px solid #8d8d8d;
+  }
+  .description-td {
+    width: 700px;
+  }
+  .quotation-text {
+    font-size: 44px;
+  }
+  .footer-print {
+    position: fixed; bottom: 0; width: 100%
   }
 }

@@ -108,28 +108,11 @@
                 </v-list-item> -->
               <v-list-item>
                 <v-list-item-title>
-                  <v-dialog v-model="dialog" width="620">
-                    <template v-slot:activator="{ on, attrs }">
-                      <span
-                        style="cursor: pointer"
-                        text
-                        v-bind="attrs"
-                        v-on="on"
-                      >
-                        <v-icon color="secondary" small> mdi-eye </v-icon>
-                        View
-                      </span>
-                    </template>
-                    <div class="white text-right">
-                      <v-icon
-                        @click="dialog = false"
-                        class="mx-3 mt-3"
-                        color="primary"
-                        >mdi-close-circle-outline</v-icon
-                      >
-                    </div>
-                    <QuotationV1SinglePreviewCard :payload="item" />
-                  </v-dialog>
+                  <QuotationV1Preview
+                    iconColor="black"
+                    :key="getRandomId()"
+                    :item="item"
+                  />
                 </v-list-item-title>
               </v-list-item>
               <v-list-item>

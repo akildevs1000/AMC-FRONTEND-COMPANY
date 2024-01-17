@@ -6,13 +6,42 @@
         {{ response }}
       </v-snackbar>
     </div>
+
     <v-row>
-      <v-col cols="12">
-        <v-toolbar flat>
-          {{ Model }}s
-          <v-icon color="black" @click="getDataFromApi">mdi-reload</v-icon>
-          <v-row no-gutters class="mx-5">
-            <v-col cols="2">
+      <v-col cols="3">
+        <v-data-table
+          dense
+          :headers="headers"
+          :items="data"
+          :loading="loadinglinear"
+          :options.sync="options"
+          :footer-props="{
+            itemsPerPageOptions: [10, 20, 50, 100, 500],
+          }"
+          class="elevation-1"
+          :server-items-length="totalRowsCount"
+        >
+          <template v-slot:top="{ item, index }">
+            <v-toolbar flat>
+              {{ Model }}s
+              <v-icon color="black" @click="getDataFromApi">mdi-reload</v-icon>
+              <v-spacer></v-spacer>
+              <v-btn
+                style="float: right"
+                dense
+                small
+                class="primary"
+                text
+                title="Create Quotation"
+                @click="() => $router.push(`/quotation/create`)"
+              >
+                New
+                <v-icon right dark>mdi-plus-circle-outline</v-icon>
+              </v-btn>
+              
+            </v-toolbar>
+
+            <v-toolbar flat dense>
               <CompanyList
                 @id="
                   (e) => {
@@ -21,113 +50,79 @@
                   }
                 "
               />
-            </v-col>
-          </v-row>
-          <v-btn
-            dense
-            small
-            class="primary"
-            text
-            title="Create Quotation"
-            @click="() => $router.push(`/quotation/create`)"
-          >
-            Create Quotation
-            <v-icon right dark>mdi-plus-circle-outline</v-icon>
-          </v-btn>
-        </v-toolbar>
+            </v-toolbar>
+          </template>
+          <template v-slot:item.company="{ item, index }">
+            <v-card
+              elevation="0"
+              style="background: none"
+              class="d-flex align-center"
+            >
+              <v-row>
+                <v-col cols="6">
+                  <strong> {{ item.company && item.company.name }}</strong>
+                  <p @click="handleClick(item)" style="cursor: pointer">
+                    <span class="blue--text">{{ item.quotation_number }}</span>
+                    | {{ item.date }}
+                  </p>
+                </v-col>
+                <v-col cols="6" class="text-right">
+                  <strong> AED {{ item.total }}</strong>
+                  <p>
+                    {{ item.status }}
+                  </p>
+                </v-col>
+              </v-row>
+            </v-card>
+          </template>
+        </v-data-table>
+      </v-col>
+      <v-col cols="9" v-if="item.id">
+        <v-btn outlined color="primary" dense :to="`/quotation/${item.id}`"
+          ><v-icon small color="primary">mdi-pencil</v-icon> Edit</v-btn
+        >
+        <v-btn
+          outlined
+          color="primary"
+          dense
+          :to="`/quotation/clone/${item.id}`"
+          ><v-icon small color="primary">mdi-content-duplicate</v-icon>
+          Clone</v-btn
+        >
+        <v-btn
+          outlined
+          color="primary"
+          dense
+          :to="`/quotation/invoice/${item.id}`"
+          ><v-icon small color="primary">mdi-file-document</v-icon> Convert to
+          Invoice</v-btn
+        >
+        <v-btn outlined color="primary" dense>
+          <QuotationV1SinglePrint :key="getRandomId()" :item="item" />
+        </v-btn>
+        <v-btn
+          outlined
+          color="primary"
+          dense
+          @click="$refs.childComponentRef.openRightDrawer()"
+        >
+          <v-icon small color="primary">mdi-email</v-icon>
+          Send Quotation
+        </v-btn>
+        <QuotationV1RightDraw
+          ref="childComponentRef"
+          :key="getRandomId()"
+          :payload="item"
+        />
+        <v-card elevation="5" class="mt-4 pa-5">
+          <QuotationV1SinglePreviewCard
+            v-if="item && item.id"
+            :key="getRandomId()"
+            :payload="item"
+          />
+        </v-card>
       </v-col>
     </v-row>
-    <v-card elevation="1">
-      <v-row>
-        <v-col cols="3">
-          <v-data-table
-            dense
-            :headers="headers"
-            :items="data"
-            :loading="loadinglinear"
-            :options.sync="options"
-            :footer-props="{
-              itemsPerPageOptions: [10, 20, 50, 100, 500],
-            }"
-            class="elevation-1"
-            :server-items-length="totalRowsCount"
-          >
-            <template v-slot:item.company="{ item, index }">
-              <v-card
-                elevation="0"
-                style="background: none"
-                class="d-flex align-center"
-              >
-                <v-row>
-                  <v-col cols="6">
-                    <strong> {{ item.company && item.company.name }}</strong>
-                    <p @click="handleClick(item)" style="cursor: pointer">
-                      <span class="blue--text">{{
-                        item.quotation_number
-                      }}</span>
-                      | {{ item.date }}
-                    </p>
-                  </v-col>
-                  <v-col cols="6" class="text-right">
-                    <strong> AED {{ item.total }}</strong>
-                    <p>
-                      {{ item.status }}
-                    </p>
-                  </v-col>
-                </v-row>
-              </v-card>
-            </template>
-          </v-data-table>
-        </v-col>
-        <v-col cols="9" v-if="item.id">
-          <v-container>
-            <v-btn outlined color="primary" dense :to="`/quotation/${item.id}`"
-              ><v-icon small color="primary">mdi-pencil</v-icon> Edit</v-btn
-            >
-            <v-btn
-              outlined
-              color="primary"
-              dense
-              :to="`/quotation/clone/${item.id}`"
-              ><v-icon small color="primary">mdi-content-duplicate</v-icon>
-              Clone</v-btn
-            >
-            <v-btn
-              outlined
-              color="primary"
-              dense
-              :to="`/quotation/invoice/${item.id}`"
-              ><v-icon small color="primary">mdi-file-document</v-icon> Convert
-              to Invoice</v-btn
-            >
-            <v-btn outlined color="primary" dense>
-              <QuotationV1SinglePrint :key="getRandomId()" :item="item" />
-            </v-btn>
-            <v-btn
-              outlined
-              color="primary"
-              dense
-              @click="$refs.childComponentRef.openRightDrawer()"
-            >
-              <v-icon small color="primary">mdi-email</v-icon>
-              Send Quotation
-            </v-btn>
-            <QuotationV1RightDraw
-              ref="childComponentRef"
-              :key="getRandomId()"
-              :payload="item"
-            />
-            <v-card elevation="5" class="mt-4 pa-5">
-              <QuotationV1SinglePreviewCard
-                v-if="item && item.id"
-                :key="getRandomId()"
-                :payload="item"
-              />
-            </v-card>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-card>
   </div>
 </template>
 

@@ -7,116 +7,126 @@
   >
     <v-row>
       <v-col>
-        <h3>
-          {{ payload.company.name ?? "---" }}
-        </h3>
-        <div>Address: {{ payload.company.location ?? "---" }}</div>
-        <div>Phone: {{ payload.company.contact_number ?? "---" }}</div>
-        <div>Email: {{ payload.company.email ?? "---" }}</div>
+        <div style="width: 150px">
+          <v-img :src="`mail-logo.png`"></v-img>
+        </div>
+        <h4 class="mt-2">Akil Security & Alarm Systems LLC</h4>
+        <div class="quotation-font-size">
+          P.O.Box : 83481 , Dubai , United Arab Emirates
+        </div>
+        <div class="quotation-font-size">
+          +971 4 3939 562 / +971 55 330 3991
+        </div>
+        <div class="quotation-font-size">
+          mail@akilgroup.com, www.akilgroup.com
+        </div>
+        <div class="quotation-font-size">TRN : 100391417100003</div>
       </v-col>
       <v-col class="text-right">
-        <!-- <div class="ignore-print">
-          <v-icon @click="printContent" color="primary">mdi-printer</v-icon>
-        </div> -->
+        <div style="font-size: 40px">Quotation</div>
         <div>
-          <b>Quotaion #: {{ payload.quotation_number }}</b>
+          <b># {{ payload.quotation_number }}</b>
         </div>
-        <div>Date: {{ payload.date }}</div>
-      </v-col>
-      <v-col cols="12">
-        <v-card class="pa-1 mb-2" elevation="0">
-          <div>
-            {{ payload.description }}
-          </div>
-        </v-card>
       </v-col>
     </v-row>
-    <div class="quotation-body">
+    <v-row>
+      <v-col cols="6">
+        <div>Bill to</div>
+        <div>
+          <b>{{ payload.company.name ?? "---" }}</b>
+        </div>
+      </v-col>
+      <v-col cols="6" class="text-right">
+        <div style="color: white">ignore text</div>
+        <div>Quotation Date : {{ payload.date ?? "---" }}</div>
+        <div></div>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <div><b>Subject: </b>{{ payload.description ?? "---" }}</div>
+      </v-col>
+    </v-row>
+    <div class="quotation-body" style="margin-top: 10px">
       <table>
         <thead>
-          <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Warranty</th>
-            <th>Qty</th>
-            <th>Unit Price</th>
-            <th>Description</th>
+          <tr style="background-color: #757575; color: #fff">
+            <td>#</td>
+            <td>Title & Description</td>
+            <td>Warranty</td>
+            <td>Qty</td>
+            <td>Tax</td>
+            <td></td>
+            <td class="text-center">Amount</td>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in payload.items" :key="index">
             <td>{{ index + 1 }}</td>
-            <td>{{ item.title }}</td>
+            <td class="description-td">
+              <div>
+                <b>{{ item.title }}</b>
+              </div>
+              <div class="description-text">
+                {{ item.description }}
+              </div>
+            </td>
             <td>{{ item.warranty }}</td>
-            <td>{{ item.qty }}</td>
-            <td>{{ item.unit_price }}</td>
-            <td>{{ item.description }}</td>
+            <td>{{ convertToAmount(item.qty ?? 0) }}</td>
+            <td>{{ convertToAmount((item.unit_price / 100) * 5 ?? 0) }}</td>
+            <td></td>
+            <td class="text-center" style="width: 50px">
+              {{ convertToAmount(item.unit_price ?? 0) }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3"></td>
+            <td style="width:100px;"><strong>Sub Total </strong></td>
+            <td>{{ convertToAmount(payload.vat ?? 0) }}</td>
+            <td></td>
+            <td>
+              <span>{{ convertToAmount(payload.sub_total ?? 0) }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4"></td>
+            <td><strong>Total</strong></td>
+            <td></td>
+            <td>
+              <span>{{ convertToAmount(payload.total ?? 0) }}</span>
+            </td>
           </tr>
         </tbody>
-        <tfoot>
-          <tr>
-            <td style="border: none" colspan="5"></td>
-            <td>
-              <strong
-                >Subtotal
-                <span style="float: right">{{
-                  convertToAmount(payload.sub_total ?? 0)
-                }}</span></strong
-              >
-            </td>
-          </tr>
-          <tr>
-            <td style="border: none" colspan="5"></td>
-            <td>
-              <strong
-                >5% VAT
-                <span style="float: right">{{
-                  convertToAmount(payload.vat ?? 0)
-                }}</span></strong
-              >
-            </td>
-          </tr>
-          <tr>
-            <td style="border: none" colspan="5"></td>
-            <td>
-              <strong
-                >Total
-                <span style="float: right">{{
-                  convertToAmount(payload.total ?? 0)
-                }}</span></strong
-              >
-            </td>
-          </tr>
-        </tfoot>
       </table>
     </div>
-    <v-card outlined class="pa-2">
-      <v-row no-gutters>
-        <v-col cols="6">
-          <div><b>Bank Details</b></div>
-          <div>Account Title: Jhon Doe</div>
-          <div>Account Number: 111111111111</div>
-          <div>IBAN: 11111111111111111</div>
-          <div>Branch: India</div>
-        </v-col>
-        <v-col cols="6">
+    <div>
+      <v-row no-gutters class="mb-5">
+        <v-col cols="12">
           <div><b>Terms and Conditions</b></div>
           <ul>
-            <li>Confirm your booking by paying advance payment</li>
-            <li>Room availibilty depends on the demand</li>
-            <li>Full payment must be paid before your stay</li>
-            <li>Unmarried couples are not allowed</li>
+            <li>
+              The quotation includes details about warranties, if applicable,
+              for the products or services.
+            </li>
+            <li>
+              The quotation is based on the detailed scope of work provided by
+              the client.
+            </li>
+            <li>A detailed payment schedule is outlined in the quotation.</li>
+            <li>
+              The quotation is valid for a specified period, usually stated in
+              the document.
+            </li>
           </ul>
         </v-col>
       </v-row>
-    </v-card>
-    <div class="text-center mt-5">
-      <p>
-        Further Details: please visit our website
-        <a href="https://www.hyderspark.com" target="_blank"
-          >https://www.hyderspark.com</a
+      <div class="text-center footer-print">
+        <v-divider></v-divider>
+        <small
+          >This is a system-generated quotation and does not require a
+          signature.</small
         >
-      </p>
+      </div>
     </div>
   </div>
 </template>
