@@ -38,7 +38,6 @@
                 New
                 <v-icon right dark>mdi-plus-circle-outline</v-icon>
               </v-btn>
-              
             </v-toolbar>
 
             <v-toolbar flat dense>
@@ -97,9 +96,21 @@
           ><v-icon small color="primary">mdi-file-document</v-icon> Convert to
           Invoice</v-btn
         >
-        <v-btn outlined color="primary" dense>
-          <QuotationV1SinglePrint :key="getRandomId()" :item="item" />
-        </v-btn>
+
+        <v-btn
+          outlined
+          color="primary"
+          dense
+          @click="$refs.childComponentRefPrint.dialog = true"
+          ><v-icon small color="primary">mdi-printer</v-icon> Print</v-btn
+        >
+
+        <QuotationV1SinglePrint
+          ref="childComponentRefPrint"
+          :display="false"
+          :key="getRandomId()"
+          :item="item"
+        />
         <v-btn
           outlined
           color="primary"
@@ -116,6 +127,7 @@
         />
         <v-card elevation="5" class="mt-4 pa-5">
           <QuotationV1SinglePreviewCard
+            :previewOnly="true"
             v-if="item && item.id"
             :key="getRandomId()"
             :payload="item"

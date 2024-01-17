@@ -4,7 +4,13 @@
       <v-progress-circular color="primary" indeterminate></v-progress-circular>
     </v-overlay>
     <template v-slot:activator="{ on, attrs }">
-      <span style="cursor: pointer" text v-bind="attrs" v-on="on">
+      <span
+        v-show="display"
+        style="cursor: pointer"
+        text
+        v-bind="attrs"
+        v-on="on"
+      >
         <v-icon :color="iconColor" small> mdi-printer </v-icon>
         Print
       </span>
@@ -15,7 +21,14 @@
 </template>
 <script>
 export default {
-  props: ["item","iconColor"],
+  props: {
+    item: Object,
+    iconColor: String,
+    display: {
+      type: Boolean,
+      default: true, // Set the default value to true
+    },
+  },
   data() {
     return {
       dialog: false,
@@ -40,9 +53,6 @@ export default {
   },
 };
 </script>
-<style scoped>
-@import "@/assets/quotation-style.css";
-</style>
 <style>
 @media print {
   /* Hide everything except the v-dialog content */

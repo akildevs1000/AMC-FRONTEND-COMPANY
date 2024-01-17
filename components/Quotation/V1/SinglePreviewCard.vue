@@ -3,12 +3,13 @@
     style="background: white !important"
     elevation="0"
     flat
-    class="px-5 py-3 my-print"
+    class="px-5 py-3"
+    :class="previewOnly ? ``: `my-print`"
   >
     <v-row>
       <v-col>
         <div style="width: 150px">
-          <v-img :src="`mail-logo.png`"></v-img>
+          <v-img :src="`/mail-logo.png`"></v-img>
         </div>
         <h4 class="mt-2">Akil Security & Alarm Systems LLC</h4>
         <div class="quotation-font-size">
@@ -65,7 +66,7 @@
             <td>{{ index + 1 }}</td>
             <td class="description-td">
               <div>
-                <b>{{ item.title }}</b>
+                {{ item.title }}
               </div>
               <div class="description-text">
                 {{ item.description }}
@@ -132,19 +133,21 @@
 </template>
 <script>
 export default {
-  props: ["payload", "label", "icon"],
+  props: {
+    payload: Object,
+    previewOnly: {
+      type: Boolean,
+      default: false, // Set the default value to true
+    },
+  },
   data() {
     return {
       dialog: false,
     };
   },
-  mounted() {},
   methods: {
     convertToAmount(value) {
       return parseFloat(value).toFixed(2);
-    },
-    printContent() {
-      window.print();
     },
   },
 };
