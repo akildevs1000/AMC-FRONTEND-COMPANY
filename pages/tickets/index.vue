@@ -23,7 +23,7 @@
             </v-col>
           </v-row>
           <v-spacer></v-spacer>
-          <TicketCreate />
+          <TicketCreate @success="getDataFromApi" />
         </v-toolbar>
         <v-data-table
           dense
