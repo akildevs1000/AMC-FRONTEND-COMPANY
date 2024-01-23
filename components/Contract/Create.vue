@@ -285,7 +285,7 @@ export default {
             schedule_start_date,
             schedule_end_date,
             prority_id: 1,
-            status: "pending",
+            status: "Pending",
             date: this.todayDate,
           });
         }
