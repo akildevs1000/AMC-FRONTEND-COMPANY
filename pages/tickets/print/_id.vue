@@ -2,7 +2,7 @@
   <div v-if="item && item.id" class="card-font-color report-print">
     <v-row class="mb-3">
       <!-- <v-col cols="2" class="text-right"
-        >{{ currentPage }}/{{ totalPages }}
+        ><v-btn @click="printContent">Print Content</v-btn>
       </v-col> -->
       <v-col cols="6">
         <div style="width: 150px">
@@ -94,6 +94,14 @@
             Description:
             {{ item.ticket.description }}
           </v-col>
+          <v-col
+            v-for="n in 5"
+            :key="n"
+            cols="12"
+            class="bottom-border white--text"
+          >
+            Description:
+          </v-col>
         </v-row>
       </v-col>
     </v-row>
@@ -115,6 +123,14 @@
           <v-col cols="12" class="bottom-border">
             Description:
             {{ item.description }}
+          </v-col>
+          <v-col
+            v-for="n in 5"
+            :key="n"
+            cols="12"
+            class="bottom-border white--text"
+          >
+            Description:
           </v-col>
         </v-row>
       </v-col>
@@ -143,18 +159,22 @@
           <h5 class="pa-1">Engineer Observations & Comments</h5>
         </div>
       </v-col>
-    </v-row>
 
-    <v-row no-gutters class="">
-      <v-col cols="12">
-        <v-row class="px-2">
-          <v-col cols="12" class="bottom-border"
-            ><li v-for="(t, i) in item.summary.split(`\r\n`)" :key="i">
-              {{ t }}
-            </li></v-col
-          >
-        </v-row>
-      </v-col>
+      <v-row no-gutters>
+        <v-col cols="12" class="mt-5"
+          ><li v-for="(t, i) in item.summary.split(`\r\n`)" :key="i">
+            {{ t }}
+          </li></v-col
+        >
+        <v-col
+          v-for="n in 5"
+          :key="n"
+          cols="12"
+          class="bottom-border white--text"
+        >
+          Description:
+        </v-col>
+      </v-row>
     </v-row>
 
     <v-row no-gutters class="mt-3">
@@ -195,7 +215,9 @@
         <v-col cols="8" class="text-center"
           >This is a system generated Service Report
         </v-col>
-        <v-col cols="2" class="text-right">{{ currentPage }}/{{ totalPages }}</v-col>
+        <v-col cols="2" class="text-right"
+          >{{ currentPage }}/{{ totalPages }}</v-col
+        >
       </v-row>
       <!-- <div v-if="getResult && getResult.page">
         {{ (totalPages/totalPages) }} Of {{ totalPages }}
@@ -225,7 +247,10 @@
       </v-col>
 
       <v-col cols="12">
-        <v-img style="width: 100%" :src="item.before_attachment"></v-img>
+        <v-img
+          style="max-height: 800px; width: 100%"
+          :src="item.before_attachment"
+        ></v-img>
       </v-col>
     </v-row>
 
@@ -252,7 +277,7 @@
       </v-col>
 
       <v-col cols="12">
-        <v-img style="width: 100%" :src="item.after_attachment"></v-img>
+        <v-img  style="max-height: 800px; width: 100%" :src="item.after_attachment"></v-img>
       </v-col>
     </v-row>
   </div>
@@ -285,6 +310,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.setPageCount();
+      window.print();
       this.renderPrint = true;
     }, 5000);
   },
@@ -337,6 +363,7 @@ export default {
     },
     printContent() {
       window.print();
+      console.log(document.documentElement.innerHTML);
     },
   },
 };

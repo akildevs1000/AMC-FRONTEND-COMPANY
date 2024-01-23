@@ -201,14 +201,19 @@
           </template>
           <v-list width="150" dense>
             <v-list-item>
-              <v-list-item-title v-if="item.work_type == 'amc'" @click="$router.push(`/amc/print/${item.id}`)">
+              <v-list-item-title
+                v-if="item.work_type == 'amc'"
+                @click="openNewTab(`/amc/print/${item.id}`)"
+              >
                 <v-icon>mdi-printer</v-icon> Print
                 <!-- <FormEntryTableView :items="item.checklists" /> -->
                 <!-- <ReportAMCView v-if="item.work_type == 'amc'" iconColor="black" :item="item" /> -->
                 <!-- <ReportSinglePrint v-else iconColor="black" :item="item" /> -->
-
               </v-list-item-title>
-              <v-list-item-title v-else @click="$router.push(`/tickets/print/${item.id}`)">
+              <v-list-item-title
+                v-else
+                @click="openNewTab(`/tickets/print/${item.id}`)"
+              >
                 <v-icon>mdi-printer</v-icon> Print
               </v-list-item-title>
             </v-list-item>
@@ -272,6 +277,10 @@ export default {
     },
   },
   methods: {
+    openNewTab(url) {
+      // $router.push(`/amc/print/${item.id}`);
+      window.open(url, "_blank");
+    },
     sendEmail() {
       console.log(`mail to be sent`);
     },
