@@ -1,10 +1,15 @@
 <template>
   <v-dialog v-model="dialog" height="700" width="1100">
     <template v-slot:activator="{ on, attrs }">
-      <span color="primary" 
-        >{{text.substring(0,50)}}</span
+      <span color="primary"
+        >
+        <ul>
+          <li v-for="(t, i) in text.split(`\r\n`)" :key="i">{{ t }}</li>
+        </ul>
+      </span>
+      <span v-bind="attrs" v-on="on" v-if="text.length > 100"
+        >...<span class="blue--text">read more</span></span
       >
-      <span v-bind="attrs" v-on="on" v-if="text.length > 100">...<span  class="blue--text">read more</span></span>
     </template>
     <v-card>
       <v-card-title>
@@ -17,8 +22,9 @@
       </v-card-title>
 
       <v-card-text>
-       {{text}}
-       
+        <ul>
+          <li v-for="(t, i) in text.split(`\r\n`)" :key="i">{{ t }}</li>
+        </ul>
       </v-card-text>
     </v-card>
   </v-dialog>

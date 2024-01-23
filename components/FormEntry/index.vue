@@ -87,15 +87,13 @@
           </v-row>
         </v-toolbar>
       </v-col>
-      <v-col cols="12" class="text-right">
+      <!-- <v-col cols="12" class="text-right">
         <v-container>
           <v-btn class="ma-0" x-small :ripple="false" text title="PRINT">
             <img src="/icons/icon_print.png" class="iconsize" />
-            <!-- <v-icon dark white>mdi-printer-outline</v-icon> -->
           </v-btn>
           <v-btn class="ma-0" x-small :ripple="false" text title="PDF">
             <img src="/icons/icon_pdf.png" class="iconsize" />
-            <!-- <v-icon dark white>mdi-printer-outline</v-icon> -->
           </v-btn>
           <v-btn
             class="ma-0"
@@ -106,10 +104,9 @@
             @click="exportCSV"
           >
             <img src="/icons/icon_excel.png" class="iconsize" />
-            <!-- <v-icon dark white>mdi-printer-outline</v-icon> -->
           </v-btn>
         </v-container>
-      </v-col>
+      </v-col> -->
     </v-row>
     <v-data-table
       dense
@@ -203,20 +200,27 @@
             </v-btn>
           </template>
           <v-list width="150" dense>
-            <!-- <v-list-item>
-              <v-list-item-title>
-                <FormEntryTableView :items="item.checklists" />
+            <v-list-item>
+              <v-list-item-title v-if="item.work_type == 'amc'" @click="$router.push(`/amc/print/${item.id}`)">
+                <v-icon>mdi-printer</v-icon> Print
+                <!-- <FormEntryTableView :items="item.checklists" /> -->
+                <!-- <ReportAMCView v-if="item.work_type == 'amc'" iconColor="black" :item="item" /> -->
+                <!-- <ReportSinglePrint v-else iconColor="black" :item="item" /> -->
+
               </v-list-item-title>
-            </v-list-item> -->
-            <v-list-item @click="sendEmail">
+              <v-list-item-title v-else @click="$router.push(`/tickets/print/${item.id}`)">
+                <v-icon>mdi-printer</v-icon> Print
+              </v-list-item-title>
+            </v-list-item>
+            <!-- <v-list-item @click="sendEmail">
               <v-list-item-title>
                 <v-icon class="mr-1" color="secondary"
                   >mdi-email-outline</v-icon
                 >
                 <span class="mt-2">Send to Email</span>
-                <!-- <FormEntryTableView :items="item.checklists" /> -->
+                <FormEntryTableView :items="item.checklists" />
               </v-list-item-title>
-            </v-list-item>
+            </v-list-item> -->
           </v-list>
         </v-menu>
       </template>

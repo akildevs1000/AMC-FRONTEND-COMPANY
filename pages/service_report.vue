@@ -1,0 +1,3 @@
+<template>
+ <ReportSinglePrint />
+</template>

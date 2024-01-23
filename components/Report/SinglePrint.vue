@@ -1,37 +1,24 @@
 <template>
-  <v-dialog v-model="dialog" width="750">
-    <v-overlay :value="loading">
+  <v-dialog v-model="dialog" width="700">
+    <!-- <v-overlay :value="loading">
       <v-progress-circular color="primary" indeterminate></v-progress-circular>
-    </v-overlay>
+    </v-overlay> -->
     <template v-slot:activator="{ on, attrs }">
-      <span
-        v-show="display"
-        style="cursor: pointer"
-        text
-        v-bind="attrs"
-        v-on="on"
-      >
+      <span style="cursor: pointer" text v-bind="attrs" v-on="on">
         <v-icon :color="iconColor" small> mdi-printer </v-icon>
         Print
       </span>
     </template>
 
-    <QuotationV1SinglePreviewCard :payload="item" />
+    <ReportCard :payload="item" />
   </v-dialog>
 </template>
 <script>
 export default {
-  props: {
-    item: Object,
-    iconColor: String,
-    display: {
-      type: Boolean,
-      default: true, // Set the default value to true
-    },
-  },
+  props: ["item", "iconColor"],
   data() {
     return {
-      dialog: false,
+      dialog: true,
       loading: true,
     };
   },
@@ -41,7 +28,7 @@ export default {
         this.loading = true;
         setTimeout(() => {
           this.loading = false;
-          this.printContent();
+        //   this.printContent();
         }, 3000);
       }
     },

@@ -1,5 +1,14 @@
 [
   {
+    "text": "Ref #",
+    "align": "left",
+    "sortable": true,
+    "key": "id",
+    "value": "id",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
     "text": "Company",
     "align": "left",
     "sortable": true,

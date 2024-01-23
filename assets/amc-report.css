@@ -1,0 +1,132 @@
+.card-font-color {
+  color: #777777;
+}
+.uppercase-text {
+  text-transform: uppercase;
+}
+.top-border {
+  border-top: 1px solid #dddddd;
+}
+
+.bottom-border {
+  border-bottom: 1px solid #dddddd;
+}
+
+.tb-border {
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+}
+
+table {
+  font-family: "Open Sans", sans-serif;
+  border-collapse: collapse;
+
+  width: 100%;
+}
+td,
+th {
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  font-size: 9pt;
+}
+.table-font-color {
+  color: #777777;
+}
+.left-border {
+  border-left: 1px solid #dddddd;
+}
+.right-border {
+  border-right: 1px solid #dddddd;
+}
+.table-description {
+  width: 500px !important;
+}
+.report-font span,
+.report-font div,
+.report-font {
+  font-size: 9pt !important;
+}
+.footer-print {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.pageCounter {
+  counter-increment: pageTotal;
+}
+
+.pageBox div:before {
+  counter-increment: currentPage;
+  content: "Page " counter(currentPage) " of ";
+}
+
+.pageBox div:after {
+  content: counter(pageTotal);
+}
+@media print {
+  @page {
+    size: A4;
+    margin: 20px !important;
+  }
+  
+
+  .page-break {
+    page-break-before: always !important;
+  }
+  .report-print * {
+    font-family: "Open Sans", sans-serif;
+    font-size: 9pt;
+  }
+  .card-font-color {
+    color: #777777;
+  }
+  .uppercase-text {
+    text-transform: uppercase;
+  }
+  .top-border {
+    border-top: 1px solid #dddddd;
+  }
+
+  .bottom-border {
+    border-bottom: 1px solid #dddddd;
+  }
+
+  .tb-border {
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  table {
+    font-family: "Open Sans", sans-serif;
+    border-collapse: collapse;
+
+    width: 100%;
+  }
+  td,
+  th {
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    text-align: left;
+    padding: 5px;
+    font-size: 9pt;
+  }
+  .table-font-color {
+    color: #777777;
+  }
+  .left-border {
+    border-left: 1px solid #dddddd;
+  }
+  .right-border {
+    border-right: 1px solid #dddddd;
+  }
+  .table-description {
+    width: 300px !important;
+  }
+  .report-font span,
+  .report-font div,
+  .report-font {
+    font-size: 9pt !important;
+  }
+}
