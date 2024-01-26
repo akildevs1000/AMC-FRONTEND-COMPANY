@@ -63,13 +63,13 @@
 
         <template v-slot:item.contact="{ item, index }">
           <div>
-            {{ item.company_contact.name }}
+            {{ item?.company_contact?.name }}
           </div>
           <div>
-            {{ item.company_contact.number }}
+            {{ item?.company_contact?.number }}
           </div>
           <div>
-            {{ item.company_contact.email }}
+            {{ item?.company_contact?.email }}
           </div>
         </template>
 
@@ -125,8 +125,6 @@ export default {
   }),
 
   async created() {
-    
-
     this.getDataFromApi();
   },
   watch: {
