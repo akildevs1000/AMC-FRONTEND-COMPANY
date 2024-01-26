@@ -110,7 +110,7 @@ export default {
   data: () => ({
     totalRowsCount: 0,
     filters: {},
-    loading: true,
+    loading: false,
     displayErrormsg: false,
     response: "",
     snackbar: false,
@@ -141,7 +141,7 @@ export default {
     getRandomId() {
       return Math.random().toString(36).substring(2);
     },
-    getDataFromApi(url = this.endpoint) {
+    getDataFromApi() {
       this.loading = true;
 
       let { sortBy, sortDesc, page, itemsPerPage } = this.options;
@@ -156,14 +156,13 @@ export default {
         },
       };
 
-      this.$axios.get(url, options).then(({ data }) => {
+      this.$axios.get(this.endpoint, options).then(({ data }) => {
+        console.log(`then calling...`);
+        console.log(this.endpoint, options);
+
         this.data = data.data;
 
         this.totalRowsCount = data.total;
-
-        this.data.length == 0
-          ? (this.displayErrormsg = true)
-          : (this.displayErrormsg = false);
 
         this.loading = false;
       });
