@@ -187,7 +187,11 @@
             :key="questionIndex"
           >
             <td style="width: 50px">{{ index + 1 }}.{{ questionIndex + 1 }}</td>
-            <td>
+            <td
+              :class="`${
+                (questionIndex + 1) % 14 === 0 ? 'page-break mt-15' : ''
+              }`"
+            >
               {{ question.question || "---" }} <br />
               <div :class="`${getCellStyle(question.selectedOption)}--text`">
                 {{ question.remarks }}
@@ -196,7 +200,7 @@
             <td style="width: 100px">{{ question.attachment_name }}</td>
             <td
               style="width: 200px; border-bottom: 1px white solid !important"
-              class="white--text text-right pa-2"
+              class="white--text text-center"
               :class="getCellStyle(question.selectedOption)"
             >
               {{ question.selectedOption || "---" }}
@@ -348,7 +352,7 @@
       </v-col>
     </v-row>
 
-    <v-row class="footer-print">
+    <v-row class="footer-print top-border">
       <v-col cols="4" class="footer-font-size"
         ><small
           >{{ item.equipment_category.name }} Preventive Maintenance
@@ -363,7 +367,7 @@
       </v-col>
     </v-row>
 
-    <v-row class="page-break">
+    <!-- <v-row class="page-break">
       <v-col cols="12" class="bottom-border">
         <div class="blue darken-3 white--text">
           <h5 class="pa-1">Attachments</h5>
@@ -382,7 +386,7 @@
           :src="`http://192.168.2.24:8001/checklist/${item.id}/${photo}`"
         ></v-img>
       </v-col>
-    </v-row>
+    </v-row> -->
   </div>
 </template>
 <script>
@@ -407,7 +411,8 @@ export default {
   },
   async created() {
     await this.$axios
-      .get(`/form_entry/${this.$route.params.id}`)
+      // .get(`/form_entry/${this.$route.params.id}`)
+      .get(`https://amcbackend.mytime2cloud.com/api/form_entry/1`)
       .then(({ data }) => {
         this.item = data;
         this.attachments = data.checklists[0].checklist
@@ -422,11 +427,11 @@ export default {
   methods: {
     getCellStyle(selectedOption) {
       if (["Excellent", "Good", "Yes"].includes(selectedOption)) {
-        return "green";
+        return "my-green";
       } else if (["N/A"].includes(selectedOption)) {
-        return "grey";
+        return "grey lighten-2";
       } else {
-        return "red";
+        return "my-red";
       }
     },
     setPageCount() {

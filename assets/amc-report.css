@@ -3,7 +3,13 @@
   margin: 0;
   padding: 0;
 }
+.my-green {
+  background-color: #a2b63b !important;
+}
 
+.my-red {
+  background-color: #e04e4f !important;
+}
 .uppercase-text {
   text-transform: uppercase;
 }
@@ -33,7 +39,7 @@ th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 3px;
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .left-border {
@@ -84,7 +90,7 @@ th {
     border-bottom: 1px solid #dddddd;
     text-align: left;
     padding: 3px;
-    font-size: 9px;
+    font-size: 11px;
   }
   .table-font-color {
     color: #777777;
@@ -94,5 +100,8 @@ th {
   }
   .right-border {
     border-right: 1px solid #dddddd;
+  }
+  .footer-font-size {
+    font-size: 9px;
   }
 }

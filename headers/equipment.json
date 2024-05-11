@@ -1,0 +1,59 @@
+[
+  {
+    "text": "Sno",
+    "align": "left",
+    "sortable": false,
+    "value": "sno",
+    "filterable": false
+  },
+  {
+    "text": "Recorder",
+    "align": "left",
+    "sortable": false,
+    "value": "recorder",
+    "filterable": false
+  },
+  {
+    "text": "Work Station",
+    "align": "left",
+    "sortable": false,
+    "value": "work_station",
+    "filterable": false
+  },
+  {
+    "text": "Camera",
+    "align": "left",
+    "sortable": false,
+    "value": "camera",
+    "filterable": false
+  },
+  {
+    "text": "Monitor",
+    "align": "left",
+    "sortable": false,
+    "value": "monitor",
+    "filterable": false
+  },
+  {
+    "text": "UPS",
+    "align": "left",
+    "sortable": false,
+    "value": "ups",
+    "filterable": false
+  },
+  {
+    "text": "Network",
+    "align": "left",
+    "sortable": false,
+    "value": "network",
+    "filterable": false
+  },
+  {
+    "text": "Options",
+    "align": "center",
+    "sortable": false,
+    "value": "options",
+    "filterable": false,
+    "filterSpecial": false
+  }
+]

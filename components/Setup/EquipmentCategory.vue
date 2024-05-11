@@ -161,12 +161,12 @@
                       Edit
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click="deleteItem(item)">
+                  <!-- <v-list-item @click="deleteItem(item)">
                     <v-list-item-title style="cursor: pointer">
                       <v-icon color="error" small> mdi-delete </v-icon>
                       Delete
                     </v-list-item-title>
-                  </v-list-item>
+                  </v-list-item> -->
                 </v-list>
               </v-menu>
             </template>
@@ -184,6 +184,15 @@ export default {
     Model: "Equipment Category",
     endpoint: "equipment_category",
     headers: [
+      {
+        text: "Ref #",
+        align: "left",
+        sortable: true,
+        key: "id",
+        value: "id",
+        filterable: true,
+        filterSpecial: false,
+      },
       {
         text: "Equipment Category",
         align: "left",

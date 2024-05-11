@@ -1,0 +1,176 @@
+{
+  "1": [
+    { "label": "Recorder", "value": "recorder_brand", "cols": "4" },
+    { "label": "Recorder Quantity", "value": "recorder_qty", "cols": "4" },
+    { "label": "Recorder Capacity", "value": "recorder_capacity", "cols": "4" },
+
+    { "label": "Work Station", "value": "work_station", "cols": "6" },
+    {
+      "label": "Work Station Quantity",
+      "value": "work_station_qty",
+      "cols": "6"
+    },
+
+    { "label": "Camera", "value": "camera", "cols": "6" },
+    { "label": "Camera Quantity", "value": "camera_qty", "cols": "6" },
+
+    { "label": "Monitor", "value": "monitor", "cols": "6" },
+    { "label": "Monitor Quantity", "value": "monitor_qty", "cols": "6" },
+
+    { "label": "UPS", "value": "ups", "cols": "4" },
+    { "label": "UPS Quantity", "value": "ups_qty", "cols": "4" },
+    { "label": "UPS Specifications", "value": "ups_specs", "cols": "4" },
+
+    { "label": "Network", "value": "network", "cols": "4" },
+    { "label": "Network Quantity", "value": "network_qty", "cols": "4" },
+    { "label": "Network Specifications", "value": "network_specs", "cols": "4" }
+  ],
+  "2": [
+    { "label": "Controller Brand", "value": "controller_brand", "cols": "4" },
+    { "label": "Controller Quantity", "value": "controller_qty", "cols": "4" },
+    { "label": "Controller Type", "value": "controller_type", "cols": "4" },
+
+    { "label": "Work Station", "value": "work_station", "cols": "6" },
+    {
+      "label": "Work Station Quantity",
+      "value": "work_station_qty",
+      "cols": "6"
+    },
+
+    { "label": "Monitor", "value": "monitor", "cols": "6" },
+    { "label": "Monitor Quantity", "value": "monitor_qty", "cols": "6" },
+
+    { "label": "Reader", "value": "reader", "cols": "4" },
+    { "label": "Reader Quantity", "value": "reader_qty", "cols": "4" },
+    { "label": "Reader Type", "value": "reader_type", "cols": "4" },
+
+    { "label": "Lock", "value": "lock", "cols": "4" },
+    { "label": "Lock Quantity", "value": "lock_qty", "cols": "4" },
+    { "label": "Lock Type", "value": "lock_type", "cols": "4" },
+
+    { "label": "UPS", "value": "ups", "cols": "4" },
+    { "label": "UPS Quantity", "value": "ups_qty", "cols": "4" },
+    { "label": "UPS Specifications", "value": "ups_specs", "cols": "4" },
+
+    { "label": "Network", "value": "network", "cols": "4" },
+    { "label": "Network Quantity", "value": "network_qty", "cols": "4" },
+    {
+      "label": "Network Specifications",
+      "value": "network_specs",
+      "cols": "4"
+    },
+
+    { "label": "Exit Switch", "value": "exit_switch", "cols": "4" },
+    { "label": "Fire Switch", "value": "fire_switch", "cols": "4" },
+    { "label": "Remote", "value": "remote", "cols": "4" }
+  ],
+  "3": [
+    {
+      "label": "Controller",
+      "value": "controller_brand",
+      "cols": "4",
+      "default": "Xtreme Vision"
+    },
+    {
+      "label": "Controller Quantity",
+      "value": "controller_qty",
+      "cols": "4",
+      "default": "12"
+    },
+    {
+      "label": "Controller Type",
+      "value": "controller_type",
+      "cols": "4",
+      "default": ""
+    },
+
+    {
+      "label": "Work Station",
+      "value": "work_station",
+      "cols": "6",
+      "default": "HP"
+    },
+    {
+      "label": "Work Station Quantity",
+      "value": "work_station_qty",
+      "cols": "6"
+    },
+
+    {
+      "label": "Monitor",
+      "value": "monitor",
+      "cols": "6",
+      "default": "Samsung"
+    },
+    { "label": "Monitor Quantity", "value": "monitor_qty", "cols": "6" },
+
+    {
+      "label": "Reader",
+      "value": "reader",
+      "cols": "4",
+      "default": "Mix Brand"
+    },
+    {
+      "label": "Reader Quantity",
+      "value": "reader_qty",
+      "cols": "4",
+      "default": "10"
+    },
+    {
+      "label": "Reader Type",
+      "value": "reader_type",
+      "cols": "4",
+      "default": "RFID"
+    }
+  ],
+  "4": [
+    { "label": "Controller Brand", "value": "controller_brand", "cols": "4" },
+    { "label": "Controller Quantity", "value": "controller_qty", "cols": "4" },
+    { "label": "Controller Type", "value": "controller_type", "cols": "4" },
+
+    { "label": "Monitor", "value": "monitor", "cols": "6" },
+    { "label": "Monitor Quantity", "value": "monitor_qty", "cols": "6" },
+    { "label": "Monitor Type", "value": "monitor_type", "cols": "6" },
+    { "label": "Monitor Size", "value": "monitor_size", "cols": "6" },
+
+    { "label": "Reader", "value": "reader", "cols": "4" },
+    { "label": "Reader Quantity", "value": "reader_qty", "cols": "4" },
+    { "label": "Reader Type", "value": "reader_type", "cols": "4" },
+
+    { "label": "Lock", "value": "lock", "cols": "4" },
+    { "label": "Lock Quantity", "value": "lock_qty", "cols": "4" },
+    { "label": "Lock Type", "value": "lock_type", "cols": "4" },
+
+    { "label": "Network", "value": "network", "cols": "4" },
+    { "label": "Network Quantity", "value": "network_qty", "cols": "4" },
+    {
+      "label": "Network Specifications",
+      "value": "network_specs",
+      "cols": "4"
+    },
+
+    { "label": "Exit Switch", "value": "exit_switch", "cols": "4" },
+    { "label": "Fire Switch", "value": "fire_switch", "cols": "4" },
+    { "label": "Remote", "value": "remote", "cols": "4" }
+  ],
+  "5": [
+    { "label": "Controller Brand", "value": "controller_brand", "cols": "4" },
+    { "label": "Controller Quantity", "value": "controller_qty", "cols": "4" },
+    { "label": "Controller Type", "value": "controller_type", "cols": "4" },
+
+    { "label": "Sensor", "value": "sensor", "cols": "4" },
+    { "label": "Sensor Quantity", "value": "sensor_qty", "cols": "4" },
+    { "label": "Sensor Type", "value": "sensor_type", "cols": "4" },
+
+    { "label": "Keypad", "value": "keypad", "cols": "4" },
+    { "label": "Keypad Quantity", "value": "keypad_qty", "cols": "4" },
+    { "label": "Keypad Type", "value": "keypad_type", "cols": "4" },
+
+    { "label": "UPS", "value": "ups", "cols": "4" },
+    { "label": "UPS Quantity", "value": "ups_qty", "cols": "4" },
+    { "label": "UPS Specifications", "value": "ups_specs", "cols": "4" },
+
+    { "label": "Auto Light", "value": "auto_light", "cols": "4" },
+    { "label": "Auto Light Quantity", "value": "auto_light_qty", "cols": "4" }
+  ]
+}
