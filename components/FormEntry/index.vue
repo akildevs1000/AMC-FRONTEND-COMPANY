@@ -3,7 +3,7 @@
     <v-row no-gutters class="mb-5">
       <v-col cols="1">
         <v-toolbar dense flat>
-          <v-toolbar-title>Reports</v-toolbar-title>
+          <v-toolbar-title>Reports </v-toolbar-title>
 
           <v-icon @click="reload">mdi-reload</v-icon>
         </v-toolbar>
@@ -121,6 +121,15 @@
       class="elevation-1"
       :server-items-length="totalRowsCount"
     >
+      <template v-slot:item.customer="{ item }">
+        <v-chip v-if="!item.customer_sign" dark small class="blue"
+          >Pending</v-chip
+        >
+        <div v-else>
+          <div>{{ item.customer_name }}</div>
+          <small>{{ item.customer_phone ?? "0553303991" }}</small>
+        </div>
+      </template>
       <template v-slot:item.company="{ item }">
         <v-card
           v-if="item.work_type == 'amc'"
@@ -128,7 +137,7 @@
           style="background: none"
           class="d-flex align-center"
         >
-          <v-avatar class="mr-1">
+          <!-- <v-avatar class="mr-1">
             <img
               :src="
                 item.amc.contract.company && item.amc.contract.company.logo
@@ -137,18 +146,16 @@
               "
               alt="Avatar"
             />
-          </v-avatar>
-          <div class="mt-2">
-            <strong>
-              {{
-                item.amc.contract.company && item.amc.contract.company.name
-              }}</strong
-            >
-            <p>
+          </v-avatar> -->
+          <div>
+            <div>
+              {{ item.amc.contract.company && item.amc.contract.company.name }}
+            </div>
+            <!-- <p>
               {{
                 item.amc.contract.company && item.amc.contract.company.address
               }}
-            </p>
+            </p> -->
           </div>
         </v-card>
         <v-card
@@ -172,24 +179,18 @@
         <ReadMore :text="item.summary" />
       </template>
 
-      <template v-slot:item.before_attachment="{ item }">
-        <ViewAttachment
-          v-if="item.before_attachment"
-          :src="item.before_attachment"
-        />
-      </template>
-      <template v-slot:item.after_attachment="{ item }">
-        <ViewAttachment
-          v-if="item.after_attachment"
-          :src="item.after_attachment"
-        />
-      </template>
-
       <template v-slot:item.service_call="{ item }">
         Reference Id: {{ item.service_call_id }}
-        <!-- <v-chip dark small :color="statusRelatedColor(item.service_call.status)">{{
-              item.service_call
-            }}</v-chip> -->
+      </template>
+
+      <template v-slot:item.photos="{ item }">
+        <div v-if="item.checklists">
+          <ViewMultiplePhotos
+            label="Photos"
+            :form_entry_id="item.id"
+            :photos="item.checklists[0].checklist"
+          />
+        </div>
       </template>
 
       <template v-slot:item.options="{ item }">
@@ -200,23 +201,43 @@
             </v-btn>
           </template>
           <v-list width="150" dense>
-            <v-list-item>
-              <v-list-item-title
-                v-if="item.work_type == 'amc'"
-                @click="openNewTab(`/amc/print/${item.id}`)"
-              >
-                <v-icon>mdi-printer</v-icon> Print
-                <!-- <FormEntryTableView :items="item.checklists" /> -->
-                <!-- <ReportAMCView v-if="item.work_type == 'amc'" iconColor="black" :item="item" /> -->
-                <!-- <ReportSinglePrint v-else iconColor="black" :item="item" /> -->
-              </v-list-item-title>
-              <v-list-item-title
-                v-else
-                @click="openNewTab(`/tickets/print/${item.id}`)"
-              >
-                <v-icon>mdi-printer</v-icon> Print
-              </v-list-item-title>
-            </v-list-item>
+            <template v-if="item.work_type == 'amc'">
+              <v-list-item>
+                <v-list-item-title @click="openNewTab(`/amc/print/${item.id}`)">
+                  <v-icon>mdi-printer</v-icon> Print
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title
+                  @click="
+                    openNewTab(`${backendUrl}/form_entry/amc/print/${item.id}`)
+                  "
+                >
+                  <v-icon>mdi-email</v-icon> Email
+                </v-list-item-title>
+              </v-list-item>
+            </template>
+            <template v-else>
+              <v-list-item>
+                <v-list-item-title
+                  @click="openNewTab(`/tickets/print/${item.id}`)"
+                >
+                  <v-icon>mdi-printer</v-icon> Print
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title
+                  @click="
+                    openNewTab(
+                      `${backendUrl}/form_entry/ticket/print/${item.id}`
+                    )
+                  "
+                >
+                  <v-icon>mdi-email</v-icon> Email
+                </v-list-item-title>
+              </v-list-item>
+            </template>
+
             <!-- <v-list-item @click="sendEmail">
               <v-list-item-title>
                 <v-icon class="mr-1" color="secondary"
@@ -238,6 +259,7 @@ export default {
   components: {},
 
   data: () => ({
+    backendUrl: process.env.BACKEND_URL,
     totalRowsCount: 0,
     filters: {},
     loading: true,

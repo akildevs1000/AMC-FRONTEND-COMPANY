@@ -8,107 +8,129 @@
     <div v-if="!loading">
       <v-dialog persistent v-model="DialogBox" width="500">
         <v-card>
-          <v-toolbar class="popup_background" flat>
+          <v-card-title flat>
             {{ formAction }} {{ Model }}
 
             <v-spacer></v-spacer>
             <span>
-              <v-icon class="ml-2" @click="DialogBox = false" dark>
-                mdi mdi-close-circle</v-icon
+              <v-icon class="ml-2" @click="DialogBox = false" color="primary">
+                mdi-close-circle-outline</v-icon
               >
             </span>
-          </v-toolbar>
-          <v-container>
-            <v-row>
-              <v-col cols="12">
-                <v-text-field
-                  label="Name"
-                  :readonly="disabled"
-                  v-model="payload.name"
-                  dense
-                  class="text-center"
-                  outlined
-                  :hide-details="!errors.name"
-                  :error="errors.name"
-                  :error-messages="errors && errors.name ? errors.name[0] : ''"
-                ></v-text-field>
-              </v-col>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Name"
+                    :readonly="disabled"
+                    v-model="payload.name"
+                    dense
+                    class="text-center"
+                    outlined
+                    :hide-details="!errors.name"
+                    :error="errors.name"
+                    :error-messages="
+                      errors && errors.name ? errors.name[0] : ''
+                    "
+                  ></v-text-field>
+                </v-col>
 
-              <v-col cols="12">
-                <v-text-field
-                  label="Email"
-                  :readonly="disabled"
-                  v-model="payload.email"
-                  dense
-                  class="text-center"
-                  outlined
-                  :hide-details="!errors.email"
-                  :error="errors.email"
-                  :error-messages="
-                    errors && errors.email ? errors.email[0] : ''
-                  "
-                ></v-text-field>
-              </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Email"
+                    :readonly="disabled"
+                    v-model="payload.email"
+                    dense
+                    class="text-center"
+                    outlined
+                    :hide-details="!errors.email"
+                    :error="errors.email"
+                    :error-messages="
+                      errors && errors.email ? errors.email[0] : ''
+                    "
+                  ></v-text-field>
+                </v-col>
 
-              <v-col cols="12">
-                <v-text-field
-                  label="Password"
-                  :readonly="disabled"
-                  v-model="payload.password"
-                  dense
-                  class="text-center"
-                  outlined
-                  :hide-details="!errors.password"
-                  :error="errors.password"
-                  :error-messages="
-                    errors && errors.password ? errors.password[0] : ''
-                  "
-                  @click:append="show_password = !show_password"
-                  :type="show_password ? 'text' : 'password'"
-                  prepend-inner-icon="mdi-lock  "
-                  autocomplete="off"
-                  :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
-                ></v-text-field>
-              </v-col>
-              <v-col>
-                <v-switch
-                  v-if="formAction == 'Edit'"
-                  :readonly="disabled"
-                  v-model="payload.status"
-                  label="Status"
-                  color="primary"
-                ></v-switch>
-              </v-col>
-            </v-row>
-          </v-container>
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <div class="text-right">
-              <v-btn small color="grey white--text" @click="DialogBox = false">
-                Close
-              </v-btn>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Phone Number"
+                    :readonly="disabled"
+                    v-model="payload.phone_number"
+                    dense
+                    class="text-center"
+                    outlined
+                    :hide-details="!errors.phone_number"
+                    :error="errors.phone_number"
+                    :error-messages="
+                      errors && errors.phone_number
+                        ? errors.phone_number[0]
+                        : ''
+                    "
+                  ></v-text-field>
+                </v-col>
 
-              <v-btn
-                v-if="formAction == 'Create'"
-                small
-                :loading="loading"
-                color="primary"
-                @click="submit"
-              >
-                Submit
-              </v-btn>
-              <v-btn
-                v-else-if="formAction == 'Edit'"
-                small
-                :loading="loading"
-                color="primary"
-                @click="update"
-              >
-                Update
-              </v-btn>
-            </div>
-          </v-card-actions>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Password"
+                    :readonly="disabled"
+                    v-model="payload.password"
+                    dense
+                    class="text-center"
+                    outlined
+                    :hide-details="!errors.password"
+                    :error="errors.password"
+                    :error-messages="
+                      errors && errors.password ? errors.password[0] : ''
+                    "
+                    @click:append="show_password = !show_password"
+                    :type="show_password ? 'text' : 'password'"
+                    prepend-inner-icon="mdi-lock  "
+                    autocomplete="off"
+                    :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
+                  ></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-switch
+                    v-if="formAction == 'Edit'"
+                    :readonly="disabled"
+                    v-model="payload.status"
+                    label="Status"
+                    color="primary"
+                    hide-details
+                  ></v-switch>
+                </v-col>
+                <v-col cols="12" class="text-right">
+                  <v-btn
+                    small
+                    color="grey white--text"
+                    @click="DialogBox = false"
+                  >
+                    Close
+                  </v-btn>
+                  <v-btn
+                    v-if="formAction == 'Create'"
+                    small
+                    :loading="loading"
+                    color="primary"
+                    @click="submit"
+                  >
+                    Submit
+                  </v-btn>
+                  <v-btn
+                    v-else-if="formAction == 'Edit'"
+                    small
+                    :loading="loading"
+                    color="primary"
+                    @click="update"
+                  >
+                    Update
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
         </v-card>
       </v-dialog>
       <v-container>
@@ -238,6 +260,15 @@ export default {
         sortable: true,
         key: "name",
         value: "name",
+        filterable: true,
+        filterSpecial: false,
+      },
+      {
+        text: "Number",
+        align: "left",
+        sortable: true,
+        key: "phone_number",
+        value: "phone_number",
         filterable: true,
         filterSpecial: false,
       },

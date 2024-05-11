@@ -258,7 +258,7 @@
           <ul style="font-weight: 300">
             <li>AMC</li>
             <li>Tickets</li>
-            <li>Technition Panel</li>
+            <li>Technician Panel</li>
             <li>Invoices</li>
             <li>Quotations</li>
           </ul>
@@ -321,8 +321,8 @@ export default {
     otp: "",
     userId: "",
     credentials: {
-      email: "demo@gmail.com",
-      password: "secret",
+      email: "admin",
+      password: "admin",
     },
   }),
   created() {

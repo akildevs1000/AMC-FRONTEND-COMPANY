@@ -6,140 +6,248 @@
       </v-snackbar>
     </div>
 
-    <v-navigation-drawer v-model="editDialog" bottom temporary right fixed>
-      <v-toolbar class="popup_background" dense>
-        {{ this.editedIndex == -1 ? "New " : "Edit " }} Device
-        <v-spacer></v-spacer>
+    <v-dialog v-model="editDialog" width="750">
+      <v-card>
+        <v-card-title dense>
+          {{ this.editedIndex == -1 ? "New " : "Edit " }} Equipment
+          <v-spacer></v-spacer>
 
-        <v-icon @click="editDialog = false" outlined dark>
-          mdi mdi-close-circle
-        </v-icon>
-      </v-toolbar>
-      <v-form ref="form" v-model="valid" lazy-validation>
-        <v-row class="ma-1">
-          <v-col md="12">
-            <v-autocomplete
-              class="pb-0"
-              v-model="payload.equipment_category_id"
-              :items="equipmentCategoryList"
-              dense
-              outlined
-              item-value="id"
-              item-text="name"
-              label="Select Category"
-              :hide-details="!errors.equipment_category_id"
-              :error-messages="
-                errors && errors.equipment_category_id
-                  ? errors.equipment_category_id[0]
-                  : ''
-              "
-            >
-            </v-autocomplete>
-          </v-col>
-          <v-col md="12">
-            <v-text-field
-              v-model="payload.name"
-              outlined
-              dense
-              label="Device Name *"
-              :hide-details="!errors.name"
-              :error-messages="errors && errors.name ? errors.name[0] : ''"
-            ></v-text-field>
-          </v-col>
-          <v-col md="12">
-            <v-text-field
-              v-model="payload.brand_name"
-              outlined
-              dense
-              label="Brand Name *"
-              :hide-details="!errors.brand_name"
-              :error-messages="
-                errors && errors.brand_name ? errors.brand_name[0] : ''
-              "
-            ></v-text-field>
-          </v-col>
-          <v-col md="12">
-            <v-text-field
-              v-model="payload.model_number"
-              outlined
-              dense
-              label="Model Number *"
-              :hide-details="!errors.model_number"
-              :error-messages="
-                errors && errors.model_number ? errors.model_number[0] : ''
-              "
-            ></v-text-field>
-          </v-col>
-          <v-col md="12">
-            <v-text-field
-              v-model="payload.specification"
-              outlined
-              dense
-              label="Specification *"
-              :hide-details="!errors.specification"
-              :error-messages="
-                errors && errors.specification ? errors.specification[0] : ''
-              "
-            ></v-text-field>
-          </v-col>
-          <v-col md="12">
-            <v-text-field
-              v-model="payload.other"
-              outlined
-              dense
-              label="Other *"
-              :hide-details="!errors.other"
-              :error-messages="errors && errors.other ? errors.other[0] : ''"
-            ></v-text-field>
-          </v-col>
-          <v-col md="12">
-            <v-text-field
-              v-model="payload.software_version"
-              outlined
-              dense
-              label="Software Version *"
-              :hide-details="!errors.software_version"
-              :error-messages="
-                errors && errors.software_version
-                  ? errors.software_version[0]
-                  : ''
-              "
-            ></v-text-field>
-          </v-col>
+          <v-icon @click="editDialog = false" outlined color="primary">
+            mdi-close-circle-outline
+          </v-icon>
+        </v-card-title>
+        <v-card-text>
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-row class="ma-1">
+              <v-col md="12">
+                <v-autocomplete
+                  class="pb-0"
+                  v-model="payload.equipment_category_id"
+                  :items="equipmentCategoryList"
+                  dense
+                  outlined
+                  item-value="id"
+                  item-text="name"
+                  label="Select Category"
+                  :hide-details="!errors.equipment_category_id"
+                  :error-messages="
+                    errors && errors.equipment_category_id
+                      ? errors.equipment_category_id[0]
+                      : ''
+                  "
+                >
+                </v-autocomplete>
+              </v-col>
 
-          <v-col md="12">
-            <v-text-field
-              v-model="payload.qty"
-              outlined
-              dense
-              label="Qty *"
-              :hide-details="!errors.qty"
-              :error-messages="errors && errors.qty ? errors.qty[0] : ''"
-            ></v-text-field>
-          </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  v-model="payload.recorder_brand"
+                  outlined
+                  dense
+                  label="Recorder *"
+                  :hide-details="!errors.recorder_brand"
+                  :error-messages="
+                    errors && errors.recorder_brand
+                      ? errors.recorder_brand[0]
+                      : ''
+                  "
+                ></v-text-field>
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  v-model="payload.recorder_qty"
+                  outlined
+                  dense
+                  label="Qty *"
+                  :hide-details="!errors.recorder_qty"
+                  :error-messages="
+                    errors && errors.recorder_qty ? errors.recorder_qty[0] : ''
+                  "
+                ></v-text-field>
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  v-model="payload.recorder_capacity"
+                  outlined
+                  dense
+                  label="HDD *"
+                  :hide-details="!errors.recorder_capacity"
+                  :error-messages="
+                    errors && errors.recorder_capacity
+                      ? errors.recorder_capacity[0]
+                      : ''
+                  "
+                ></v-text-field>
+              </v-col>
 
-          <v-col md="12">
-            <v-text-field
-              v-model="payload.remarks"
-              outlined
-              dense
-              label="Remarks *"
-              :hide-details="!errors.remarks"
-              :error-messages="
-                errors && errors.remarks ? errors.remarks[0] : ''
-              "
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12">
-            <div class="text-right">
-              <v-btn small :loading="loading" color="primary" @click="submit">
-                Submit
-              </v-btn>
-            </div>
-          </v-col>
-        </v-row>
-      </v-form>
-    </v-navigation-drawer>
+              <v-col cols="6">
+                <v-text-field
+                  v-model="payload.work_station"
+                  outlined
+                  dense
+                  label="Work Station *"
+                  :hide-details="!errors.work_station"
+                  :error-messages="
+                    errors && errors.work_station ? errors.work_station[0] : ''
+                  "
+                ></v-text-field>
+              </v-col>
+              <v-col cols="6">
+                <v-text-field
+                  v-model="payload.work_station_qty"
+                  outlined
+                  dense
+                  label="Qty *"
+                  :hide-details="!errors.work_station_qty"
+                  :error-messages="
+                    errors && errors.work_station_qty
+                      ? errors.work_station_qty[0]
+                      : ''
+                  "
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="6">
+                <v-text-field
+                  v-model="payload.camera"
+                  outlined
+                  dense
+                  label="Camera *"
+                  :hide-details="!errors.camera"
+                  :error-messages="
+                    errors && errors.camera ? errors.camera[0] : ''
+                  "
+                ></v-text-field>
+              </v-col>
+              <v-col cols="6">
+                <v-text-field
+                  v-model="payload.camera_qty"
+                  outlined
+                  dense
+                  label="Qty *"
+                  :hide-details="!errors.camera_qty"
+                  :error-messages="
+                    errors && errors.camera_qty ? errors.camera_qty[0] : ''
+                  "
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="6">
+                <v-text-field
+                  v-model="payload.monitor"
+                  outlined
+                  dense
+                  label="Monitor *"
+                  :hide-details="!errors.monitor"
+                  :error-messages="
+                    errors && errors.monitor ? errors.monitor[0] : ''
+                  "
+                ></v-text-field>
+              </v-col>
+              <v-col cols="6">
+                <v-text-field
+                  v-model="payload.monitor_qty"
+                  outlined
+                  dense
+                  label="Qty *"
+                  :hide-details="!errors.monitor_qty"
+                  :error-messages="
+                    errors && errors.monitor_qty ? errors.monitor_qty[0] : ''
+                  "
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="4">
+                <v-text-field
+                  v-model="payload.ups"
+                  outlined
+                  dense
+                  label="UPS *"
+                  :hide-details="!errors.ups"
+                  :error-messages="errors && errors.ups ? errors.ups[0] : ''"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  v-model="payload.ups_qty"
+                  outlined
+                  dense
+                  label="Qty *"
+                  :hide-details="!errors.ups_qty"
+                  :error-messages="
+                    errors && errors.ups_qty ? errors.ups_qty[0] : ''
+                  "
+                ></v-text-field>
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  v-model="payload.ups_specs"
+                  outlined
+                  dense
+                  label="Specs *"
+                  :hide-details="!errors.ups_specs"
+                  :error-messages="
+                    errors && errors.ups_specs ? errors.ups_specs[0] : ''
+                  "
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="4">
+                <v-text-field
+                  v-model="payload.network"
+                  outlined
+                  dense
+                  label="Network *"
+                  :hide-details="!errors.network"
+                  :error-messages="
+                    errors && errors.network ? errors.network[0] : ''
+                  "
+                ></v-text-field>
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  v-model="payload.network_qty"
+                  outlined
+                  dense
+                  label="Qty *"
+                  :hide-details="!errors.network_qty"
+                  :error-messages="
+                    errors && errors.network_qty ? errors.network_qty[0] : ''
+                  "
+                ></v-text-field>
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  v-model="payload.network_specs"
+                  outlined
+                  dense
+                  label="Specs *"
+                  :hide-details="!errors.network_specs"
+                  :error-messages="
+                    errors && errors.network_specs
+                      ? errors.network_specs[0]
+                      : ''
+                  "
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="12">
+                <div class="text-right">
+                  <v-btn
+                    small
+                    :loading="loading"
+                    color="primary"
+                    @click="submit"
+                  >
+                    Submit
+                  </v-btn>
+                </div>
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
 
     <v-card class="mb-5 mt-2" elevation="0">
       <v-toolbar class="rounded-md" dense flat>
@@ -207,6 +315,48 @@
                       {{ ++index }}
                     </template>
 
+                    <template v-slot:item.recorder="{ item, index }">
+                      <div>{{ item.recorder_brand }}</div>
+                     <div>
+                      <small>Qty: {{ item.recorder_qty }}</small>
+                      <br />
+                      <small>Capacity: {{ item.recorder_capacity }}</small>
+                     </div>
+                    </template>
+
+                    <template v-slot:item.work_station="{ item, index }">
+                      <div>{{ item.work_station }}</div>
+                      <small>Qty: {{ item.work_station_qty }}</small>
+                    </template>
+
+                    <template v-slot:item.camera="{ item, index }">
+                      <div>{{ item.camera }}</div>
+                      <small>Qty: {{ item.camera_qty }}</small>
+                    </template>
+
+                    <template v-slot:item.monitor="{ item, index }">
+                      <div>{{ item.monitor }}</div>
+                      <small>Qty: {{ item.monitor_qty }}</small>
+                    </template>
+
+                    <template v-slot:item.ups="{ item, index }">
+                      <div>{{ item.ups }}</div>
+                      <div>
+                        <small>Qty: {{ item.ups_qty }}</small>
+                        <br />
+                        <small>Specs: {{ item.ups_specs }}</small>
+                      </div>
+                    </template>
+
+                    <template v-slot:item.network="{ item, index }">
+                      <div>{{ item.network }}</div>
+                      <div>
+                        <small>Qty: {{ item.network_qty }}</small>
+                        <br />
+                        <small>Specs: {{ item.network_specs }}</small>
+                      </div>
+                    </template>
+
                     <template v-slot:item.options="{ item }">
                       <v-menu bottom left>
                         <template v-slot:activator="{ on, attrs }">
@@ -255,7 +405,25 @@ export default {
     isFilter: false,
     totalRowsCount: 0,
     snack: false,
-    payload: {},
+    payload: {
+      recorder_brand: "Placeat officia eum",
+      recorder_qty: "532",
+      recorder_capacity: "Hic ducimus ullam d",
+      work_station: "Similique ipsam volu",
+      work_station_qty: "102",
+      camera: "Ut et voluptas animi",
+      camera_qty: "93",
+      monitor: "Minim porro tempora ",
+      monitor_qty: "769",
+      ups: "Fugit quidem labori",
+      ups_qty: "46",
+      ups_specs: "Natus enim possimus",
+      network: "Earum ex qui expedit",
+      network_qty: "161",
+      network_specs: "Quis eum nesciunt e",
+      equipment_category_id: 1,
+      company_id: 0,
+    },
     Model: "Equipment",
     options: {},
     endpoint: "equipment",
@@ -274,59 +442,45 @@ export default {
         filterable: false,
       },
       {
-        text: "Name",
+        text: "Recorder",
         align: "left",
         sortable: false,
-        value: "name",
+        value: "recorder",
         filterable: false,
       },
       {
-        text: "Brand Name",
+        text: "Work Station",
         align: "left",
         sortable: false,
-        value: "brand_name",
+        value: "work_station",
         filterable: false,
       },
       {
-        text: "Model Number",
+        text: "Camera",
         align: "left",
         sortable: false,
-        value: "model_number",
+        value: "camera",
         filterable: false,
       },
       {
-        text: "Specification",
+        text: "Monitor",
         align: "left",
         sortable: false,
-        value: "specification",
+        value: "monitor",
         filterable: false,
       },
       {
-        text: "Other",
+        text: "UPS",
         align: "left",
         sortable: false,
-        value: "other",
+        value: "ups",
         filterable: false,
       },
       {
-        text: "Software Version",
+        text: "Network",
         align: "left",
         sortable: false,
-        value: "software_version",
-        filterable: false,
-      },
-      {
-        text: "Qty",
-        align: "left",
-        sortable: false,
-        value: "qty",
-        filterable: false,
-      },
-      {
-        text: "Remarks",
-        align: "left",
-        sortable: false,
-        value: "remarks",
+        value: "network",
         filterable: false,
       },
       {
@@ -420,7 +574,6 @@ export default {
       this.editDialog = true;
     },
     addItem() {
-      this.payload = {};
       this.errors = [];
 
       this.editedIndex = -1;
@@ -451,7 +604,10 @@ export default {
               this.editDialog = false;
             }
           })
-          .catch((e) => console.log(e));
+          .catch((e) => {
+            console.log(e);
+            this.loading = false;
+          });
       } else {
         this.$axios
           .put(`${this.endpoint}/${id}`, payload)
@@ -470,7 +626,10 @@ export default {
               this.editDialog = false;
             }
           })
-          .catch((e) => console.log(e));
+          .catch((e) => {
+            console.log(e);
+            this.loading = false;
+          });
       }
     },
 

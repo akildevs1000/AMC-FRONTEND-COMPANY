@@ -1,269 +1,386 @@
 <template>
-  <div v-if="item && item.id" class="card-font-color report-print">
-    <v-row class="mb-3">
-      <v-col cols="12" class="text-right print-pages">
-        {{ totalPages }}
-        <!-- <div class="pageBox text-right">
-          <div class="page-number"></div>
-        </div> -->
-      </v-col>
+  <div v-if="item && item.id" class="report-print">
+    <v-row no-gutters class="mb-3">
       <v-col cols="6">
         <div style="width: 150px">
           <v-img :src="`/mail-logo.png`"></v-img>
         </div>
       </v-col>
       <v-col cols="6" class="text-right">
-        <div><b>AKIL SECURITY AND ALARM SYSTEMS</b></div>
-        <div class="table-font-color">DUBAI - UNITED ARAB EMIRATES</div>
-        <div class="table-font-color">+971 4 3939 562, INFO@AKILGROUP.COM</div>
+        <h5 class="reds">AKIL SECURITY AND ALARM SYSTEMS</h5>
+        <div class="greens" style="line-height: 1">
+          <small>Khalid Bin Waleed Road, Dubai, UAE</small>
+        </div>
+        <div class="greens" style="line-height: 1">
+          <small> Tel : 04 3939 562, mail@akilgroup.com</small>
+        </div>
       </v-col>
     </v-row>
 
     <v-row no-gutters>
       <v-col cols="12">
         <div class="text-center">
-          <h4 class="uppercase-text tb-border py-2">
+          <h5 class="uppercase-text py-1">
             {{ item.equipment_category.name }} Preventive Maintenance Report
-          </h4>
+          </h5>
         </div>
       </v-col>
-    </v-row>
-    <v-row no-gutters>
-      <v-col cols="4 bottom-border"> Date: {{ item.date }} </v-col>
-      <v-col cols="4 bottom-border">
-        AMC Agreement Number: <b>A{{ item.amc.contract.id }}</b>
-      </v-col>
-      <v-col cols="4 bottom-border">
-        Service Report Number:
-        <span class="red--text">{{ item.id }}</span>
-      </v-col>
-    </v-row>
-    <v-row no-gutters class="mt-3">
-      <v-col cols="12" class="bottom-border">
-        <div class="grey white--text">
-          <h5 class="pa-1">Customer</h5>
+      <v-col cols="2" offset="5">
+        <div class="text-center tb-border">
+          {{ item.date }}
         </div>
-      </v-col>
-    </v-row>
-
-    <v-row no-gutters>
-      <v-col cols="12">
-        <v-row no-gutters>
-          <v-col cols="12" class="bottom-border">
-            Company Name: <b>{{ item.amc.contract.company.name }}</b>
-          </v-col>
-          <v-col cols="6" class="bottom-border">
-            License Issuer:
-            <b>{{ item.amc.contract.company.trade_license.issued_by }}</b>
-          </v-col>
-          <v-col cols="6" class="bottom-border">
-            License Number:
-            <b>{{ item.amc.contract.company.trade_license.license_no }}</b>
-          </v-col>
-          <v-col cols="12" class="bottom-border">
-            Address:{{ item.amc.contract.company.address }}
-          </v-col>
-          <v-col cols="4" class="bottom-border"> LPO Number: </v-col>
-          <v-col cols="4" class="bottom-border">
-            AMC Since: {{ item.amc.contract.show_start_date }}
-          </v-col>
-          <v-col cols="4" class="bottom-border">
-            AMC Expire: {{ item.amc.contract.show_expire_date }}
-          </v-col>
-        </v-row>
       </v-col>
     </v-row>
 
     <v-row no-gutters class="mt-3">
-      <v-col cols="12">
-        <div class="grey white--text">
-          <h5 class="pa-1">CheckList: {{ item.equipment_category.name }}</h5>
+      <v-col cols="12" class="bottom-border">
+        <div class="blue darken-3 white--text">
+          <h5 class="pa-1">Company Details</h5>
         </div>
       </v-col>
-      <v-col>
-        <table class="table-font-color">
-          <thead>
-            <tr>
-              <th class="left-border text-center" style="width: 10px">S.No</th>
-              <th class="left-borders table-description" style="width: 350px">
-                Description
-              </th>
-              <th class="left-borders text-center">Status</th>
-              <th class="left-borders text-center">Attachment</th>
-              <th class="left-borders right-border text-center">Remark</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, i) in item.checklists.slice(0, 19)" :key="i">
-              <td class="left-border text-center">
-                {{ i + 1 }}
-              </td>
-              <td class="left-borders">
-                {{ item.question.name }}
-              </td>
-              <td class="left-borders text-center">
-                {{ item.selectedOption }}
-              </td>
-              <td class="left-borders text-center">
-                {{ item.attachment ? `PIC ${i + 1}` : "" }}
-              </td>
-              <td class="left-borders right-border text-center">
-                {{ item.remarks }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <v-col cols="12">
+        <table>
+          <tr>
+            <td style="width: 150px">Company Name</td>
+            <td colspan="6">{{ item.amc.contract.company.name || "---" }}</td>
+          </tr>
 
-        <v-row
-          class="mb-3 page-break print-pages"
-          v-if="item.checklists.length > 18"
-        >
-          <v-col cols="6">
-            <div style="width: 150px">
-              <v-img :src="`/mail-logo.png`"></v-img>
-            </div>
-          </v-col>
-          <v-col cols="6" class="text-right">
-            <div><b>AKIL SECURITY AND ALARM SYSTEMS</b></div>
-            <div class="table-font-color">DUBAI - UNITED ARAB EMIRATES</div>
-            <div class="table-font-color">
-              +971 4 3939 562, INFO@AKILGROUP.COM
-            </div>
-          </v-col>
-        </v-row>
-        <table v-if="item.checklists.length > 18" class="table-font-color">
-          <thead>
-            <tr>
-              <th class="left-border text-center" style="width: 10px">S.No</th>
-              <th class="left-borders table-description" style="width: 350px">
-                Description
-              </th>
-              <th class="left-borders text-center">Status</th>
-              <th class="left-borders text-center">Attachment</th>
-              <th class="left-borders right-border text-center">Remark</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, i) in item.checklists.slice(19)" :key="i">
-              <td class="left-border text-center">
-                {{ i + 20 }}
-              </td>
-              <td class="left-borders">
-                {{ item.question.name }}
-              </td>
-              <td class="left-borders text-center">
-                {{ item.selectedOption }}
-              </td>
-              <td class="left-borders text-center">
-                {{ item.attachment ? `PIC ${i + 20}` : "" }}
-              </td>
-              <td class="left-borders right-border text-center">
-                {{ item.remarks }}
-              </td>
-            </tr>
-          </tbody>
+          <tr>
+            <td>Management Company</td>
+            <td colspan="4">King field management company</td>
+            <td>Email</td>
+            <td>manager@kingfield.com</td>
+          </tr>
+
+          <tr>
+            <td>Manager</td>
+            <td>{{ item.amc.contract.company.contact.name || "---" }}</td>
+            <td>Email</td>
+            <td colspan="2">
+              {{ item.amc.contract.company.contact.email || "---" }}
+            </td>
+            <td>Phone</td>
+            <td>{{ item.amc.contract.company.contact.number || "---" }}</td>
+          </tr>
+          <tr>
+            <td>Action Plan Issued By</td>
+            <td>Duabi Municipality</td>
+            <td colspan="2">Plot No</td>
+            <td>3920570</td>
+            <td>Land DM No</td>
+            <td>392-570</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td colspan="4">
+              {{ item.amc.contract.company.address || "---" }}
+            </td>
+            <td>Makani Number</td>
+            <td>{{ item.amc.contract.company.makani_number || "---" }}</td>
+          </tr>
         </table>
       </v-col>
     </v-row>
 
     <v-row no-gutters class="mt-3">
       <v-col cols="12" class="bottom-border">
-        <div class="grey white--text">
-          <h5 class="pa-1">General Observations & Comments</h5>
+        <div class="blue darken-3 white--text">
+          <h5 class="pa-1">AMC Details</h5>
         </div>
       </v-col>
-    </v-row>
-
-    <v-row no-gutters class="">
       <v-col cols="12">
-        <v-row class="px-2">
-          <v-col cols="12" class="bottom-border"
-            ><li v-for="(t, i) in item.summary.split(`\r\n`)" :key="i">
-              {{ t }}
-            </li></v-col
-          >
-        </v-row>
+        <!-- License Issuer: {{ item.amc.contract.company.trade_license.issued_by || "---" }}
+            License Number: {{ item.amc.contract.company.trade_license.license_no || "---" }} -->
+        <table>
+          <tr>
+            <td style="width: 150px">AMC Start Date</td>
+            <td>{{ item.amc.contract.show_start_date || "---" }}</td>
+            <td colspan="2">AMC Expire Date</td>
+            <td>{{ item.amc.contract.show_expire_date || "---" }}</td>
+          </tr>
+
+          <tr>
+            <td>Equipment</td>
+            <td colspan="2">{{ item.equipment_category.name || "---" }}</td>
+            <td>LPO Number</td>
+            <td>LPO 1284</td>
+          </tr>
+        </table>
       </v-col>
     </v-row>
 
     <v-row no-gutters class="mt-3">
       <v-col cols="12" class="bottom-border">
-        <div class="grey grey--text">
-          <h5 class="pa-1">ignore</h5>
+        <div class="blue darken-3 white--text">
+          <h5 class="pa-1">Equipement Details</h5>
+        </div>
+      </v-col>
+      <v-col cols="12" v-if="equipment">
+        <table>
+          <tr>
+            <td style="width: 150px">Recorder</td>
+            <td colspan="2">{{ equipment.recorder_brand }}</td>
+            <td>Total Qty</td>
+            <td>{{ equipment.recorder_qty }}</td>
+            <td>HDD</td>
+            <td>{{ equipment.recorder_capacity }}</td>
+          </tr>
+          <tr>
+            <td style="width: 150px">Work Station</td>
+            <td colspan="2">{{ equipment.work_station }}</td>
+            <td>Total Qty</td>
+            <td colspan="3">{{ equipment.work_station_qty }}</td>
+          </tr>
+          <tr>
+            <td style="width: 150px">Camera</td>
+            <td colspan="2">{{ equipment.camera }}</td>
+            <td>Total Qty</td>
+            <td colspan="3">{{ equipment.camera_qty }}</td>
+          </tr>
+          <tr>
+            <td style="width: 150px">Monitor</td>
+            <td colspan="2">{{ equipment.monitor }}</td>
+            <td>Total Qty</td>
+            <td colspan="3">{{ equipment.monitor_qty }}</td>
+          </tr>
+          <tr>
+            <td style="width: 150px">UPS</td>
+            <td>{{ equipment.ups }}</td>
+            <td>{{ equipment.ups_specs }}</td>
+            <td>Total Qty</td>
+            <td colspan="3">{{ equipment.ups_qty }}</td>
+          </tr>
+          <tr>
+            <td style="width: 150px">Network Switch</td>
+            <td>{{ equipment.network }}</td>
+            <td>{{ equipment.network_specs }}</td>
+            <td>Total Qty</td>
+            <td colspan="3">{{ equipment.network_qty }}</td>
+          </tr>
+        </table>
+      </v-col>
+    </v-row>
+
+    <v-row no-gutters class="mt-3">
+      <v-col cols="2" offset="5">
+        <div class="text-center tb-border">
+          <b> CHECKLIST</b>
         </div>
       </v-col>
     </v-row>
 
-    <v-row no-gutters>
-      <v-col cols="6">
-        <v-container>
-          <v-row no-gutters>
-            <v-col cols="12" class="bottom-border">Engineer</v-col>
-            <v-col cols="12" class="bottom-border">Name</v-col>
-            <v-col cols="12" class="bottom-border">Phone</v-col>
-            <v-col cols="12" class="bottom-border">Sign</v-col>
-          </v-row>
-        </v-container>
-      </v-col>
-      <v-col cols="6">
-        <v-container>
-          <v-row no-gutters>
-            <v-col cols="12" class="bottom-border">Customer</v-col>
-            <v-col cols="12" class="bottom-border">Name</v-col>
-            <v-col cols="12" class="bottom-border">Phone</v-col>
-            <v-col cols="12" class="bottom-border">Sign</v-col>
-          </v-row>
-        </v-container>
-      </v-col>
-    </v-row>
-
-    <!-- <div class="grey mt-5 white--text report-font text-center footer-print">
-      <div>
-        AKIL SECURITY AND ALARM SYSTEMS LLC - DUBAI - UNITED ARAB EMIRATES
-      </div>
-      <div>
-        TEL + 971 4 39 39 562, P.O.BOX: 83481, MOBILE/WHATSAPP: + 971 55 330
-        3991, EMAIL: MAIL@AKILGROUP.COM
-      </div>
-    </div> -->
-
-    <div class="mt-5 top-border report-font footer-print">
-      <v-row no-gutters>
-        <v-col cols="2"></v-col>
-        <v-col cols="8" class="text-center"
-          >This is a system generated Preventive Maintenace Report
-        </v-col>
-        <v-col cols="2" class="text-right">1/{{ this.totalPages }} </v-col>
-      </v-row>
-      <!-- <div v-if="getResult && getResult.page">
-        {{ (totalPages/totalPages) }} Of {{ totalPages }}
-      </div> -->
-    </div>
     <v-row
-      v-for="(src, index) in attachments"
-      :key="index"
       no-gutters
-      class="mt-5 page-break print-pages"
+      class="mt-3"
+      v-for="(checklist, index) in item.checklists[0].checklist"
+      :key="index"
     >
-      <v-col cols="6">
-        <div style="width: 150px">
-          <v-img :src="`/mail-logo.png`"></v-img>
+      <v-col cols="12" class="bottom-border">
+        <div class="blue darken-3 white--text">
+          <h5 class="pa-1">{{ index + 1 }}. {{ checklist.heading }}</h5>
         </div>
       </v-col>
-      <v-col cols="6" class="text-right">
-        <div><b>AKIL SECURITY AND ALARM SYSTEMS</b></div>
-        <div class="table-font-color">DUBAI - UNITED ARAB EMIRATES</div>
-        <div class="table-font-color">+971 4 3939 562, INFO@AKILGROUP.COM</div>
+      <v-col cols="12">
+        <table>
+          <tr
+            v-for="(question, questionIndex) in checklist.questions"
+            :key="questionIndex"
+          >
+            <td style="width: 50px">{{ index + 1 }}.{{ questionIndex + 1 }}</td>
+            <td>
+              {{ question.question || "---" }} <br />
+              <div :class="`${getCellStyle(question.selectedOption)}--text`">
+                {{ question.remarks }}
+              </div>
+            </td>
+            <td style="width: 100px">{{ question.attachment_name }}</td>
+            <td
+              style="width: 200px; border-bottom: 1px white solid !important"
+              class="white--text text-right pa-2"
+              :class="getCellStyle(question.selectedOption)"
+            >
+              {{ question.selectedOption || "---" }}
+            </td>
+          </tr>
+        </table>
       </v-col>
+    </v-row>
 
+    <v-row>
       <v-col cols="12" class="bottom-border">
-        <div class="grey white--text">
-          <h5 class="pa-1">{{ src.slug }}</h5>
+        <div class="blue darken-3 white--text">
+          <h5 class="pa-1">Technician Summary</h5>
         </div>
       </v-col>
 
       <v-col cols="12">
-        <v-img :src="src.attachment"></v-img>
+        <table class="mt-5">
+          <tr class="bottom-border">
+            <td class="pa-1" style="border: none">
+              <div>
+                {{ item.summary }}
+              </div>
+            </td>
+          </tr>
+        </table>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col cols="12" class="bottom-border">
+        <div class="blue darken-3 white--text">
+          <h5 class="pa-1">Customer Comments</h5>
+        </div>
+      </v-col>
+
+      <v-col cols="12">
+        <table class="mt-5">
+          <tr class="bottom-border">
+            <td class="pa-1" style="border: none">
+              <div>
+                {{ item.customer_note }}
+              </div>
+            </td>
+          </tr>
+        </table>
+      </v-col>
+    </v-row>
+
+    <v-row class="page-break">
+      <v-col cols="12" class="bottom-border">
+        <div class="blue darken-3 white--text">
+          <h5 class="pa-1">Technician Signature</h5>
+        </div>
+      </v-col>
+
+      <v-col cols="6">
+        <table class="mt-5">
+          <tr class="bottom-border">
+            <td class="pa-1" style="border: none">
+              <b>Name</b>
+              <div>
+                {{ item.technician.name }}
+              </div>
+            </td>
+          </tr>
+          <tr class="bottom-border">
+            <td class="pa-1" style="border: none">
+              <b>Phone</b>
+              <div>
+                {{ item.technician.phone_number }}
+              </div>
+            </td>
+          </tr>
+          <tr class="bottom-border">
+            <td class="pa-1" style="border: none">
+              <b>Email</b>
+              <div>
+                {{ item.technician.email }}
+              </div>
+            </td>
+          </tr>
+          <tr class="bottom-border">
+            <td class="pa-1" style="border: none">
+              <b>Date Time</b>
+              <div>
+                {{ item.technician_signed_datetime }}
+              </div>
+            </td>
+          </tr>
+        </table>
+      </v-col>
+      <v-col cols="6" class="d-flex justify-center">
+        <v-card
+          elevation="0"
+          class="mt-2"
+          style="width: 175px"
+          v-if="item.sign"
+        >
+          <v-img :src="item.sign"></v-img>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col cols="12" class="bottom-border">
+        <div class="blue darken-3 white--text">
+          <h5 class="pa-1">Customer Signature</h5>
+        </div>
+      </v-col>
+
+      <v-col cols="6">
+        <table class="mt-5">
+          <tr class="bottom-border">
+            <td class="pa-1" style="border: none">
+              <b>Name</b>
+              <div>
+                {{ item.customer_name }}
+              </div>
+            </td>
+          </tr>
+          <tr class="bottom-border">
+            <td class="pa-1" style="border: none">
+              <b>Phone</b>
+              <div>
+                {{ item.customer_phone }}
+              </div>
+            </td>
+          </tr>
+          <tr class="bottom-border">
+            <td class="pa-1" style="border: none">
+              <b>Date Time</b>
+              <div>
+                {{ item.customer_signed_datetime }}
+              </div>
+            </td>
+          </tr>
+        </table>
+      </v-col>
+      <v-col cols="6" class="d-flex justify-center">
+        <v-card
+          elevation="0"
+          class="mt-2"
+          style="width: 175px"
+          v-if="item.customer_sign"
+        >
+          <v-img :src="item.customer_sign"></v-img>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row class="footer-print">
+      <v-col cols="4" class="footer-font-size"
+        ><small
+          >{{ item.equipment_category.name }} Preventive Maintenance
+          Report</small
+        ></v-col
+      >
+      <v-col cols="4" class="footer-font-size text-center">
+        <small> {{ item.date }}</small>
+      </v-col>
+      <v-col cols="4" class="footer-font-size text-right">
+        <small>Page 1/1</small>
+      </v-col>
+    </v-row>
+
+    <v-row class="page-break">
+      <v-col cols="12" class="bottom-border">
+        <div class="blue darken-3 white--text">
+          <h5 class="pa-1">Attachments</h5>
+        </div>
+      </v-col>
+      <v-col
+        cols="6"
+        v-for="(photo, index) in attachments"
+        :key="index"
+        class="pa-2"
+      >
+        <h4>
+          {{ photo || "---" }}
+        </h4>
+        <v-img
+          :src="`http://192.168.2.24:8001/checklist/${item.id}/${photo}`"
+        ></v-img>
       </v-col>
     </v-row>
   </div>
@@ -274,13 +391,13 @@ export default {
   auth: false,
   data() {
     return {
-      pageCounter: 1,
       dialog: false,
       loading: true,
       checkboxModel: "",
       attachments: [],
       item: null,
       totalPages: 0,
+      equipment: {},
     };
   },
   mounted() {
@@ -293,28 +410,25 @@ export default {
       .get(`/form_entry/${this.$route.params.id}`)
       .then(({ data }) => {
         this.item = data;
-        this.attachments = data.checklists
-          .filter((e) => e !== null && e.attachment !== null)
-          .map((e, i) => ({
-            [`slug`]:
-              e !== null && e.attachment !== null ? `PIC ${i + 1} ` : false,
-            attachment: e.attachment,
-          }));
+        this.attachments = data.checklists[0].checklist
+          .flatMap((e) => e.questions.map((q) => q.attachment_name))
+          .filter((e) => e !== null)
+          .filter((e) => e !== undefined);
+
+        this.equipment = data?.equipment_category?.equipment;
       });
   },
-  watch: {
-    // this.printContent();
-    // dialog(value) {
-    //   if (value) {
-    //     this.loading = true;
-    //     setTimeout(() => {
-    //       this.loading = false;
-    //       // this.printContent();
-    //     }, 3000);
-    //   }
-    // },
-  },
+  watch: {},
   methods: {
+    getCellStyle(selectedOption) {
+      if (["Excellent", "Good", "Yes"].includes(selectedOption)) {
+        return "green";
+      } else if (["N/A"].includes(selectedOption)) {
+        return "grey";
+      } else {
+        return "red";
+      }
+    },
     setPageCount() {
       let content = document.querySelectorAll(".print-pages");
       this.totalPages = content.length;

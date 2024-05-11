@@ -1,0 +1,67 @@
+[
+  {
+    "heading": "Camera",
+    "questions": [
+      {
+        "question": "Overall physical inspection of the camera?",
+        "options": ["Excellent", "Good", "Poor"]
+      },
+      {
+        "question": "Is the camera lens focused and properly adjusted?",
+        "options": ["Yes", "No", "N/A"]
+      },
+      {
+        "question": "Is the property perimeter clearly displayed?",
+        "options": ["Yes", "No", "N/A"]
+      },
+      {
+        "question": "Is the camera lens free from dust and marks?",
+        "options": ["Yes", "No", "N/A"]
+      },
+      {
+        "question": "Are the motion detection sensors working?",
+        "options": ["Yes", "No", "N/A"]
+      },
+      {
+        "question": "Do all camera functions such as zoom and pan work correctly?",
+        "options": ["Yes", "No", "N/A"]
+      },
+      {
+        "question": "Is there no foliage obscuring the view?",
+        "options": ["Yes", "No", "N/A"]
+      },
+      {
+        "question": "Are cameras securely attached to the wall?",
+        "options": ["Yes", "No", "N/A"]
+      },
+      {
+        "question": "Is the day/night function of all cameras working properly?",
+        "options": ["Yes", "No", "N/A"]
+      },
+      {
+        "question": "Is the image quality of the WDR camera at the main entrance/exit?",
+        "options": ["Excellent", "Good", "Poor"]
+      },
+      {
+        "question": "Are all cameras properly labeled?",
+        "options": ["Yes", "No", "N/A"]
+      },
+      {
+        "question": "Are the motorized zoom camera functions working properly?",
+        "options": ["Yes", "No", "N/A"]
+      },
+      {
+        "question": "What is the quality of the lift camera? Is visibility clear on all floor numbers?",
+        "options": ["Yes", "No", "N/A"]
+      },
+      {
+        "question": "ANPR camera view angle and recognition function?",
+        "options": ["Yes", "No", "N/A"]
+      },
+      {
+        "question": "What is the view angle of the ANPR camera, and does its recognition function work properly?",
+        "options": ["Yes", "No", "N/A"]
+      }
+    ]
+  }
+]

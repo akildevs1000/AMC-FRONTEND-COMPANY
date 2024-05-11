@@ -393,6 +393,16 @@ import company_menus from "../menus/company.json";
 import company_top_menu from "../menus/company_modules_top.json";
 
 export default {
+  head() {
+    return {
+      link: [
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap",
+        },
+      ],
+    };
+  },
   data() {
     return {
       notificationsMenuItems: [],
@@ -609,6 +619,9 @@ export default {
 </style>
 <!-- Extra overriting classes-->
 <style scoped>
+* {
+  font-family: "Source Sans Pro", sans-serif !important;
+}
 .violet {
   background-color: #6946dd;
 }

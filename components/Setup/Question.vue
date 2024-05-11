@@ -19,6 +19,8 @@
             </span>
           </v-toolbar>
           <v-container>
+
+           
             <v-row>
               <v-col cols="6">
                 <v-autocomplete
@@ -110,6 +112,15 @@
                                   "
                                   >mdi-close-circle-outline</v-icon
                                 >
+
+                                <tr>
+                                  <td>
+                                    Question
+                                    <v-icon color="primary" class="mx-1"
+                                      >mdi-plus-circle-outline</v-icon
+                                    >
+                                  </td>
+                                </tr>
                               </div>
                             </td>
                           </tr>
@@ -284,6 +295,7 @@
 <script>
 export default {
   data: () => ({
+    newHeadings: require("../../headers/questions.json"),
     Model: "Question",
     endpoint: "equipmentCategoryWithQuestions",
     headers: [
@@ -511,11 +523,12 @@ export default {
     },
 
     update() {
-      console.log(this.payload);
-      return;
+      // console.log(this.payload);
+      // return;
       this.$axios
         .put(`questions/` + this.payload.id, this.payload)
         .then(({ data }) => {
+          console.log(data);
           this.errors = [];
           this.snackbar = true;
           this.response = this.Model + " updated successfully";

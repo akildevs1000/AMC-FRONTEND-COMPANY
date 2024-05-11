@@ -1,14 +1,5 @@
 [
   {
-    "text": "Ref #",
-    "align": "left",
-    "sortable": true,
-    "key": "id",
-    "value": "id",
-    "filterable": true,
-    "filterSpecial": false
-  },
-  {
     "text": "Company",
     "align": "left",
     "sortable": true,
@@ -17,6 +8,15 @@
     "filterable": true,
     "filterSpecial": false,
     "width": "300px"
+  },
+  {
+    "text": "Created Date",
+    "align": "left",
+    "sortable": true,
+    "key": "date",
+    "value": "date",
+    "filterable": true,
+    "filterSpecial": false
   },
   {
     "text": "Job Type",
@@ -36,50 +36,39 @@
     "filterable": true,
     "filterSpecial": false
   },
-
-  {
-    "text": "Before Attachment",
-    "align": "left",
-    "sortable": true,
-    "key": "before_attachment",
-    "value": "before_attachment",
-    "filterable": true,
-    "filterSpecial": false
-  },
-  {
-    "text": "After Attachment",
-    "align": "left",
-    "sortable": true,
-    "key": "after_attachment",
-    "value": "after_attachment",
-    "filterable": true,
-    "filterSpecial": false
-  },
-  {
-    "text": "Summary",
-    "align": "left",
-    "sortable": true,
-    "key": "summary",
-    "value": "summary",
-    "filterable": true,
-    "filterSpecial": false,
-    "width": "300px"
-  },
-  {
-    "text": "Created Date",
-    "align": "left",
-    "sortable": true,
-    "key": "date",
-    "value": "date",
-    "filterable": true,
-    "filterSpecial": false
-  },
   {
     "text": "Technician",
     "align": "left",
     "sortable": true,
     "key": "technician.name",
     "value": "technician.name",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
+    "text": "Signed By",
+    "align": "left",
+    "sortable": true,
+    "key": "customer",
+    "value": "customer",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
+    "text": "View Summary",
+    "align": "left",
+    "sortable": true,
+    "key": "summary",
+    "value": "summary",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
+    "text": "View Photos",
+    "align": "left",
+    "sortable": true,
+    "key": "photos",
+    "value": "photos",
     "filterable": true,
     "filterSpecial": false
   },
