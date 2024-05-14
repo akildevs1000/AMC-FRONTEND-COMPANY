@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" height="700" width="700">
     <template v-slot:activator="{ on, attrs }">
       <!-- <v-icon color="primary" v-bind="attrs" v-on="on">mdi-attachment</v-icon> -->
-      <v-icon color="primary" v-bind="attrs" v-on="on"
+      <v-icon v-if="items.length" color="primary" v-bind="attrs" v-on="on"
         >mdi-camera-outline</v-icon
       >
       <small class="mx-2">{{ items.length }}</small>

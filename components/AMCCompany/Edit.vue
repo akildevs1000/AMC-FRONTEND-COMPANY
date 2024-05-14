@@ -18,6 +18,9 @@
           <v-icon> mdi-account </v-icon>
         </v-tab>
         <v-tab>
+          <v-icon> mdi-pen </v-icon>
+        </v-tab>
+        <v-tab>
           <v-icon> mdi-earth </v-icon>
         </v-tab>
         <v-tab>
@@ -318,6 +321,83 @@
 
         <v-tab-item>
           <v-container class="mt-5">
+            <v-card outlined class="my-1" v-for="(n, i) in customers" :key="i">
+              <v-card-title> Manager {{ i + 1 }} </v-card-title>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="3" dense>
+                    <v-text-field
+                      label="Name"
+                      dense
+                      outlined
+                      type="text"
+                      v-model="n.name"
+                      :hide-details="!errors.name"
+                      :error-messages="
+                        errors && errors.name ? errors.name[0] : ''
+                      "
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" dense>
+                    <v-text-field
+                      label="Email"
+                      dense
+                      outlined
+                      type="text"
+                      v-model="n.email"
+                      :hide-details="!errors.email"
+                      :error-messages="
+                        errors && errors.email ? errors.email[0] : ''
+                      "
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" dense>
+                    <v-text-field
+                      label="Phone"
+                      dense
+                      outlined
+                      type="text"
+                      v-model="n.phone_number"
+                      :hide-details="!errors.phone_number"
+                      :error-messages="
+                        errors && errors.phone_number
+                          ? errors.phone_number[0]
+                          : ''
+                      "
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3" dense>
+                    <v-text-field
+                      label="Position"
+                      dense
+                      outlined
+                      type="text"
+                      v-model="n.position"
+                      :hide-details="!errors.position"
+                      :error-messages="
+                        errors && errors.position ? errors.position[0] : ''
+                      "
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+
+            <v-row>
+              <!-- <v-col>
+                <pre>
+                {{ customers }}
+               </pre>
+              </v-col> -->
+              <v-col cols="12" class="text-right">
+                <v-btn small @click="addManagers" class="primary">Submit</v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-tab-item>
+
+        <v-tab-item>
+          <v-container class="mt-5">
             <v-row>
               <v-col md="6" cols="12" sm="12" dense>
                 <v-text-field
@@ -532,6 +612,26 @@ export default {
     dialog: false,
     upload: { name: "" },
     errors: [],
+    customers: [
+      {
+        name: "",
+        email: "",
+        phone_number: "",
+        position: "",
+      },
+      {
+        name: "",
+        email: "",
+        phone_number: "",
+        position: "",
+      },
+      {
+        name: "",
+        email: "",
+        phone_number: "",
+        position: "",
+      },
+    ],
     payload: {},
     previewImage: `/no-business_profile.png`,
   }),
@@ -541,6 +641,13 @@ export default {
     if (this.item.logo) {
       this.previewImage = this.item.logo;
     }
+
+    this.$axios
+      .get(`/manager`, { company_id: this.payload.id })
+      .then(({ data }) => {
+        this.customers = data.data;
+      })
+      .catch((e) => console.log(e));
   },
   methods: {
     onpick_attachment() {
@@ -560,6 +667,27 @@ export default {
         reader.readAsDataURL(file[0]);
         this.$emit("input", file[0]);
       }
+    },
+
+    addManagers() {
+      let payload = {
+        company_id: this.payload.id,
+        json: this.customers,
+      };
+      this.$axios
+        .post(`/manager`, payload)
+        .then(({ data }) => {
+          this.loading = false;
+
+          if (!data.status) {
+            this.errors = data.errors;
+          } else {
+            this.errors = [];
+            this.$emit("success");
+            this.dialog = false;
+          }
+        })
+        .catch((e) => console.log(e));
     },
     updateCompany() {
       this.loading = true;

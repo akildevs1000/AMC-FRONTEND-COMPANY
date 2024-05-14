@@ -184,11 +184,11 @@
       </template>
 
       <template v-slot:item.photos="{ item }">
-        <div v-if="item.checklists">
+        <div v-if="item.checklist">
           <ViewMultiplePhotos
             label="Photos"
             :form_entry_id="item.id"
-            :photos="item.checklists[0].checklist"
+            :photos="item.checklist.checklist"
           />
         </div>
       </template>

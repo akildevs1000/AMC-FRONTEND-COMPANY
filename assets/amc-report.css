@@ -3,6 +3,9 @@
   margin: 0;
   padding: 0;
 }
+.my-blue {
+  background-color: #4640d4 !important;
+}
 .my-green {
   background-color: #a2b63b !important;
 }
@@ -50,6 +53,9 @@ th {
 }
 
 @media print {
+  .no-print {
+    display: none;
+  }
   @page {
     size: A4;
     margin: 20px !important;
