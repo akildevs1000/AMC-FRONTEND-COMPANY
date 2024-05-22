@@ -47,9 +47,9 @@
             </v-row>
             <v-row>
               <v-col
-                :cols="`${item.cols}`"
                 v-for="(item, index) in payload"
                 :key="index"
+                :cols="`${item.cols}`"
               >
                 <v-text-field
                   v-model="filteredPayload[item.value]"
@@ -320,6 +320,7 @@ export default {
     },
     async getDataFromApi() {
       this.loading = true;
+      this.filters.company_id = this.id
       const data = await this.$store.dispatch("fetchData", {
         key: "equipements",
         options: this.options,
