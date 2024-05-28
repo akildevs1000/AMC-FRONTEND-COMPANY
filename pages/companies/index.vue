@@ -89,7 +89,6 @@
               <v-list-item>
                 <v-list-item-title>
                   <AMCCompanyEdit
-                    :key="getRandomId()"
                     :item="item"
                     @success="
                       (e) => handleSuccessResponse(`Record has been updated`)

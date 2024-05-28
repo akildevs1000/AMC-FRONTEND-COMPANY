@@ -2,9 +2,7 @@
   <v-dialog persistent v-model="dialog" width="700">
     <template v-slot:activator="{ on, attrs }">
       <span v-bind="attrs" v-on="on">
-        <v-icon outlined dark color="primary">
-          mdi-plus-circle
-        </v-icon> 
+        <v-icon outlined dark color="primary"> mdi-plus-circle </v-icon>
       </span>
     </template>
     <v-card>
@@ -120,7 +118,21 @@
             ></v-select>
           </v-col> -->
 
-          <v-col cols="12" md="3">
+          <v-col cols="6" dense>
+            <v-text-field
+              label="LPO Number"
+              dense
+              outlined
+              type="text"
+              v-model="payload.lpo_number"
+              :hide-details="!errors.lpo_number"
+              :error-messages="
+                errors && errors.lpo_number ? errors.lpo_number[0] : ''
+              "
+            ></v-text-field>
+          </v-col>
+
+          <v-col cols="6">
             <div class="text-center">
               <v-btn
                 class="mt-2 primary"
@@ -333,10 +345,10 @@ export default {
         payload.append("visit_type_id", this.payload.visit_type_id);
       }
 
-      if (this.payload.service_call_type_id) {
+      if (this.payload.lpo_number) {
         payload.append(
-          "service_call_type_id",
-          this.payload.service_call_type_id
+          "lpo_number",
+          this.payload.lpo_number
         );
       }
 

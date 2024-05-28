@@ -47,11 +47,12 @@
 
           <tr>
             <td>Management Company</td>
-            <td colspan="4">King field management company</td>
+            <td colspan="4">
+              {{ item.amc.contract.company.management_company_name }}
+            </td>
             <td>Email</td>
-            <td>manager@kingfield.com</td>
+            <td>{{ item.amc.contract.company.management_company_email }}</td>
           </tr>
-
           <tr>
             <td>Manager</td>
             <td>{{ item.amc.contract.company.contact.name || "---" }}</td>
@@ -64,19 +65,19 @@
           </tr>
           <tr>
             <td>Action Plan Issued By</td>
-            <td>Duabi Municipality</td>
+            <td>{{ item.amc.contract.company.action_plan_issued_by }}</td>
             <td colspan="2">Plot No</td>
-            <td>3920570</td>
+            <td>{{ item.amc.contract.company.plot_number }}</td>
             <td>Land DM No</td>
-            <td>392-570</td>
+            <td>{{ item.amc.contract.company.land_dm_number }}</td>
           </tr>
           <tr>
             <td>Address</td>
             <td colspan="4">
-              {{ item.amc.contract.company.address || "---" }}
+              {{ item?.amc?.contract?.company?.address || "---" }}
             </td>
             <td>Makani Number</td>
-            <td>{{ item.amc.contract.company.makani_number || "---" }}</td>
+            <td>{{ item?.amc?.contract?.company?.makani_number || "---" }}</td>
           </tr>
         </table>
       </v-col>
@@ -103,7 +104,7 @@
             <td>Equipment</td>
             <td colspan="2">{{ item.equipment_category.name || "---" }}</td>
             <td>LPO Number</td>
-            <td>LPO 1284</td>
+            <td>{{ item.amc.contract.lpo_number || "---" }}</td>
           </tr>
         </table>
       </v-col>
@@ -383,7 +384,7 @@
           {{ photo || "---" }}
         </h4>
         <v-img
-          :src="`http://192.168.2.24:8001/checklist/${item.id}/${photo}`"
+          :src="`https://amcbackend.mytime2cloud.com/checklist/${item.id}/${photo}`"
         ></v-img>
       </v-col>
     </v-row>

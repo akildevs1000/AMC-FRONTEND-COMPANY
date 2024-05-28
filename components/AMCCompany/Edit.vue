@@ -142,6 +142,58 @@
                       :hide-details="true"
                     ></v-text-field>
                   </v-col>
+                  <v-col cols="6"></v-col>
+                  <v-col cols="6" dense>
+                    <v-text-field
+                      label="Management Company Name"
+                      dense
+                      outlined
+                      type="text"
+                      v-model="payload.management_company_name"
+                      :hide-details="true"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" dense>
+                    <v-text-field
+                      label="Management Company Email"
+                      dense
+                      outlined
+                      type="text"
+                      v-model="payload.management_company_email"
+                      :hide-details="true"
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="4" dense>
+                    <v-text-field
+                      label="Action Plan Issued By"
+                      dense
+                      outlined
+                      type="text"
+                      v-model="payload.action_plan_issued_by"
+                      :hide-details="true"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="4" dense>
+                    <v-text-field
+                      label="Plot Number"
+                      dense
+                      outlined
+                      type="text"
+                      v-model="payload.plot_number"
+                      :hide-details="true"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="4" dense>
+                    <v-text-field
+                      label="Land DM Number"
+                      dense
+                      outlined
+                      type="text"
+                      v-model="payload.land_dm_number"
+                      :hide-details="true"
+                    ></v-text-field>
+                  </v-col>
                 </v-row>
               </v-col>
               <v-col cols="12" class="text-right">
@@ -390,7 +442,9 @@
                </pre>
               </v-col> -->
               <v-col cols="12" class="text-right">
-                <v-btn small @click="addManagers" class="primary">Submit</v-btn>
+                <v-btn small @click="addManagers" class="primary"
+                  >Submit</v-btn
+                >
               </v-col>
             </v-row>
           </v-container>
@@ -633,19 +687,34 @@ export default {
       },
     ],
     payload: {},
+
     previewImage: `/no-business_profile.png`,
   }),
   async created() {
     this.payload = this.item;
+
+    if (!this.item.company_contact) {
+      this.payload = {
+        ...this.payload,
+        company_contact: {
+          name: "",
+          number: "",
+          position: "",
+          email: "",
+        },
+      };
+    }
 
     if (this.item.logo) {
       this.previewImage = this.item.logo;
     }
 
     this.$axios
-      .get(`/manager`, { company_id: this.payload.id })
+      .get(`/manager?company_id=${this.payload.id}`)
       .then(({ data }) => {
-        this.customers = data.data;
+        if (data.data.length) {
+          this.customers = data.data;
+        }
       })
       .catch((e) => console.log(e));
   },
@@ -672,8 +741,14 @@ export default {
     addManagers() {
       let payload = {
         company_id: this.payload.id,
-        json: this.customers,
+        json: this.customers.map((e) => ({
+          ...e,
+          company_id: this.payload.id,
+        })),
       };
+
+      console.log(payload);
+
       this.$axios
         .post(`/manager`, payload)
         .then(({ data }) => {
@@ -698,6 +773,21 @@ export default {
       payload.append("email", this.payload.email);
       payload.append("member_from", this.payload.member_from);
       payload.append("expiry", this.payload.expiry);
+
+      payload.append(
+        "management_company_name",
+        this.payload.management_company_name
+      );
+      payload.append(
+        "management_company_email",
+        this.payload.management_company_email
+      );
+      payload.append(
+        "action_plan_issued_by",
+        this.payload.action_plan_issued_by
+      );
+      payload.append("plot_number", this.payload.plot_number);
+      payload.append("land_dm_number", this.payload.land_dm_number);
 
       if (this.upload.name) {
         payload.append("logo", this.upload.name);

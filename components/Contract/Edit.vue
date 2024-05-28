@@ -97,6 +97,19 @@
               "
             ></v-select>
           </v-col>
+          <v-col cols="6" dense>
+            <v-text-field
+              label="LPO Number"
+              dense
+              outlined
+              type="text"
+              v-model="payload.lpo_number"
+              :hide-details="!errors.lpo_number"
+              :error-messages="
+                errors && errors.lpo_number ? errors.lpo_number[0] : ''
+              "
+            ></v-text-field>
+          </v-col>
           <v-col md="12" cols="12" sm="12" dense>
             <v-row no-gutters>
               <v-col cols="1">
@@ -209,7 +222,7 @@ export default {
       payload.append("expire_date", this.payload.expire_date);
       payload.append("amc_type_id", this.payload.amc_type_id);
       payload.append("visit_type_id", this.payload.visit_type_id);
-      // payload.append("service_call_type_id", this.payload.service_call_type_id);
+      payload.append("lpo_number", this.payload.lpo_number);
       payload.append("value", this.payload.value);
       if (this.upload.name) {
         payload.append("attachment", this.upload.name);
