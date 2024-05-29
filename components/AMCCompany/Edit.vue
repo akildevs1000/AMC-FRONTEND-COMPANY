@@ -32,18 +32,7 @@
         <v-tab>
           <v-icon> mdi-file-document </v-icon>
         </v-tab>
-        <v-tab>
-          <v-icon> mdi-cash </v-icon>
-        </v-tab>
-        <v-tab>
-          <v-icon> mdi-cash-multiple </v-icon>
-        </v-tab>
-        <v-tab>
-          <v-icon>mdi-clipboard</v-icon>
-        </v-tab>
-        <v-tab>
-          <v-icon>mdi-clipboard-check</v-icon>
-        </v-tab>
+    
 
         <v-spacer></v-spacer>
         <v-tab @click="dialog = false">
@@ -539,18 +528,6 @@
         </v-tab-item>
         <v-tab-item>
           <Contract @close-child="dialog = false" :id="item.id" />
-        </v-tab-item>
-        <v-tab-item>
-          <Quotation @close-child="dialog = false" :id="item.id" />
-        </v-tab-item>
-        <v-tab-item>
-          <Invoice @close-child="dialog = false" :id="item.id" />
-        </v-tab-item>
-        <v-tab-item>
-          <ServiceCall @close-child="dialog = false" :id="item.id" />
-        </v-tab-item>
-        <v-tab-item>
-          <FormEntryCompany @close-child="dialog = false" :id="item.id" />
         </v-tab-item>
         <v-tab-item>
           <v-container class="mt-5">
