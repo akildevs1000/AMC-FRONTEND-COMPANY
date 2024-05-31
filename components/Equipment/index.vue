@@ -120,7 +120,7 @@
           <v-col cols="12">
             <v-expansion-panels>
               <v-expansion-panel
-                v-for="(eqCId, i) in equipmentCategoryList"
+                v-for="(eqCId, i) in equipmentCategoryByCompanyId"
                 :key="i"
               >
                 <v-expansion-panel-header>
@@ -227,7 +227,7 @@
 </template>
 <script>
 export default {
-  props: ["id"],
+  props: ["id","company_id"],
   data: () => ({
     filteredPayload: {},
     fieldsByType: require("../../menus/equipmentFields.json"),
@@ -256,6 +256,7 @@ export default {
     response: "",
     errors: [],
     editedItem: null,
+    equipmentCategoryByCompanyId:[],
   }),
 
   computed: {
@@ -281,6 +282,11 @@ export default {
     this.$axios.get(`equipmentCategoryList`).then(({ data }) => {
       this.equipmentCategoryList = data;
     });
+
+    let { data } = await this.$axios.get(`equipmentCategoryByCompanyId`);
+
+    this.equipmentCategoryByCompanyId = data[this.company_id];
+
     this.getDataFromApi();
   },
 
@@ -320,7 +326,7 @@ export default {
     },
     async getDataFromApi() {
       this.loading = true;
-      this.filters.company_id = this.id
+      this.filters.company_id = this.id;
       const data = await this.$store.dispatch("fetchData", {
         key: "equipements",
         options: this.options,

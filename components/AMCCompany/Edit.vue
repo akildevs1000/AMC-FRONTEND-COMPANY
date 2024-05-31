@@ -524,7 +524,7 @@
         </v-tab-item>
 
         <v-tab-item>
-          <Equipment @close-child="dialog = false" :id="item.id" />
+          <Equipment @close-child="dialog = false" :id="item.id" :company_id="payload.id"/>
         </v-tab-item>
         <v-tab-item>
           <Contract @close-child="dialog = false" :id="item.id" />

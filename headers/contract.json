@@ -10,6 +10,15 @@
   },
 
   {
+    "text": "LPO Number",
+    "align": "left",
+    "sortable": true,
+    "key": "lpo_number",
+    "value": "lpo_number",
+    "filterable": true,
+    "filterSpecial": false
+  },
+  {
     "text": "Contract Date",
     "align": "left",
     "sortable": true,
