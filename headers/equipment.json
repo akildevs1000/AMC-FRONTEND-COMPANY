@@ -1,59 +1,269 @@
-[
-  {
-    "text": "Sno",
-    "align": "left",
-    "sortable": false,
-    "value": "sno",
-    "filterable": false
-  },
-  {
-    "text": "Recorder",
-    "align": "left",
-    "sortable": false,
-    "value": "recorder",
-    "filterable": false
-  },
-  {
-    "text": "Work Station",
-    "align": "left",
-    "sortable": false,
-    "value": "work_station",
-    "filterable": false
-  },
-  {
-    "text": "Camera",
-    "align": "left",
-    "sortable": false,
-    "value": "camera",
-    "filterable": false
-  },
-  {
-    "text": "Monitor",
-    "align": "left",
-    "sortable": false,
-    "value": "monitor",
-    "filterable": false
-  },
-  {
-    "text": "UPS",
-    "align": "left",
-    "sortable": false,
-    "value": "ups",
-    "filterable": false
-  },
-  {
-    "text": "Network",
-    "align": "left",
-    "sortable": false,
-    "value": "network",
-    "filterable": false
-  },
-  {
-    "text": "Options",
-    "align": "center",
-    "sortable": false,
-    "value": "options",
-    "filterable": false,
-    "filterSpecial": false
-  }
-]
+{
+  "1": [
+    {
+      "text": "Sno",
+      "align": "left",
+      "sortable": false,
+      "value": "sno",
+      "filterable": false
+    },
+    {
+      "text": "Recorder",
+      "align": "left",
+      "sortable": false,
+      "value": "recorder",
+      "filterable": false
+    },
+    {
+      "text": "Work Station",
+      "align": "left",
+      "sortable": false,
+      "value": "work_station",
+      "filterable": false
+    },
+    {
+      "text": "Camera",
+      "align": "left",
+      "sortable": false,
+      "value": "camera",
+      "filterable": false
+    },
+    {
+      "text": "Monitor",
+      "align": "left",
+      "sortable": false,
+      "value": "monitor",
+      "filterable": false
+    },
+    {
+      "text": "UPS",
+      "align": "left",
+      "sortable": false,
+      "value": "ups",
+      "filterable": false
+    },
+    {
+      "text": "Network",
+      "align": "left",
+      "sortable": false,
+      "value": "network",
+      "filterable": false
+    },
+    {
+      "text": "Options",
+      "align": "center",
+      "sortable": false,
+      "value": "options",
+      "filterable": false,
+      "filterSpecial": false
+    }
+  ],
+  "2": [
+    {
+      "text": "Sno",
+      "align": "left",
+      "sortable": false,
+      "value": "sno",
+      "filterable": false
+    },
+    {
+      "text": "Controller",
+      "align": "left",
+      "sortable": false,
+      "value": "controller",
+      "filterable": false
+    },
+    {
+      "text": "Work Station",
+      "align": "left",
+      "sortable": false,
+      "value": "work_station",
+      "filterable": false
+    },
+    {
+      "text": "Monitor",
+      "align": "left",
+      "sortable": false,
+      "value": "monitor",
+      "filterable": false
+    },
+    {
+      "text": "Reader",
+      "align": "left",
+      "sortable": false,
+      "value": "reader",
+      "filterable": false
+    },
+    {
+      "text": "Lock",
+      "align": "left",
+      "sortable": false,
+      "value": "lock",
+      "filterable": false
+    },
+    {
+      "text": "UPS",
+      "align": "left",
+      "sortable": false,
+      "value": "ups",
+      "filterable": false
+    },
+    {
+      "text": "Network",
+      "align": "left",
+      "sortable": false,
+      "value": "network",
+      "filterable": false
+    },
+    {
+      "text": "Switch",
+      "align": "left",
+      "sortable": false,
+      "value": "switch",
+      "filterable": false
+    },
+    {
+      "text": "Options",
+      "align": "center",
+      "sortable": false,
+      "value": "options",
+      "filterable": false,
+      "filterSpecial": false
+    }
+  ],
+  "3": [
+    {
+      "text": "Controller",
+      "align": "left",
+      "sortable": false,
+      "value": "controller",
+      "filterable": false
+    },
+    {
+      "text": "Work Station",
+      "align": "left",
+      "sortable": false,
+      "value": "work_station",
+      "filterable": false
+    },
+    {
+      "text": "Monitor",
+      "align": "left",
+      "sortable": false,
+      "value": "monitor",
+      "filterable": false
+    },
+    {
+      "text": "Reader",
+      "align": "left",
+      "sortable": false,
+      "value": "reader",
+      "filterable": false
+    },
+    {
+      "text": "Options",
+      "align": "center",
+      "sortable": false,
+      "value": "options",
+      "filterable": false,
+      "filterSpecial": false
+    }
+  ],
+  "4": [
+    {
+      "text": "Controller",
+      "align": "left",
+      "sortable": false,
+      "value": "controller",
+      "filterable": false
+    },
+    {
+      "text": "Monitor",
+      "align": "left",
+      "sortable": false,
+      "value": "monitor",
+      "filterable": false
+    },
+    {
+      "text": "Reader",
+      "align": "left",
+      "sortable": false,
+      "value": "reader",
+      "filterable": false
+    },
+    {
+      "text": "Lock",
+      "align": "left",
+      "sortable": false,
+      "value": "lock",
+      "filterable": false
+    },
+    {
+      "text": "Network",
+      "align": "left",
+      "sortable": false,
+      "value": "network",
+      "filterable": false
+    },
+    {
+      "text": "Switch",
+      "align": "left",
+      "sortable": false,
+      "value": "switch",
+      "filterable": false
+    },
+    {
+      "text": "Options",
+      "align": "center",
+      "sortable": false,
+      "value": "options",
+      "filterable": false,
+      "filterSpecial": false
+    }
+  ],
+  "5": [
+    {
+      "text": "Controller",
+      "align": "left",
+      "sortable": false,
+      "value": "controller",
+      "filterable": false
+    },
+    {
+      "text": "Sensor",
+      "align": "left",
+      "sortable": false,
+      "value": "sensor",
+      "filterable": false
+    },
+    {
+      "text": "Keypad",
+      "align": "left",
+      "sortable": false,
+      "value": "keypad",
+      "filterable": false
+    },
+    {
+      "text": "UPS",
+      "align": "left",
+      "sortable": false,
+      "value": "ups",
+      "filterable": false
+    },
+    {
+      "text": "Auto Light",
+      "align": "left",
+      "sortable": false,
+      "value": "auto_light",
+      "filterable": false
+    },
+    {
+      "text": "Options",
+      "align": "center",
+      "sortable": false,
+      "value": "options",
+      "filterable": false,
+      "filterSpecial": false
+    }
+  ]
+}

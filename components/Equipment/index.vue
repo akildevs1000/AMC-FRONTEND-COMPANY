@@ -6,80 +6,6 @@
       </v-snackbar>
     </div>
 
-    <v-dialog v-model="editDialog" width="750">
-      <v-card>
-        <v-card-title dense>
-          {{ this.editedIndex == -1 ? "New " : "Edit " }} Equipment
-          <v-spacer></v-spacer>
-
-          <v-icon @click="editDialog = false" outlined color="primary">
-            mdi-close-circle-outline
-          </v-icon>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col md="12">
-                <v-autocomplete
-                  @change="getFieldsByType"
-                  class="pb-0"
-                  v-model="equipment_category_id"
-                  :items="equipmentCategoryList"
-                  dense
-                  outlined
-                  item-value="id"
-                  item-text="name"
-                  label="Select Category"
-                  :hide-details="!errors.equipment_category_id"
-                  :error-messages="
-                    errors && errors.equipment_category_id
-                      ? errors.equipment_category_id[0]
-                      : ''
-                  "
-                >
-                </v-autocomplete>
-              </v-col>
-              <!-- <v-col cols="12">
-                <v-card outlined>
-                  <pre>{{ filteredPayload }}</pre>
-                </v-card>
-              </v-col> -->
-            </v-row>
-            <v-row>
-              <v-col
-                v-for="(item, index) in payload"
-                :key="index"
-                :cols="`${item.cols}`"
-              >
-                <v-text-field
-                  v-model="filteredPayload[item.value]"
-                  outlined
-                  dense
-                  :label="`${item.label} *`"
-                  :hide-details="!errors[item.value]"
-                  :error-messages="
-                    errors && errors[item.value] ? errors[item.value][0] : ''
-                  "
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <div class="text-right">
-                  <v-btn
-                    small
-                    :loading="loading"
-                    color="primary"
-                    @click="submit"
-                  >
-                    Submit
-                  </v-btn>
-                </div>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-
     <v-card class="mb-5 mt-2" elevation="0">
       <v-toolbar class="rounded-md" dense flat>
         <v-toolbar-title><span> Equipment List</span></v-toolbar-title>
@@ -100,19 +26,7 @@
         </span>
 
         <v-spacer></v-spacer>
-
-        <span>
-          <v-btn
-            x-small
-            :ripple="false"
-            text
-            title="Add Device"
-            @click="addItem()"
-            color="primary"
-          >
-            <v-icon dark white>mdi-plus-circle</v-icon>
-          </v-btn>
-        </span>
+        <EquipmentCreate :company_id="company_id" @response="handleResponse" />
       </v-toolbar>
 
       <v-container>
@@ -129,7 +43,7 @@
                 <v-expansion-panel-content>
                   <v-data-table
                     dense
-                    :headers="headers"
+                    :headers="headers[eqCId.id]"
                     :items="
                       data.filter((e) => e.equipment_category_id == eqCId.id)
                     "
@@ -152,6 +66,33 @@
                         <small>Qty: {{ item.recorder_qty }}</small>
                         <br />
                         <small>Capacity: {{ item.recorder_capacity }}</small>
+                      </div>
+                    </template>
+
+                    <template v-slot:item.controller="{ item, index }">
+                      <div>{{ item.controller_brand }}</div>
+                      <div>
+                        <small>Qty: {{ item.controller_qty }}</small>
+                        <br />
+                        <small>Type: {{ item.controller_type }}</small>
+                      </div>
+                    </template>
+
+                    <template v-slot:item.reader="{ item, index }">
+                      <div>{{ item.reader }}</div>
+                      <div>
+                        <small>Qty: {{ item.reader_qty }}</small>
+                        <br />
+                        <small>Type: {{ item.reader_type }}</small>
+                      </div>
+                    </template>
+
+                    <template v-slot:item.lock="{ item, index }">
+                      <div>{{ item.lock }}</div>
+                      <div>
+                        <small>Qty: {{ item.lock_qty }}</small>
+                        <br />
+                        <small>Type: {{ item.lock_type }}</small>
                       </div>
                     </template>
 
@@ -188,6 +129,15 @@
                       </div>
                     </template>
 
+                    <template v-slot:item.switch="{ item, index }">
+                      <div>{{ item.exit_switch }}</div>
+                      <div>
+                        <small>Qty: {{ item.fire_switch }}</small>
+                        <br />
+                        <small>Specs: {{ item.remote }}</small>
+                      </div>
+                    </template>
+
                     <template v-slot:item.options="{ item }">
                       <v-menu bottom left>
                         <template v-slot:activator="{ on, attrs }">
@@ -198,13 +148,11 @@
                           </div>
                         </template>
                         <v-list width="120" dense>
-                          <v-list-item @click="editItem(item)">
-                            <v-list-item-title style="cursor: pointer">
-                              <v-icon color="secondary" small>
-                                mdi-pencil
-                              </v-icon>
-                              Edit
-                            </v-list-item-title>
+                          <v-list-item>
+                            <EquipmentEdit
+                              :item="item"
+                              @response="handleResponse"
+                            />
                           </v-list-item>
                           <v-list-item @click="deleteItem(item)">
                             <v-list-item-title style="cursor: pointer">
@@ -227,8 +175,9 @@
 </template>
 <script>
 export default {
-  props: ["id","company_id"],
+  props: ["id", "company_id"],
   data: () => ({
+    headers: require("../../headers/equipment.json"),
     filteredPayload: {},
     fieldsByType: require("../../menus/equipmentFields.json"),
     valid: false,
@@ -251,12 +200,11 @@ export default {
     equipmentCategoryList: [],
     loading: false,
     total: 0,
-    headers: require("../../headers/equipment.json"),
     editedIndex: -1,
     response: "",
     errors: [],
     editedItem: null,
-    equipmentCategoryByCompanyId:[],
+    equipmentCategoryByCompanyId: [],
   }),
 
   computed: {
@@ -274,31 +222,25 @@ export default {
     },
     dialog(val) {
       val || this.close();
-      this.errors = [];
     },
   },
+  close() {
+    this.dialog = false;
+    this.errors = [];
+  },
   async created() {
-    this.getFieldsByType();
     this.$axios.get(`equipmentCategoryList`).then(({ data }) => {
       this.equipmentCategoryList = data;
     });
-
-    let { data } = await this.$axios.get(`equipmentCategoryByCompanyId`);
-
-    this.equipmentCategoryByCompanyId = data[this.company_id];
-
+    await this.getEquipmentCategoryByCompanyId();
     this.getDataFromApi();
   },
 
   methods: {
-    getFieldsByType() {
-      this.errors = [];
-      this.payload = {};
-      this.payload = this.fieldsByType[this.equipment_category_id];
-      this.filteredPayload = this.payload.reduce((acc, cur) => {
-        acc[cur.value] = "";
-        return acc;
-      }, {});
+    async getEquipmentCategoryByCompanyId() {
+      let { data } = await this.$axios.get(`equipmentCategoryByCompanyId`);
+
+      this.equipmentCategoryByCompanyId = data[this.company_id];
     },
     caps(str) {
       if (str == "" || str == null) {
@@ -338,79 +280,13 @@ export default {
       this.totalRowsCount = data.total;
       this.loading = false;
     },
-
-    editItem(item) {
-      this.errors = [];
-      this.payload = {};
-      this.editedIndex = item.id;
-
-      this.payload = Object.assign({}, item);
-
-      this.popupDeviceId = item.device_id;
-
-      this.editDialog = true;
-    },
-    addItem() {
-      this.errors = [];
-
-      this.editedIndex = -1;
-      this.editDialog = true;
-    },
-    submit() {
-      let id = this.editedIndex;
-      this.filteredPayload.equipment_category_id = this.equipment_category_id;
-      this.filteredPayload.company_id = this.id;
-
-      this.loading = true;
-      if (this.editedIndex == -1) {
-        this.$axios
-          .post(this.endpoint, this.filteredPayload)
-          .then(({ data }) => {
-            this.loading = false;
-            if (!data.status) {
-              this.errors = [];
-              this.errors = data.errors;
-
-              this.snackbar = true;
-              this.response = data.message;
-            } else {
-              this.snackbar = true;
-              this.response = "Device details are  Created successfully";
-              this.getDataFromApi();
-              this.editDialog = false;
-            }
-          })
-          .catch(({ response }) => {
-            this.handleErrorResponse(response);
-            this.loading = false;
-          });
-      } else {
-        this.$axios
-          .put(`${this.endpoint}/${id}`, this.filteredPayload)
-          .then(({ data }) => {
-            this.loading = false;
-            if (!data.status) {
-              this.errors = data.errors;
-            } else if (data.status == "device_api_error") {
-              this.errors = [];
-              this.snackbar = true;
-              this.response = "Check the Device information. There are errors.";
-            } else {
-              this.snackbar = true;
-              this.response = "Device details are  updated successfully";
-              this.getDataFromApi();
-              this.editDialog = false;
-            }
-          })
-          .catch(({ response }) => {
-            this.handleErrorResponse(response);
-            this.loading = false;
-          });
-      }
+    handleResponse(message) {
+      this.snackbar = true;
+      this.response = message;
+      this.getDataFromApi();
+      this.getEquipmentCategoryByCompanyId();
     },
     handleErrorResponse(response) {
-      console.log(response);
-      console.log(`francis`);
       this.loading = false;
       if (!response) {
         return;
