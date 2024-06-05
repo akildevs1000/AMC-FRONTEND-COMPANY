@@ -61,7 +61,9 @@ export default {
     diffCount: 0,
     totalRowsCount: 0,
     showFilters: false,
-    filters: {},
+    filters: {
+      per_page: 5,
+    },
     isFilter: false,
     loadinglinear: true,
     attrs: [],
