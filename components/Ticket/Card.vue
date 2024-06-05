@@ -28,7 +28,7 @@
           </v-card>
         </template>
         <template v-slot:item.status="{ item }">
-          <v-chip dark small :color="statusRelatedColor(item.status)">{{
+          <v-chip dark x-small :color="statusRelatedColor(item.status)">{{
             item.status
           }}</v-chip>
         </template>
