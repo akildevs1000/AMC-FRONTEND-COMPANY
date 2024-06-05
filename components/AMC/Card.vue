@@ -1,16 +1,16 @@
 <template>
-  <div v-if="!loading">
-    <v-card elevation="0">
+  <span>
+    <v-card elevation="0" style="min-height: 290px">
       <v-data-table
+        v-if="!loading"
         dense
         :headers="headers"
         :items="data"
         :loading="loadinglinear"
         :options.sync="options"
         hide-default-footer
-        class="elevation-0"
         :server-items-length="totalRowsCount"
-        style="min-height: 267px"
+        class="elevation-0"
       >
         <template v-slot:item.company="{ item: { contract }, index }">
           <v-card
@@ -42,16 +42,16 @@
           </div>
         </template>
       </v-data-table>
-      <div
-        :class="`primary white--text text-center`"
-        style="cursor: pointer"
-        @click="$router.push(`/amc`)"
-      >
-        View all <v-icon small class="white--text">mdi-arrow-right</v-icon>
-      </div>
+      <Preloader v-else />
     </v-card>
-  </div>
-  <Preloader v-else />
+    <div
+      :class="`blue white--text text-center`"
+      style="cursor: pointer"
+      @click="$router.push(`/amc`)"
+    >
+      View all <v-icon small class="white--text">mdi-arrow-right</v-icon>
+    </div>
+  </span>
 </template>
 
 <script>
@@ -65,7 +65,7 @@ export default {
       per_page: 5,
     },
     isFilter: false,
-    loadinglinear: true,
+    loadinglinear: false,
     attrs: [],
     selectedFile: "",
     color: "background",
@@ -123,10 +123,8 @@ export default {
   }),
 
   async created() {
-    this.loading = false;
-    this.getDataFromApi();
+    await this.getDataFromApi();
   },
-  mounted() {},
   watch: {
     options: {
       handler() {
@@ -136,20 +134,6 @@ export default {
     },
   },
   methods: {
-    getCapitalFirstLetters(name) {
-      const words = name.split(" ");
-      const firstLetters = words.map((word) => word.charAt(0).toUpperCase());
-      return firstLetters.join("");
-    },
-    priorityRelatedColor(value) {
-      let color = {
-        High: "red",
-        Medium: "blue",
-        Low: "grey",
-      };
-      return color[value];
-    },
-
     statusRelatedColor(value) {
       let color = {
         completed: "green",
@@ -171,11 +155,6 @@ export default {
       this.data = data.data;
       this.totalRowsCount = data.total;
       this.loadinglinear = false;
-    },
-    handleSuccessResponse(message) {
-      this.snackbar = true;
-      this.response = message;
-      this.getDataFromApi();
     },
   },
 };

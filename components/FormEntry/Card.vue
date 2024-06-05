@@ -30,7 +30,7 @@
       </template>
     </v-data-table>
     <div
-      :class="`primary white--text text-center`"
+      :class="`blue white--text text-center`"
       style="cursor: pointer"
       @click="$router.push(`/form_entry`)"
     >

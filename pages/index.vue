@@ -2,7 +2,11 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col :cols="item.cols" v-for="(item, index) in amcItems" :key="index">
+      <v-col
+        :cols="item.cols"
+        v-for="(item, amcIndex) in amcItems"
+        :key="amcIndex"
+      >
         <v-card :color="item.color" dark>
           <div class="d-flex flex-no-wrap justify-space-between">
             <div class="pa-4">
@@ -27,8 +31,8 @@
       <v-col
         class="mt-5"
         :cols="item.cols"
-        v-for="(item, index) in ticketItems"
-        :key="index"
+        v-for="(item, ticketIndex) in ticketItems"
+        :key="ticketIndex"
       >
         <v-card :color="item.color" dark>
           <div class="d-flex flex-no-wrap justify-space-between">
@@ -52,7 +56,6 @@
       <v-col cols="6">
         <TicketCard class="mt-5" />
       </v-col>
-
       <v-col cols="6">
         <AMCCard class="mt-5" />
       </v-col>

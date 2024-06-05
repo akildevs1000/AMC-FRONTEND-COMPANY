@@ -1,64 +1,64 @@
 <template>
-  <div v-if="!loading">
-      <v-card elevation="0">
-        <v-data-table
-          dense
-          :headers="headers"
-          :items="data"
-          model-value="data.id"
-          :loading="loadinglinear"
-          :options.sync="options"
-          hide-default-footer
-          :footer-props="{
-            itemsPerPageOptions: [5],
-          }"
-          class="elevation-1"
-          :server-items-length="totalRowsCount"
-          style="min-height: 267px"
-        >
-          <template v-slot:item.company="{ item, index }">
-            <v-card
-              elevation="0"
-              class="d-flex align-center"
-            >
-
-              <div class="mt-1">
-                {{ item.company && item.company.name }}
-                <br>
-                <p>{{ item.company && item.company.address }}</p>
-              </div>
-            </v-card>
-          </template>
-          <template v-slot:item.status="{ item }">
-            <v-chip dark small :color="statusRelatedColor(item.status)">{{
-              item.status
-            }}</v-chip>
-          </template>
-
-          <template v-slot:item.technicians="{ item }">
-            <div v-if="item.technicians && item.technicians[0]">
-              <div>{{ item.technicians[0].pivot.schedule_date }}</div>
-              <v-chip x-small color="primary">{{
-                item.technicians[0].name
-              }}</v-chip>
+  <span>
+    <v-card elevation="0" style="min-height: 290px">
+      <v-data-table
+        v-if="!loading"
+        dense
+        :headers="headers"
+        :items="data"
+        :loading="loadinglinear"
+        :options.sync="options"
+        hide-default-footer
+        :server-items-length="totalRowsCount"
+        class="elevation-0"
+      >
+        <template v-slot:item.company="{ item, index }">
+          <v-card
+            elevation="0"
+            style="background: none"
+            class="d-flex align-center"
+          >
+            <div class="mt-1">
+              {{ item.company && item.company.name }}
+              <br />
+              <small>
+                {{ item.company && item.company.address }}
+              </small>
             </div>
-          </template>
-        </v-data-table>
-        <div
-          :class="`primary white--text text-center`"
-          style="cursor:pointer"
-          @click="$router.push(`/tickets`)"
-        >
-          View all <v-icon small class="white--text">mdi-arrow-right</v-icon>
-        </div>
-      </v-card>
+          </v-card>
+        </template>
+        <template v-slot:item.status="{ item }">
+          <v-chip dark small :color="statusRelatedColor(item.status)">{{
+            item.status
+          }}</v-chip>
+        </template>
+
+        <template v-slot:item.technicians="{ item }">
+          <div v-if="item.technicians && item.technicians[0]">
+            <div>{{ item.technicians[0].pivot.schedule_date }}</div>
+            <v-chip x-small color="primary">{{
+              item.technicians[0].name
+            }}</v-chip>
+          </div>
+        </template>
+      </v-data-table>
+      <Preloader v-else />
+    </v-card>
+    <div
+      class="blue white--text text-center"
+      style="cursor: pointer"
+      @click="$router.push(`/tickets`)"
+    >
+      View all
+      <v-icon small class="white--text">mdi-arrow-right</v-icon>
     </div>
-    <Preloader v-else />
+  </span>
 </template>
 
 <script>
 export default {
   data: () => ({
+    diffCount: 0,
     totalRowsCount: 0,
     showFilters: false,
     filters: {},
@@ -135,9 +135,7 @@ export default {
   async created() {
     this.loading = false;
     this.getDataFromApi();
-    //this.getDepartments(options);
   },
-  mounted() {},
   watch: {
     options: {
       handler() {
@@ -147,23 +145,6 @@ export default {
     },
   },
   methods: {
-    getCapitalFirstLetters(name) {
-      const words = name.split(" ");
-      const firstLetters = words.map((word) => word.charAt(0).toUpperCase());
-      return firstLetters.join("");
-    },
-    getRandomId() {
-      return Math.random().toString(36).substring(2);
-    },
-    priorityRelatedColor(value) {
-      let color = {
-        High: "red",
-        Medium: "blue",
-        Low: "grey",
-      };
-      return color[value];
-    },
-
     statusRelatedColor(value) {
       let color = {
         Open: "green",
@@ -171,19 +152,6 @@ export default {
         Close: "grey",
       };
       return color[value];
-    },
-    applyFilters() {
-      this.getDataFromApi();
-    },
-    toggleFilter() {
-      // this.filters = {};
-      this.isFilter = !this.isFilter;
-    },
-    clearFilters() {
-      this.filters = {};
-
-      this.isFilter = false;
-      this.getDataFromApi();
     },
     async getDataFromApi() {
       this.loadinglinear = true;
@@ -196,14 +164,10 @@ export default {
         filters: this.filters,
       });
 
-      this.data = data.data;
       this.totalRowsCount = data.total;
+      this.data = data.data;
+
       this.loadinglinear = false;
-    },
-    handleSuccessResponse(message) {
-      this.snackbar = true;
-      this.response = message;
-      this.getDataFromApi();
     },
   },
 };
