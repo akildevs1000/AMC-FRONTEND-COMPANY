@@ -481,7 +481,7 @@ export default {
   },
   created() {
     this.setMenus();
-    this.setSubLeftMenuItems("dashboard", "/dashboard2", false);
+    this.setSubLeftMenuItems("dashboard", "/", false);
     this.logo_src = require("@/static/logo22.png");
   },
 
@@ -515,7 +515,7 @@ export default {
       );
     }
     // setTimeout(() => {
-    //   this.$router.push(`/dashboard2`);
+    //   this.$router.push(`//`);
     // }, 1000 * 60 * 15); //15 minutes
   },
   watch: {},
@@ -530,8 +530,8 @@ export default {
   },
   methods: {
     gotoHomePage() {
-      //location.href = process.env.APP_URL + "/dashboard2";
-      location.href = location.href; // process.env.APP_URL + "/dashboard2";
+      //location.href = process.env.APP_URL + "//";
+      location.href = location.href; // process.env.APP_URL + "//";
     },
     getTopMenuItems(i) {
       if (i.module == "dashboard") {

@@ -95,7 +95,7 @@ export default {
     getDataFromApi() {
       let options = {
         params: {
-          page: this.page || "dashboard2",
+          page: this.page || "/",
           type: "card",
           company_id: this.$auth.company_id,
         },

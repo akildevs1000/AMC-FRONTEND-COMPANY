@@ -30,7 +30,7 @@ const data = async ({ $auth, redirect }) => {
     }
   }
 
-  redirect("/dashboard2");
+  redirect("/");
   return "";
 };
 

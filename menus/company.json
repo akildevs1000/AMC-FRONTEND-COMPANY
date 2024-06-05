@@ -2,7 +2,7 @@
   {
     "icon": "mdi-view-dashboard",
     "title": "Dashboard",
-    "to": "/dashboard2",
+    "to": "/",
     "submenu": "dashboard",
     "menu": "dashboard",
     "module": "dashboard"

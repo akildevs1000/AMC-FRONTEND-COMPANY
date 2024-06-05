@@ -32,16 +32,6 @@
     "width": "150px"
   },
   {
-    "text": "Priority",
-    "align": "left",
-    "sortable": true,
-    "key": "priority",
-    "value": "priority.name",
-    "filterable": true,
-    "filterSpecial": false,
-    "width": "130px"
-  },
-  {
     "text": "Ticket Open Date Time",
     "align": "left",
     "sortable": true,
